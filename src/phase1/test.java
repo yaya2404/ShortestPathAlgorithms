@@ -1,0 +1,176 @@
+package phase1;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class test {
+	
+	public static final int rows = 120;
+	public static final int cols = 160;
+	public static final String blockedcell = "0";
+	public static final String unblockedcell = "1";
+	public static final String hardcell = "2";
+	public static final String reghighway = "a";
+	public static final String hardhighway = "b";
+	public static final String file = "testing";
+	static String[][] grid = new String[rows][cols];
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		
+		//generate standard map with unblocked cells 
+		
+		for(int row = 0; row < rows; row++){
+			for(int col = 0; col < cols; col++){
+				grid[row][col] = unblockedcell;
+			}
+		}
+		
+
+		
+		Random random = new Random();
+		//ArrayList<Integer> duplicates = new ArrayList<Integer>();
+		
+		
+		//generate hard cells
+		int hardx = -1;
+		int hardy = -1;
+		int testx = -1;
+		int testy = -1;
+		
+		for(int count = 0; count < 8; count++){
+			hardx = random.nextInt(cols);
+			hardy = random.nextInt(rows);
+			testx = hardx;
+			testy = hardy;
+			if(testy - 15 < 0){
+				testy = 0;
+			}else{
+				testy -= 15;
+			}
+			
+			if(testx - 15 < 0){
+				testx = 0;
+			}else{
+				testx -= 15;
+			}
+			
+			for(int y = 0; y < 31 && testy + y < rows; y++){
+				for(int x = 0; x < 31 && testx + x < cols; x++){
+					if(random.nextDouble() < 0.5){
+						 grid[testy + y][testx + x] = "2";
+					}
+				}
+
+			}
+		}
+		
+		//generate highway
+		
+		
+		int hwx = -1;
+		int hwy = -1;
+		int section = -1;
+		int dir = -1; //0 up, 1 down, 2 left, 3 right.
+		double dirchange = -1;
+		for(int count = 0; count < 4; count++){
+			section = random.nextInt(4);
+			//top
+			if(section == 0){
+				hwx = random.nextInt(cols);
+				hwy = 0;
+				dir = 1;
+			//bottom
+			}else if(section == 1){
+				hwx = random.nextInt(cols);
+				hwy = 119;
+				dir = 0;
+			//left
+			}else if(section == 2){
+				hwx = 0;
+				hwy = random.nextInt(rows);
+				dir = 3;
+			//right
+			}else if(section == 3){
+				hwx = 159;
+				hwy = random.nextInt(rows);
+				dir = 2;
+			}
+			for(int hwpath = 0; hwpath < 100; hwpath++){
+				dirchange = random.nextDouble();
+				if(hwpath % 20 == 0){
+					//change direction
+					if(dirchange > 0.6){
+						//change dir to left
+						if(dirchange < 0.8){
+							if(dir == 0){
+								dir = 2;
+							}else if(dir == 1){
+								dir = 3;
+							}else if(dir == 2){
+								dir = 1;
+							}else if(dir == 3){
+								dir = 0;
+							}	
+						//change dir to right
+						}else{
+							if(dir == 0){
+								dir = 3;
+							}else if(dir == 1){
+								dir = 2;
+							}else if(dir == 2){
+								dir = 0;
+							}else if(dir == 3){
+								dir = 1;
+							}	
+						}
+					}
+				}
+				
+				
+				if(dir == 0){
+					
+				}else if(dir == 1){
+					
+				}else if(dir == 2){
+					
+				}else if(dir == 3){
+					
+				}
+			}
+		}
+		
+		//print out map
+		for(int row = 0; row < rows; row++){
+			for(int col = 0; col < cols; col++){
+				System.out.print(grid[row][col] + " ");
+			}
+			System.out.println();
+		}
+		
+		int start = -1;
+		int end = -1;
+		int hard[][] = new int[8][2];
+		
+
+		
+		/*
+		try {
+			//BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			//start = Integer.valueOf(reader.readLine()).intValue();
+			//end = Integer.valueOf(reader.readLine()).intValue();
+		} catch (NumberFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+	}
+
+}

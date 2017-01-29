@@ -33,8 +33,6 @@ public class test {
 			}
 		}
 		
-
-		
 		Random random = new Random();
 		//ArrayList<Integer> duplicates = new ArrayList<Integer>();
 		
@@ -75,11 +73,15 @@ public class test {
 		//generate highway
 		
 		
-		int hwx = -1;
-		int hwy = -1;
+		int hwx = -1; //cols
+		int hwy = -1; //rows
 		int section = -1;
 		int dir = -1; //0 up, 1 down, 2 left, 3 right.
 		double dirchange = -1;
+		int hwpath = 0;
+		boolean boundary = false;
+		
+		
 		for(int count = 0; count < 4; count++){
 			section = random.nextInt(4);
 			//top
@@ -103,9 +105,35 @@ public class test {
 				hwy = random.nextInt(rows);
 				dir = 2;
 			}
-			for(int hwpath = 0; hwpath < 100; hwpath++){
-				dirchange = random.nextDouble();
-				if(hwpath % 20 == 0){
+			
+			System.out.println("Generating highway number " + count + ". Starting at " + hwx + ":" + hwy);
+			hwpath = 0;
+			do{
+				
+				
+				//if path hits the boundary
+				if((hwx == 0 || hwx == 159 || hwy == 0 || hwy == 119) && hwpath > 1){
+					
+					//met requirements of highway
+					if(hwpath > 100){
+						boundary = true;
+						System.out.println(count + ": path too short");
+					//highway path is less than 100 squares. Restart.
+					}else{
+						break;
+					}
+				}
+				
+				
+				//highway runs into another highway. Must reset. 
+				if(grid[hwy][hwx].compareTo(reghighway) == 0 || grid[hwy][hwx].compareTo(hardhighway) == 0){
+					System.out.println(count + ": ran into another highway");
+					break;
+				}
+				
+				
+				if(hwpath != 0 && hwpath % 20 == 0){
+					dirchange = random.nextDouble();
 					//change direction
 					if(dirchange > 0.6){
 						//change dir to left
@@ -135,16 +163,26 @@ public class test {
 				}
 				
 				
-				if(dir == 0){
-					
-				}else if(dir == 1){
-					
-				}else if(dir == 2){
-					
-				}else if(dir == 3){
-					
+				//set current tile to highway
+				if(grid[hwy][hwx].compareTo("1") == 0){
+					grid[hwy][hwx] = "a";
+				}else if(grid[hwy][hwx].compareTo("2") == 0){
+					grid[hwy][hwx] = "b";
 				}
-			}
+				
+				
+				//move by one tile based on direction
+				if(dir == 0){
+					hwy -= 1;
+				}else if(dir == 1){
+					hwy += 1;
+				}else if(dir == 2){
+					hwx -= 1;
+				}else if(dir == 3){
+					hwx += 1;
+				}
+				hwpath++;
+			}while(!boundary);
 		}
 		
 		//print out map

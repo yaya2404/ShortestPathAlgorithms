@@ -15,6 +15,7 @@ public class Map {
 	private static final String hardhighway = "b";
 	private static final String file = "testing";
 	private static String[][] grid = new String[rows][cols];
+	//private static Node[][] grid = new Node[rows][cols];
 	private Coordinate[] input;
 	private int startx, starty;
 	private int endx, endy;
@@ -49,6 +50,7 @@ public class Map {
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
 				grid[row][col] = unblockedcell;
+				//grid[row][col] = new Node(col,row);
 			}
 		}
 	}
@@ -108,8 +110,7 @@ public class Map {
 		}while(count < 4);
 	}
 	
-<<<<<<< HEAD
-=======
+
 	private void markHighwayPath(ArrayList<Coordinate> path){
 		
 		 int hwy = -1;
@@ -126,6 +127,7 @@ public class Map {
 			}
 		 }
 	}
+	
 	private ArrayList<Coordinate> findHighwayPath(){
 		
 				
@@ -243,5 +245,6 @@ public class Map {
 			System.out.println();
 		}
 	}
->>>>>>> branch 'master' of https://Aleece@bitbucket.org/my235/introtoaiproject1.git
+
+
 }

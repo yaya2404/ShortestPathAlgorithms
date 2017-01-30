@@ -26,7 +26,7 @@ public class test {
 		
 		
 		//generate standard map with unblocked cells 
-		
+		/*
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
 				grid[row][col] = unblockedcell;
@@ -196,9 +196,11 @@ public class test {
 		int start = -1;
 		int end = -1;
 		int hard[][] = new int[8][2];
+		*/
 		
-
-		
+		Coordinate[] input = new Coordinate[10];
+		Map map = new Map(input);
+		map.printMap();
 		/*
 		try {
 			//BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));

@@ -234,13 +234,9 @@ public class test {
 		}catch(Exception a){
 			a.printStackTrace();
 		}
-<<<<<<< HEAD
 		Map map = new Map(input);
 		map.printMap();
-=======
-		*/
-		
->>>>>>> 35fad3bac49abc66c9c02717d9a484d28cc680f7
+
 	}
 
 }

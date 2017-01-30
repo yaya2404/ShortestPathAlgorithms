@@ -12,14 +12,15 @@ public class Map {
 	private static final int cols = 160;
 	
 	//constants that represent the map
-	private static final String blockedcell = "0";
-	private static final String unblockedcell = "1";
-	private static final String hardcell = "2";
-	private static final String reghighway = "a";
-	private static final String hardhighway = "b";
+	private static final char blockedcell = '0';
+	private static final char unblockedcell = '1';
+	private static final char hardcell = '2';
+	private static final char reghighway = 'a';
+	private static final char hardhighway = 'b';
 	
 	//the grid representing the map
-	private static String[][] grid = new String[rows][cols];
+	//private static String[][] grid = new String[rows][cols];
+	private static Node[][] grid = new Node[rows][cols];
 	
 	//coordinates for start, end, and center of hard cells
 	private Coordinate[] input;
@@ -53,8 +54,9 @@ public class Map {
 		do{
 			x = random.nextInt(cols);
 			y = random.nextInt(rows);
-			if(grid[y][x].compareTo(reghighway) != 0 && grid[y][x].compareTo(hardhighway) != 0){
-				grid[y][x] = blockedcell;
+			if(grid[y][x].getType() != reghighway && grid[y][x].getType() !=hardhighway){
+				grid[y][x] = new Node(x,y);
+				grid[y][x].setType(blockedcell);
 				blockedcells++;
 			}
 		}while(blockedcells < 3840);
@@ -65,7 +67,14 @@ public class Map {
 		
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
-				grid[row][col] = unblockedcell;
+				
+				//Using String grid
+				//grid[row][col] = unblockedcell;
+				
+				//Using Node grid
+				grid[row][col] = new Node(col,row);
+				grid[row][col].setType(unblockedcell);
+				
 			}
 		}
 	}
@@ -103,7 +112,8 @@ public class Map {
 			for(int y = 0; y < 31 && testy + y < rows; y++){
 				for(int x = 0; x < 31 && testx + x < cols; x++){
 					if(random.nextDouble() < 0.5){
-						 grid[testy + y][testx + x] = "2";
+						 grid[testy + y][testx + x] = new Node(testx + x, testy + y);
+						 grid[testy + y][testx + x].setType(hardcell);
 					}
 				}
 
@@ -137,10 +147,12 @@ public class Map {
 			hwx = path.get(count).getX();
 			hwy = path.get(count).getY();
 			//set current tile to highway
-			if(grid[hwy][hwx].compareTo(unblockedcell) == 0){
-				grid[hwy][hwx] = "a";
-			}else if(grid[hwy][hwx].compareTo(hardcell) == 0){
-				grid[hwy][hwx] = "b";
+			if(grid[hwy][hwx].getType() == unblockedcell){
+				grid[hwy][hwx] = new Node(hwx, hwy);
+				grid[hwy][hwx].setType(reghighway);
+			}else if(grid[hwy][hwx].getType() == hardcell){
+				grid[hwy][hwx] = new Node(hwx, hwy);
+				grid[hwy][hwx].setType(hardhighway);
 			}
 		 }
 	}
@@ -200,7 +212,7 @@ public class Map {
 			
 			
 			//highway runs into another highway. Must reset. 
-			if(grid[hwy][hwx].compareTo(reghighway) == 0 || grid[hwy][hwx].compareTo(hardhighway) == 0){
+			if(grid[hwy][hwx].getType() == reghighway || grid[hwy][hwx].getType() == hardhighway){
 				//System.out.println(count + ": ran into another highway");
 				return null;
 			}
@@ -256,7 +268,7 @@ public class Map {
 		//print out map
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
-				System.out.print(grid[row][col] + " ");
+				System.out.print(grid[row][col].getType() + " ");
 			}
 			System.out.println();
 		}

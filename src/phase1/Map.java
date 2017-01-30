@@ -6,19 +6,34 @@ import java.util.Random;
 
 public class Map {
 	
+	
+	//Dimensions of the map
 	private static final int rows = 120;
 	private static final int cols = 160;
+	
+	//constants that represent the map
 	private static final String blockedcell = "0";
 	private static final String unblockedcell = "1";
 	private static final String hardcell = "2";
 	private static final String reghighway = "a";
 	private static final String hardhighway = "b";
-	private static final String file = "testing";
-	private static String[][] grid = new String[rows][cols];
-	private Coordinate[] input;
-	private int startx, starty;
-	private int endx, endy;
 	
+	//the grid representing the map
+	private static String[][] grid = new String[rows][cols];
+	
+	//coordinates for start, end, and center of hard cells
+	private Coordinate[] input;
+	private Coordinate start;
+	private Coordinate end;
+	
+	//values 
+	
+	public Coordinate getStartCoordinate(){
+		return this.start;
+	}
+	public Coordinate getEndCoordiante(){
+		return this.end;
+	}
 	public Map(Coordinate[] input){
 		this.input = input;
 		//this.startx = this.input[0].getX();
@@ -44,18 +59,21 @@ public class Map {
 			}
 		}while(blockedcells < 3840);
 	}
+	
+	//generate standard map with unblocked cells 
 	private void createUnblockedCells(){
-		//generate standard map with unblocked cells 
+		
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
 				grid[row][col] = unblockedcell;
 			}
 		}
 	}
+	//generate hard cells
 	private void createHardCell(){
 		Random random = new Random();
 		
-		//generate hard cells
+		
 		int hardx = -1;
 		int hardy = -1;
 		int testx = -1;
@@ -92,8 +110,10 @@ public class Map {
 			}
 		}
 	}
+	
+	//generate highway
 	private void createHighwayCell(){
-		//generate highway
+		
 		int count = 0;
 		ArrayList<Coordinate> path = new ArrayList<Coordinate>();
 		

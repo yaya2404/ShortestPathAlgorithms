@@ -2,9 +2,8 @@ package phase1;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,14 +12,18 @@ public class test {
 	
 	public static final int rows = 120;
 	public static final int cols = 160;
+	public static final String file = "testing.txt";
+	public static final int numofinputs = 10;
+	
+	/*
 	public static final String blockedcell = "0";
 	public static final String unblockedcell = "1";
 	public static final String hardcell = "2";
 	public static final String reghighway = "a";
 	public static final String hardhighway = "b";
-	public static final String file = "testing";
+	
 	static String[][] grid = new String[rows][cols];
-
+	*/
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -198,19 +201,41 @@ public class test {
 		int hard[][] = new int[8][2];
 		*/
 		
-		Coordinate[] input = new Coordinate[10];
+		
+
+
+		Coordinate[] input = new Coordinate[numofinputs];
+		String[] fileinput;
+		int x = -1;
+		int y = -1;
+		try {
+
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			for(int count = 0; count < numofinputs; count++){
+				fileinput = reader.readLine().split(" ");
+				x = Integer.parseInt(fileinput[0]);
+				y = Integer.parseInt(fileinput[1]);
+				if(x < 0  || x > 160){
+					System.out.println("X coordinate: Out of bounds");
+					System.exit(0);
+				}else if(y < 0 || y > 120){
+					System.out.println("Y coordinate: Out of bounds");
+					System.exit(0);
+				}else{
+					input[count] = new Coordinate(x - 1, y - 1);
+				}
+			}
+			reader.close();
+		}catch (NumberFormatException n) {
+			// TODO Auto-generated catch block
+			System.out.println("Input error: numbers only");
+		}catch(IOException e){
+			e.printStackTrace();
+		}catch(Exception a){
+			a.printStackTrace();
+		}
 		Map map = new Map(input);
 		map.printMap();
-		/*
-		try {
-			//BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-			//start = Integer.valueOf(reader.readLine()).intValue();
-			//end = Integer.valueOf(reader.readLine()).intValue();
-		} catch (NumberFormatException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 	}
 
 }

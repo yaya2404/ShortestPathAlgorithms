@@ -264,6 +264,7 @@ public class Map {
 		}while(!boundary);
 		return path; 
 	}
+	
 	public void printMap(){
 		//print out map
 		for(int row = 0; row < rows; row++){
@@ -272,5 +273,17 @@ public class Map {
 			}
 			System.out.println();
 		}
+	}
+	/**
+	 * Finds a cell in the map
+	 * @param x x coordinate
+	 * @param y y coordinate
+	 * @return node at the specified coordinates; otherwise null if the coordinates are invalid
+	 */
+	public Node getCell(int x, int y) {
+		if(x < 0 ||x > 159 || y < 0 || y > 119)
+			return null;
+		else
+			return grid[y][x];
 	}
 }

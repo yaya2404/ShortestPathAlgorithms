@@ -24,6 +24,15 @@ public class Node {
 		h = 0;
 		f = 0;
 	}
+	
+	public int getX(){
+		return xcoordinate;
+	}
+	
+	public int getY(){
+		return ycoordinate;
+	}
+
 
 	/**
 	 * used for backtracking once the path is found

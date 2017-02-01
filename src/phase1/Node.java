@@ -1,5 +1,7 @@
 package phase1;
 
+import java.util.Comparator;
+
 public class Node {
 	
 	public static final char blockedcell = '0';
@@ -64,6 +66,11 @@ public class Node {
 	public void set_g(double gValue){
 		g = gValue;
 	}
+	
+	public double get_g(){
+		return g;
+	}
+	
 	/**
 	 * Changes unblocked cells to other cell types
 	 * @param cellType type of cell
@@ -212,6 +219,22 @@ public class Node {
 		
 		//example from the assignment
 		return weight * ((double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy));
+	}
+	
+	/**
+	 * 
+	 * Used for the priority queue
+	 *
+	 */
+	public static class NodeComparator implements Comparator<Node>{
+		public int compare(Node x, Node y){
+			if(x.f != y.f)
+				return (x.f < y.f) ? -1 : 1;
+			
+			else //tie-breaker (sample equation)
+				return (x.h < y.f) ? -1 : 1;	
+				
+		}
 	}
 	
 	

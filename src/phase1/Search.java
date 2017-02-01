@@ -7,19 +7,23 @@ public abstract class Search {
 	
 	Map map;
 	PriorityQueue<Node> open;
+	int size = 10; //need to determine optimal size for queue
 	HashSet<Node> sucessors;
 	//BinaryHeap<Node> open;
-	HashSet<Node> closed;
+	HashSet<Node> closed; 
+	private int goalX, goalY;
 	
-	public Search(Map m){
+	public Search(Map m, int x, int y){
 		map = m;
-		open = new PriorityQueue<Node>();
+		goalX = x;
+		goalY = y;
+		open = new PriorityQueue<Node>(size, new Node.NodeComparator());
 		closed = new HashSet<Node>();
 		sucessors = new HashSet<Node>(8);
 	}
 	
 	
-	public Node findPath(int startX, int startY, int goalX, int goalY){
+	public Node findPath(int startX, int startY){
 		Node start = map.getCell(startX,startY);
 		start.set_g(0);
 		start.calculate_h(goalX, goalY);
@@ -49,8 +53,7 @@ public abstract class Search {
 			}
 		}
 		
-		
-		
+		//error has occurred
 		return null;	
 	}
 	
@@ -63,10 +66,14 @@ public abstract class Search {
 		int currentX = s.getX();
 		int currentY = s.getY();
 		
+		Node successor;
+		
 		for(int x = -1; x < 2; x++){
 			for(int y = -1; y < 2; y++){
 				if(x != 0 && y != 0){
-					sucessors.add(map.getCell(currentX + x,currentY + y));
+					successor = map.getCell(currentX + x,currentY + y);
+					if(successor != null && successor.getType() != Node.blockedcell)
+						sucessors.add(successor);
 				}
 				
 			}	
@@ -75,5 +82,23 @@ public abstract class Search {
 	}
 	
 	public abstract void UpdateVertex(Node current, Node neighbor);
-
+	
+	
+	 /* Untested of the A* UpdateVertex method
+	public void UpdateVertexA(Node current, Node neighbor){
+		if(current.get_g() + current.cost(neighbor) < neighbor.get_g()){
+			
+			neighbor.set_g(current.get_g() + current.cost(neighbor));
+			neighbor.calculate_h(goalX, goalY);
+			neighbor.update_f();
+			neighbor.setParent(current);
+			
+			if(open.contains(neighbor))
+				open.remove(neighbor);
+			
+			open.add(neighbor);
+		}
+	}
+	
+	*/
 }

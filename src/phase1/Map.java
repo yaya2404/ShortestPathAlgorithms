@@ -54,8 +54,8 @@ public class Map {
 		do{
 			x = random.nextInt(cols);
 			y = random.nextInt(rows);
-			if(grid[y][x].getType() != reghighway && grid[y][x].getType() !=hardhighway){
-				grid[y][x] = new Node(x,y);
+			if(grid[y][x].getType() != reghighway && grid[y][x].getType() != hardhighway){
+				//grid[y][x] = new Node(x,y);
 				grid[y][x].setType(blockedcell);
 				blockedcells++;
 			}
@@ -67,14 +67,8 @@ public class Map {
 		
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
-				
-				//Using String grid
-				//grid[row][col] = unblockedcell;
-				
 				//Using Node grid
 				grid[row][col] = new Node(col,row);
-				grid[row][col].setType(unblockedcell);
-				
 			}
 		}
 	}
@@ -112,7 +106,7 @@ public class Map {
 			for(int y = 0; y < 31 && testy + y < rows; y++){
 				for(int x = 0; x < 31 && testx + x < cols; x++){
 					if(random.nextDouble() < 0.5){
-						 grid[testy + y][testx + x] = new Node(testx + x, testy + y);
+						 //grid[testy + y][testx + x] = new Node(testx + x, testy + y);
 						 grid[testy + y][testx + x].setType(hardcell);
 					}
 				}
@@ -148,10 +142,10 @@ public class Map {
 			hwy = path.get(count).getY();
 			//set current tile to highway
 			if(grid[hwy][hwx].getType() == unblockedcell){
-				grid[hwy][hwx] = new Node(hwx, hwy);
+				//grid[hwy][hwx] = new Node(hwx, hwy);
 				grid[hwy][hwx].setType(reghighway);
 			}else if(grid[hwy][hwx].getType() == hardcell){
-				grid[hwy][hwx] = new Node(hwx, hwy);
+				//grid[hwy][hwx] = new Node(hwx, hwy);
 				grid[hwy][hwx].setType(hardhighway);
 			}
 		 }
@@ -210,11 +204,17 @@ public class Map {
 				}
 			}
 			
-			
 			//highway runs into another highway. Must reset. 
 			if(grid[hwy][hwx].getType() == reghighway || grid[hwy][hwx].getType() == hardhighway){
 				//System.out.println(count + ": ran into another highway");
 				return null;
+			}
+			
+			//highway runs into itself. Must reset. 
+			for(int count = 0; count < path.size(); count++){
+				if(hwy == path.get(count).getY() && hwx == path.get(count).getX()){
+					return null;
+				}
 			}
 			
 			path.add(new Coordinate(hwx, hwy));
@@ -262,6 +262,7 @@ public class Map {
 			}
 			hwpath++;
 		}while(!boundary);
+		
 		return path; 
 	}
 	public void printMap(){

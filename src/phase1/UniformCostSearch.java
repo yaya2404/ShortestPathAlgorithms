@@ -7,8 +7,12 @@ public class UniformCostSearch extends Search {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void searchPath(int startX, int startY){
-		/**
+	/*
+	 * This method should implement the abstract method findPath(int, int)
+	 */
+	
+	public Node searchPath(int startX, int startY){
+		/*
 		function UNIFORM-COST-SEARCH(problem) returns a solution, or failure
 		node <- a node with STATE = problem.INITIAL-STATE, PATH-COST = 0
 		frontier <- a priority queue ordered by PATH-COST, with node as the only element
@@ -28,6 +32,31 @@ public class UniformCostSearch extends Search {
 		Node start = map.getCell(startX, startY);
 		start.set_g(0);
 		
+		Node current;
+		
+		this.open.add(start);
+		while(!open.isEmpty()){
+			current = open.remove();
+			
+			if(current.equals(map.getCell(goalX, goalY))){
+				return current;
+			}
+			
+			findSuccessorSet(current);
+			
+			for(Node child: sucessors){
+				if(!open.contains(child) && !closed.contains(child)){
+					child.setParent(current);
+					child.set_g(current.get_g() + current.cost(child));
+					open.add(child);
+				}else if(open.contains(child) && (current.get_g() + current.cost(child) < child.get_g())){
+					child.set_g(current.get_g() + current.cost(child));
+					child.setParent(current);
+				}
+			}
+		}
+		
+		return null;
 	}
 	
 	

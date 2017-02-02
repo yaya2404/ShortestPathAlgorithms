@@ -11,7 +11,8 @@ public abstract class Search {
 	HashSet<Node> sucessors;
 	//BinaryHeap<Node> open;
 	HashSet<Node> closed; 
-	private int goalX, goalY;
+	protected int goalX;
+	protected int goalY;
 	
 	public Search(Map m, int x, int y){
 		map = m;

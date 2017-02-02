@@ -1,13 +1,13 @@
 package phase1;
 
-public class UtilityCostSearch extends Search {
+public class UniformCostSearch extends Search {
 
-	public UtilityCostSearch(Map m, int x, int y) {
+	public UniformCostSearch(Map m, int x, int y) {
 		super(m, x, y);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void Search(int startX, int startY){
+	public void searchPath(int startX, int startY){
 		/**
 		function UNIFORM-COST-SEARCH(problem) returns a solution, or failure
 		node <- a node with STATE = problem.INITIAL-STATE, PATH-COST = 0
@@ -25,6 +25,8 @@ public class UtilityCostSearch extends Search {
 				else if child.STATE is in frontier with higher PATH-COST then
 					replace that frontier node with child
 		*/
+		Node start = map.getCell(startX, startY);
+		start.set_g(0);
 		
 	}
 	

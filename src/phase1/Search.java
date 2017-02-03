@@ -42,7 +42,8 @@ public abstract class Search {
 				System.out.println("Sucessor set is empty");
 			
 			for(Node s : successors){
-				s.setType(Node.searched);
+				//for debugging
+				//s.setType(Node.searched); 
 				if(!closed.contains(s)){
 					if(!open.contains(s)){
 						s.set_g(Double.MAX_VALUE);

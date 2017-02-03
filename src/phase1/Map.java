@@ -22,7 +22,7 @@ public class Map {
 	//private static String[][] grid = new String[rows][cols];
 	private static Node[][] grid = new Node[rows][cols];
 	
-	//coordinates for start, end, and center of hard cells
+	//coordinates for start/end nodes 
 	private Coordinate[] input;
 	private Coordinate start;
 	private Coordinate end;

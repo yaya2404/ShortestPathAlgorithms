@@ -77,7 +77,9 @@ public class Main extends Application {
 			
 			
 			UniformCostSearch testing = new UniformCostSearch(map);
-			if(testing.searchPath()){
+			testing.setupFringe(new Node.NodeComparatorG());
+			
+			if(testing.findPath() != null){
 				testing.printPath();
 			}else{
 				System.out.println("Could not find path");

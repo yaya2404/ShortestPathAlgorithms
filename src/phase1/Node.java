@@ -24,7 +24,7 @@ public class Node {
 		
 		parent = null;
 		type = unblockedcell;
-		g = 0;
+		g = Double.MAX_VALUE;
 		h = 0;
 		f = 0;
 	}
@@ -223,6 +223,7 @@ public class Node {
 		return weight * ((double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy));
 	}
 	
+	
 	/**
 	 * 
 	 * Used for the priority queue
@@ -234,7 +235,7 @@ public class Node {
 				return (x.f < y.f) ? -1 : 1;
 			
 			else //tie-breaker (sample equation)
-				return (x.h < y.f) ? -1 : 1;	
+				return (x.h < y.h) ? -1 : 1;	
 				
 		}
 	}

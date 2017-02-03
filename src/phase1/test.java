@@ -240,7 +240,7 @@ public class test {
 		input[1] = new Coordinate(1,3);
 		Map map = new Map(input);
 		UniformCostSearch testing = new UniformCostSearch(map);
-		if(testing.searchPath()){
+		if(testing.findPath() != null){
 			testing.printPath();
 		}else{
 			System.out.println("Could not find path");

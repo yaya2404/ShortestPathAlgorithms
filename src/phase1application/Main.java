@@ -1,11 +1,17 @@
 package phase1application;
 	
 import javafx.application.Application;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Control;
 import javafx.scene.layout.BorderPane;
-
-
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
 import phase1.*;
 
 
@@ -15,6 +21,14 @@ public class Main extends Application {
 	public static final int cols = 160;
 	public static final String file = "testing.txt";
 	public static final int numofinputs = 10;
+	
+	
+	public static final String blockedcell = "black";
+	public static final String unblockedcell = "white";
+	public static final String hardcell = "orange";
+	public static final String reghighway = "cyan";
+	public static final String hardhighway = "blue";
+	public static final String path = "red";
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -53,22 +67,69 @@ public class Main extends Application {
 				a.printStackTrace();
 			}
 			*/
+			
+			
 			input[0] = new Coordinate(0,0);
 			input[1] = new Coordinate(1,3);
 			Map map = new Map(input);
+			map.printMap();
+			
+			/*
 			UniformCostSearch testing = new UniformCostSearch(map);
 			if(testing.searchPath()){
 				testing.printPath();
 			}else{
 				System.out.println("Could not find path");
 			}
-			map.printMap();
 			
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
+			*/
+			
+			GridPane root = new GridPane();
+			
+			String color = "";
+			char type = 0;
+			for(int row = 0; row < rows; row++){
+				for(int col = 0; col < cols; col++){
+					StackPane square = new StackPane();
+					
+					type = map.getCell(col, row).getType();
+					
+					switch(type){
+						case phase1.Node.blockedcell:
+							color = blockedcell;
+							break;
+						case phase1.Node.unblockedcell:
+							color = unblockedcell;
+							break;
+						case phase1.Node.hardcell:
+							color = hardcell;
+							break;
+						case phase1.Node.reghighway:
+							color = reghighway;
+							break;
+						case phase1.Node.hardhighway:
+							color = hardhighway;
+							break;
+					}
+					square.setStyle("-fx-background-color: "+color+";");
+					root.add(square, col, row);
+				}
+			}
+			
+			
+			for (int i = 0; i < cols; i++) {
+	            root.getColumnConstraints().add(new ColumnConstraints(1, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, HPos.CENTER, true));
+	            if(i < rows){
+	            	root.getRowConstraints().add(new RowConstraints(1, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, VPos.CENTER, true));
+	            }
+	        }
+			root.setGridLinesVisible(true);
+			Scene scene = new Scene(root,1280,960);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -52,7 +52,7 @@ public class Map {
 	 */
 	
 	private void createBlockedCells(){
-		/*
+		
 		int blockedcells = 0;
 		int x = -1;
 		int y = -1;
@@ -61,13 +61,13 @@ public class Map {
 			x = random.nextInt(cols);
 			y = random.nextInt(rows);
 			if(grid[y][x].getType() != reghighway && grid[y][x].getType() != hardhighway
-				/*&& y != start.getY() && y != end.getY() && x != start.getX() && x != end.getX()){
+				/*&& y != start.getY() && y != end.getY() && x != start.getX() && x != end.getX()*/){
 				//grid[y][x] = new Node(x,y);
 				grid[y][x].setType(blockedcell);
 				blockedcells++;
 			}
 		}while(blockedcells < 3840);
-		
+		/*
 		grid[0][1].setType(blockedcell);
 		grid[1][1].setType(blockedcell);
 		grid[2][1].setType(blockedcell);

@@ -17,7 +17,6 @@ public class UniformCostSearch extends Search{
 			
 			neighbor.set_g(current.get_g() + current.cost(neighbor));
 			neighbor.setParent(current);
-			
 			if(open.contains(neighbor))
 				open.remove(neighbor);
 			
@@ -30,15 +29,14 @@ public class UniformCostSearch extends Search{
 	public void setupFringe(Comparator<Node> compare) {
 		open = new PriorityQueue<Node>(size, compare);
 		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
-		
 		start.set_g(0);
 		open.add(start);
 		
 	}
-	
 }
 
-/*public class UniformCostSearch extends searchTemplate {
+/*
+public class UniformCostSearch extends searchTemplate {
 
 	public UniformCostSearch(Map m) {
 		super(m);
@@ -46,10 +44,19 @@ public class UniformCostSearch extends Search{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public void setupFringe(Comparator<Node> compare) {
+		open = new PriorityQueue<Node>(size, compare);
+		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
+		
+		start.set_g(0);
+		open.add(start);
+		
+	}
+	*/
 	/*
 	 * This method should implement the abstract method findPath(int, int)
-	 
-	
+	 */
+	/*
 	public boolean searchPath(){
 		/*
 		function UNIFORM-COST-SEARCH(problem) returns a solution, or failure
@@ -99,5 +106,4 @@ public class UniformCostSearch extends Search{
 		
 		return false;
 	}
-}
-*/
+	*/

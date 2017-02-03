@@ -203,12 +203,12 @@ public class test {
 		
 		
 
-
+		/*
 		Coordinate[] input = new Coordinate[numofinputs];
 		//String[] fileinput;
 		//int x = -1;
 		//int y = -1;
-		/*
+		
 		try {
 
 			BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -235,7 +235,7 @@ public class test {
 		}catch(Exception a){
 			a.printStackTrace();
 		}
-		*/
+		
 		input[0] = new Coordinate(0,0);
 		input[1] = new Coordinate(1,3);
 		Map map = new Map(input);
@@ -262,6 +262,7 @@ public class test {
 			map.printMap();
 			System.out.println("Could not find path");
 		}
+		*/
 	}
 
 }

@@ -9,7 +9,6 @@ public abstract class searchTemplate {
 	Map map;
 	PriorityQueue<Node> open;
 	int size = 10; //need to determine optimal size for queue
-	//HashSet<Node> sucessors;
 	//BinaryHeap<Node> open;
 	HashSet<Node> closed; 
 	protected int goalX;

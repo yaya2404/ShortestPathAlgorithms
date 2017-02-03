@@ -26,7 +26,7 @@ public class Map {
 	private Coordinate[] input;
 	private Coordinate start;
 	private Coordinate end;
-	
+	private ArrayList<Coordinate> hcCoordinates;
 	//values 
 	
 	//values 
@@ -60,18 +60,14 @@ public class Map {
 		do{
 			x = random.nextInt(cols);
 			y = random.nextInt(rows);
-			if(grid[y][x].getType() != reghighway && grid[y][x].getType() != hardhighway
-				/*&& y != start.getY() && y != end.getY() && x != start.getX() && x != end.getX()*/){
-				//grid[y][x] = new Node(x,y);
-				grid[y][x].setType(blockedcell);
-				blockedcells++;
+			if(grid[y][x].getType() != reghighway && grid[y][x].getType() != hardhighway){
+				if(!((x == start.getX() && y == start.getY()) || (x == end.getX() && y == end.getY()))){
+					grid[y][x].setType(blockedcell);
+					blockedcells++;
+				}
+					
 			}
 		}while(blockedcells < 3840);
-		/*
-		grid[0][1].setType(blockedcell);
-		grid[1][1].setType(blockedcell);
-		grid[2][1].setType(blockedcell);
-		*/
 	}
 	
 	/**
@@ -86,6 +82,7 @@ public class Map {
 			}
 		}
 	}
+	
 	/**
 	 * Generate hard cells for map
 	 */
@@ -98,13 +95,19 @@ public class Map {
 		int testx = -1;
 		int testy = -1;
 		
-		for(int count = 2; count < 10; count++){
+		hcCoordinates = new ArrayList<Coordinate>();
+		
+		for(int count = 0; count < 10; count++){
 			
 			
 			hardx = random.nextInt(cols);
 			hardy = random.nextInt(rows);
 			//hardx = this.input[count].getX();
 			//hardy =	this.input[count].getY();
+			
+			
+			
+			
 			testx = hardx;
 			testy = hardy;
 			if(testy - 15 < 0){

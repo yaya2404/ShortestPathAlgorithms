@@ -100,10 +100,9 @@ public class Main extends Application {
 			}
 			
 			
+			
+			//setting up the visuals
 			GridPane root = new GridPane();
-			//root.getStyleClass().add("game-grid");
-			
-			
 			String color = "";
 			char type = 0;
 			for(int row = 0; row < rows; row++){
@@ -131,6 +130,9 @@ public class Main extends Application {
 						case phase1.Node.hardhighway:
 							color = hardhighway;
 							break;
+						case phase1.Node.path:
+							color = path;
+							break;
 					}
 					
 					square.setStyle("-fx-background-color: "+color+";-fx-border-color: black;-fx-border-width: 1;");
@@ -144,15 +146,14 @@ public class Main extends Application {
 					root.add(square, col, row);
 				}
 			}
-			
-			
 			for (int i = 0; i < cols; i++) {
 	            root.getColumnConstraints().add(new ColumnConstraints(1, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, HPos.CENTER, true));
 	            if(i < rows){
 	            	root.getRowConstraints().add(new RowConstraints(1, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, VPos.CENTER, true));
 	            }
 	        }
-			//root.setGridLinesVisible(true);
+			
+			
 			Scene scene = new Scene(root,1280,960);
 			//scene.getStylesheets().add(getClass().getResource("grid.css").toExternalForm());
 			primaryStage.setScene(scene);

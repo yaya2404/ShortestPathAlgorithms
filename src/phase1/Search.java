@@ -31,9 +31,10 @@ public abstract class Search {
 			
 			current = open.remove();
 			
+			
 			if(current.equals(map.getCell(goalX, goalY)))
 				return true;
-			
+				
 			closed.add(current);
 			
 			successors = findSuccessorSet(current);
@@ -56,7 +57,7 @@ public abstract class Search {
 		
 		//error has occurred
 		System.out.println("error has occurred during the path search");
-		return false;	
+		return true;	
 	}
 	
 	
@@ -95,6 +96,7 @@ public abstract class Search {
 		
 		try{
 			Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+			map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY()).setType(Node.path);
 			while(!s.equals(map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY()))){
 				s.setType(Node.path);
 				s = s.getParent();

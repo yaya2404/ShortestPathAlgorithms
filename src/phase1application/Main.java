@@ -117,7 +117,7 @@ public class Main extends Application {
 							break;
 					}
 					
-					square.setStyle("-fx-background-color: "+color+";-fx-border-color: black;-fx-border-width: 1");
+					square.setStyle("-fx-background-color: "+color+";-fx-border-color: black;-fx-border-width: 1;");
 					square.setOnMouseClicked(e -> {
 						System.out.println(map.printCellInfo(x, y));
 					});

@@ -1,5 +1,6 @@
 package phase1;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
@@ -8,54 +9,54 @@ public abstract class Search {
 	Map map;
 	PriorityQueue<Node> open;
 	int size = 10; //need to determine optimal size for queue
-	HashSet<Node> sucessors;
 	//BinaryHeap<Node> open;
+	HashSet<Node> successors;
 	HashSet<Node> closed; 
 	protected int goalX;
 	protected int goalY;
 	
-	public Search(Map m, int x, int y){
+	public Search(Map m){
 		map = m;
-		goalX = x;
-		goalY = y;
-		open = new PriorityQueue<Node>(size, new Node.NodeComparator());
+		goalX = map.getEndCoordinate().getX();
+		goalY = map.getEndCoordinate().getY();
 		closed = new HashSet<Node>();
-		sucessors = new HashSet<Node>(8);
 	}
 	
 	
-	public Node findPath(int startX, int startY){
-		Node start = map.getCell(startX,startY);
-		start.set_g(0);
-		start.calculate_h(goalX, goalY);
-		start.update_f();
-		open.add(start);
+	public boolean findPath(){
 		
 		Node current;
 		
 		while(!open.isEmpty()){
+			
 			current = open.remove();
 			
 			if(current.equals(map.getCell(goalX, goalY)))
-				return current;
+				return true;
 			
 			closed.add(current);
 			
-			findSuccessorSet(current);
+			successors = findSuccessorSet(current);
+		
+			if(successors.isEmpty())
+				System.out.println("Sucessor set is empty");
 			
-			for(Node s : sucessors){
+			for(Node s : successors){
+				//for debugging
+				//s.setType(Node.searched); 
 				if(!closed.contains(s)){
 					if(!open.contains(s)){
 						s.set_g(Double.MAX_VALUE);
 						s.setParent(null);
 					}
-					UpdateVertex(current,s);
+					updateVertex(current,s);
 				}
 			}
 		}
 		
 		//error has occurred
-		return null;	
+		System.out.println("error has occurred during the path search");
+		return false;	
 	}
 	
 	
@@ -63,26 +64,7 @@ public abstract class Search {
 	 * Finds all the neighboring nodes of a specified node
 	 * @param s the current node
 	 */
-	/*
-	public void findSuccessorSet(Node s){
-		int currentX = s.getX();
-		int currentY = s.getY();
-		
-		Node successor;
-		
-		for(int x = -1; x < 2; x++){
-			for(int y = -1; y < 2; y++){
-				if(x != 0 && y != 0){
-					successor = map.getCell(currentX + x,currentY + y);
-					if(successor != null && successor.getType() != Node.blockedcell)
-						sucessors.add(successor);
-				}
-				
-			}	
-		}
-			
-	}
-	*/
+
 	public HashSet<Node> findSuccessorSet(Node s){
 		int currentX = s.getX();
 		int currentY = s.getY();
@@ -93,37 +75,21 @@ public abstract class Search {
 		
 		for(int x = -1; x < 2; x++){
 			for(int y = -1; y < 2; y++){
-				if(x != 0 && y != 0){
-					successor = map.getCell(currentX + x,currentY + y);
-					if(successor != null && successor.getType() != Node.blockedcell)
+				if(x == 0 && y == 0)
+					continue;
+				successor = map.getCell(currentX + x,currentY + y);
+				if(successor != null && successor.getType() != Node.blockedcell)
 						successors.add(successor);
 				}
 				
 			}	
-		}
 		return successors;
 	}
 	
-	public abstract void UpdateVertex(Node current, Node neighbor);
+	public abstract void updateVertex(Node current, Node neighbor);
 	
-	
-	 /* Untested of the A* UpdateVertex method
-	public void UpdateVertexA(Node current, Node neighbor){
-		if(current.get_g() + current.cost(neighbor) < neighbor.get_g()){
-			
-			neighbor.set_g(current.get_g() + current.cost(neighbor));
-			neighbor.calculate_h(goalX, goalY);
-			neighbor.update_f();
-			neighbor.setParent(current);
-			
-			if(open.contains(neighbor))
-				open.remove(neighbor);
-			
-			open.add(neighbor);
-		}
-	}
-	
-	*/
+	public abstract void setupFringe (Comparator<Node> compare);
+
 	
 	public void printPath(){
 		

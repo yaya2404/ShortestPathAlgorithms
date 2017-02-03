@@ -1,19 +1,54 @@
 package phase1;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
-public class UniformCostSearch extends searchTemplate {
+public class UniformCostSearch extends Search{
 
 	public UniformCostSearch(Map m) {
 		super(m);
-		open = new PriorityQueue<Node>(size, new Node.NodeComparatorG());
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void updateVertex(Node current, Node neighbor) {
+		if(current.get_g() < neighbor.get_g()){
+			
+			neighbor.set_g(current.get_g() + current.cost(neighbor));
+			neighbor.setParent(current);
+			
+			if(open.contains(neighbor))
+				open.remove(neighbor);
+			
+			open.add(neighbor);
+		}
+		
+	}
+
+	@Override
+	public void setupFringe(Comparator<Node> compare) {
+		open = new PriorityQueue<Node>(size, compare);
+		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
+		
+		start.set_g(0);
+		open.add(start);
+		
+	}
+	
+}
+
+/*public class UniformCostSearch extends searchTemplate {
+
+	public UniformCostSearch(Map m) {
+		super(m);
+		
 		// TODO Auto-generated constructor stub
 	}
 	
 	/*
 	 * This method should implement the abstract method findPath(int, int)
-	 */
+	 
 	
 	public boolean searchPath(){
 		/*
@@ -32,7 +67,7 @@ public class UniformCostSearch extends searchTemplate {
 					frontier <- INSERT(child , frontier )
 				else if child.STATE is in frontier with higher PATH-COST then
 					replace that frontier node with child
-		*/
+		
 		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
 		start.set_g(0);
 		
@@ -65,3 +100,4 @@ public class UniformCostSearch extends searchTemplate {
 		return false;
 	}
 }
+*/

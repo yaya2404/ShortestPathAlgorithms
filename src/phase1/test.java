@@ -245,7 +245,6 @@ public class test {
 		}else{
 			System.out.println("Could not find path");
 		}
-		map.printMap();
 	}
 
 }

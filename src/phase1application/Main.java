@@ -9,6 +9,7 @@ import javafx.scene.control.Control;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
@@ -72,9 +73,9 @@ public class Main extends Application {
 			input[0] = new Coordinate(0,0);
 			input[1] = new Coordinate(1,3);
 			Map map = new Map(input);
-			map.printMap();
+			//map.printMap();
 			
-			/*
+			
 			UniformCostSearch testing = new UniformCostSearch(map);
 			if(testing.searchPath()){
 				testing.printPath();
@@ -82,14 +83,18 @@ public class Main extends Application {
 				System.out.println("Could not find path");
 			}
 			
-			*/
 			
 			GridPane root = new GridPane();
+			//root.getStyleClass().add("game-grid");
+			
 			
 			String color = "";
 			char type = 0;
 			for(int row = 0; row < rows; row++){
 				for(int col = 0; col < cols; col++){
+					
+					final int x = col;
+					final int y = row;
 					StackPane square = new StackPane();
 					
 					type = map.getCell(col, row).getType();
@@ -111,7 +116,11 @@ public class Main extends Application {
 							color = hardhighway;
 							break;
 					}
-					square.setStyle("-fx-background-color: "+color+";");
+					
+					square.setStyle("-fx-background-color: "+color+";-fx-border-color: black;-fx-border-width: 1");
+					square.setOnMouseClicked(e -> {
+						System.out.println(map.printCellInfo(x, y));
+					});
 					root.add(square, col, row);
 				}
 			}
@@ -123,9 +132,9 @@ public class Main extends Application {
 	            	root.getRowConstraints().add(new RowConstraints(1, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, VPos.CENTER, true));
 	            }
 	        }
-			root.setGridLinesVisible(true);
+			//root.setGridLinesVisible(true);
 			Scene scene = new Scene(root,1280,960);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			//scene.getStylesheets().add(getClass().getResource("grid.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			

@@ -296,14 +296,14 @@ public class Map {
 		return path; 
 	}
 	
-	public void printMap(){
-		//print out map
-		for(int row = 0; row < rows; row++){
-			for(int col = 0; col < cols; col++){
-				System.out.print(grid[row][col].getType() + " ");
-			}
-			System.out.println();
-		}
+	public String printCellInfo(int x, int y){
+		
+		Node cell = grid[y][x];
+		
+		
+		//need to add h, f, and time it took to calculate path.
+		return "x: " + x +"\n" +"y: " + y + "\n" + "g:" + cell.get_g() + "\n";
+		
 	}
 	/**
 	 * Finds a cell in the map

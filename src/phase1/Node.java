@@ -24,7 +24,7 @@ public class Node {
 		
 		parent = null;
 		type = unblockedcell;
-		g = Double.MAX_VALUE;
+		g = 0;
 		h = 0;
 		f = 0;
 	}

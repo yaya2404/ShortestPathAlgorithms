@@ -13,14 +13,21 @@ public class UniformCostSearch extends Search{
 
 	@Override
 	public void updateVertex(Node current, Node neighbor) {
-		if(current.get_g() < neighbor.get_g()){
+		if(current.get_g() + current.cost(neighbor) < neighbor.get_g()){
 			
 			neighbor.set_g(current.get_g() + current.cost(neighbor));
 			neighbor.setParent(current);
+<<<<<<< HEAD
 			if(open.contains(neighbor))
 				open.remove(neighbor);
 			
 			open.add(neighbor);
+=======
+			
+			if(!open.contains(neighbor)) //deviation from pseudo code
+				open.add(neighbor);
+		
+>>>>>>> 9317085000e418c865762b9dfc48c78a73014547
 		}
 		
 	}

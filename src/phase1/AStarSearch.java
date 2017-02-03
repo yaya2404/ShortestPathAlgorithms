@@ -18,10 +18,8 @@ public class AStarSearch extends Search{
 			neighbor.update_f();
 			neighbor.setParent(current);
 			
-			if(open.contains(neighbor))
-				open.remove(neighbor);
-			
-			open.add(neighbor);
+			if(!open.contains(neighbor)) //deviation from pseudo code
+				open.add(neighbor);
 		}
 	}
 

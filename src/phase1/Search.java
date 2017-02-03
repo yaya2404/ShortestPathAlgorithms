@@ -46,10 +46,10 @@ public abstract class Search {
 				//for debugging
 				//s.setType(Node.searched); 
 				if(!closed.contains(s)){
-					if(!open.contains(s)){
-						s.set_g(Double.MAX_VALUE);
-						s.setParent(null);
-					}
+					//if(!open.contains(s)){ //from the pseudo code
+						//s.set_g(Double.MAX_VALUE);
+					 	//s.setParent(null);
+					//}
 					updateVertex(current,s);
 				}
 			}

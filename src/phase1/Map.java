@@ -317,4 +317,18 @@ public class Map {
 		else
 			return grid[y][x];
 	}
+	
+	
+	//only for testing 
+	public void printMap(){
+		//print out map
+		for(int row = 0; row < rows; row++){
+			for(int col = 0; col < cols; col++){
+				System.out.print(grid[row][col].getType() + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+	
 }

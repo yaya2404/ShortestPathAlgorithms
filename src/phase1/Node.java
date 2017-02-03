@@ -11,6 +11,8 @@ public class Node {
 	public static final char hardhighway = 'b';
 	public static final char path = 'P';
 	
+	//testing only
+	//public static final char searched = 'X';
 	
 	private Node parent;
 	private char type;
@@ -224,6 +226,10 @@ public class Node {
 	}
 	
 	
+	public boolean equals(Node n){
+		return this.xcoordinate == n.xcoordinate && this.ycoordinate == n.ycoordinate;
+	}
+	
 	/**
 	 * 
 	 * Used for the priority queue
@@ -245,7 +251,7 @@ public class Node {
 		@Override
 		public int compare(Node o1, Node o2) {
 			if(o1.g != o2.g){
-				return (o1.g < o2.g) ? -1 : 1;
+				return (o1.g > o2.g) ? -1 : 1;
 			}else{
 				return 0;
 			}

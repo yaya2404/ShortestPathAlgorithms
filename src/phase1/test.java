@@ -240,9 +240,26 @@ public class test {
 		input[1] = new Coordinate(1,3);
 		Map map = new Map(input);
 		UniformCostSearch testing = new UniformCostSearch(map);
-		if(testing.findPath() != null){
+		testing.setupFringe(new Node.NodeComparatorG());
+		
+		if(map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY()).getType() == Node.blockedcell){
+			System.out.print("Starting cell is a blocked cell");
+			System.exit(1);
+		}
+		
+		if(map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY()).getType() == Node.blockedcell){
+			System.out.print("Goal cell is a blocked cell");
+			System.exit(1);
+		}
+		
+		
+		
+		System.out.println("");
+		if(testing.findPath()){
+			map.printMap();
 			testing.printPath();
 		}else{
+			map.printMap();
 			System.out.println("Could not find path");
 		}
 	}

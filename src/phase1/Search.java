@@ -10,7 +10,7 @@ public abstract class Search {
 	PriorityQueue<Node> open;
 	int size = 10; //need to determine optimal size for queue
 	//BinaryHeap<Node> open;
-	HashSet<Node> sucessors;
+	HashSet<Node> successors;
 	HashSet<Node> closed; 
 	protected int goalX;
 	protected int goalY;
@@ -20,25 +20,29 @@ public abstract class Search {
 		goalX = map.getEndCoordinate().getX();
 		goalY = map.getEndCoordinate().getY();
 		closed = new HashSet<Node>();
-		sucessors = new HashSet<Node>(8);
 	}
 	
 	
-	public Node findPath(){
+	public boolean findPath(){
 		
 		Node current;
 		
 		while(!open.isEmpty()){
+			
 			current = open.remove();
 			
 			if(current.equals(map.getCell(goalX, goalY)))
-				return current;
+				return true;
 			
 			closed.add(current);
 			
-			sucessors = findSuccessorSet(current);
+			successors = findSuccessorSet(current);
+		
+			if(successors.isEmpty())
+				System.out.println("Sucessor set is empty");
 			
-			for(Node s : sucessors){
+			for(Node s : successors){
+				s.setType(Node.searched);
 				if(!closed.contains(s)){
 					if(!open.contains(s)){
 						s.set_g(Double.MAX_VALUE);
@@ -50,7 +54,8 @@ public abstract class Search {
 		}
 		
 		//error has occurred
-		return null;	
+		System.out.println("error has occurred during the path search");
+		return false;	
 	}
 	
 	
@@ -69,14 +74,14 @@ public abstract class Search {
 		
 		for(int x = -1; x < 2; x++){
 			for(int y = -1; y < 2; y++){
-				if(x != 0 && y != 0){
-					successor = map.getCell(currentX + x,currentY + y);
-					if(successor != null && successor.getType() != Node.blockedcell)
+				if(x == 0 && y == 0)
+					continue;
+				successor = map.getCell(currentX + x,currentY + y);
+				if(successor != null && successor.getType() != Node.blockedcell)
 						successors.add(successor);
 				}
 				
 			}	
-		}
 		return successors;
 	}
 	

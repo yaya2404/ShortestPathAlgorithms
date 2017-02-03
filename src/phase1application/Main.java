@@ -6,6 +6,7 @@ import javafx.geometry.VPos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -75,11 +76,24 @@ public class Main extends Application {
 			Map map = new Map(input);
 			//map.printMap();
 			
+			//Debugging only
+			
+			if(map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY()).getType() == Node.blockedcell){
+				System.out.print("Starting cell is a blocked cell");
+				System.exit(1);
+			}
+			
+			if(map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY()).getType() == Node.blockedcell){
+				System.out.print("Goal cell is a blocked cell");
+				System.exit(1);
+			}
+			 
+			//end of debugging
 			
 			UniformCostSearch testing = new UniformCostSearch(map);
 			testing.setupFringe(new Node.NodeComparatorG());
 			
-			if(testing.findPath() != null){
+			if(testing.findPath()){
 				testing.printPath();
 			}else{
 				System.out.println("Could not find path");
@@ -123,6 +137,10 @@ public class Main extends Application {
 					square.setOnMouseClicked(e -> {
 						System.out.println(map.printCellInfo(x, y));
 					});
+					
+					Tooltip tp = new Tooltip(map.printCellInfo(x, y));
+					Tooltip.install(square, tp);
+					
 					root.add(square, col, row);
 				}
 			}

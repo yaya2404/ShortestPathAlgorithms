@@ -24,23 +24,15 @@ public class UniformCostSearch extends Search{
 			open.add(neighbor);
 		}
 		
-		for(Node s : sucessors){
-			if(!closed.contains(s)){
-				if(!open.contains(s)){
-					s.set_g(Double.MAX_VALUE);
-					s.setParent(null);
-				}
-				updateVertex(current,s);
-			}
-		}
-		
 	}
 
 	@Override
 	public void setupFringe(Comparator<Node> compare) {
 		open = new PriorityQueue<Node>(size, compare);
 		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
+		
 		start.set_g(0);
+		open.add(start);
 		
 	}
 	

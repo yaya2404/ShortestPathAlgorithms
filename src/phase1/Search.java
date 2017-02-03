@@ -58,11 +58,12 @@ public abstract class Search {
 		return null;	
 	}
 	
+	
 	/**
 	 * Finds all the neighboring nodes of a specified node
 	 * @param s the current node
 	 */
-	
+	/*
 	public void findSuccessorSet(Node s){
 		int currentX = s.getX();
 		int currentY = s.getY();
@@ -80,6 +81,27 @@ public abstract class Search {
 			}	
 		}
 			
+	}
+	*/
+	public HashSet<Node> findSuccessorSet(Node s){
+		int currentX = s.getX();
+		int currentY = s.getY();
+		
+		
+		HashSet<Node> successors = new HashSet<Node>();
+		Node successor;
+		
+		for(int x = -1; x < 2; x++){
+			for(int y = -1; y < 2; y++){
+				if(x != 0 && y != 0){
+					successor = map.getCell(currentX + x,currentY + y);
+					if(successor != null && successor.getType() != Node.blockedcell)
+						successors.add(successor);
+				}
+				
+			}	
+		}
+		return successors;
 	}
 	
 	public abstract void UpdateVertex(Node current, Node neighbor);
@@ -102,4 +124,17 @@ public abstract class Search {
 	}
 	
 	*/
+	
+	public void printPath(){
+		
+		try{
+			Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+			while(!s.equals(map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY()))){
+				s.setType(Node.path);
+				s = s.getParent();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }

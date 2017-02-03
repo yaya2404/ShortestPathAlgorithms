@@ -1,9 +1,13 @@
 package phase1;
 
-public class UniformCostSearch extends Search {
+import java.util.HashSet;
+import java.util.PriorityQueue;
 
-	public UniformCostSearch(Map m, int x, int y) {
-		super(m, x, y);
+public class UniformCostSearch extends searchTemplate {
+
+	public UniformCostSearch(Map m) {
+		super(m);
+		open = new PriorityQueue<Node>(size, new Node.NodeComparatorG());
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -11,7 +15,7 @@ public class UniformCostSearch extends Search {
 	 * This method should implement the abstract method findPath(int, int)
 	 */
 	
-	public Node searchPath(int startX, int startY){
+	public boolean searchPath(){
 		/*
 		function UNIFORM-COST-SEARCH(problem) returns a solution, or failure
 		node <- a node with STATE = problem.INITIAL-STATE, PATH-COST = 0
@@ -29,7 +33,7 @@ public class UniformCostSearch extends Search {
 				else if child.STATE is in frontier with higher PATH-COST then
 					replace that frontier node with child
 		*/
-		Node start = map.getCell(startX, startY);
+		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
 		start.set_g(0);
 		
 		Node current;
@@ -39,12 +43,13 @@ public class UniformCostSearch extends Search {
 			current = open.remove();
 			
 			if(current.equals(map.getCell(goalX, goalY))){
-				return current;
+				return true;
 			}
 			
-			findSuccessorSet(current);
+			HashSet<Node> successors = findSuccessorSet(current);
 			
-			for(Node child: sucessors){
+			for(Node child: successors){
+					
 				if(!open.contains(child) && !closed.contains(child)){
 					child.setParent(current);
 					child.set_g(current.get_g() + current.cost(child));
@@ -54,15 +59,9 @@ public class UniformCostSearch extends Search {
 					child.setParent(current);
 				}
 			}
+			closed.add(current);
 		}
 		
-		return null;
-	}
-	
-	
-	@Override
-	public void UpdateVertex(Node current, Node neighbor) {
-		// TODO Auto-generated method stub
-
+		return false;
 	}
 }

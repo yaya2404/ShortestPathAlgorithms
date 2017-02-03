@@ -29,24 +29,30 @@ public class Map {
 	
 	//values 
 	
+	//values 
+	
 	public Coordinate getStartCoordinate(){
 		return this.start;
 	}
-	public Coordinate getEndCoordiante(){
+	public Coordinate getEndCoordinate(){
 		return this.end;
 	}
 	public Map(Coordinate[] input){
 		this.input = input;
-		//this.startx = this.input[0].getX();
-		//this.starty = this.input[0].getY();
-		//this.endx = this.input[1].getX();
-		//this.endy = this.input[1].getY();
+		this.start = this.input[0];
+		this.end = this.input[1];
 		createUnblockedCells();
 		createHardCell();
 		createHighwayCell();
 		createBlockedCells();
 	}
+	
+	/**
+	 * Generate blocked cells for map
+	 */
+	
 	private void createBlockedCells(){
+		/*
 		int blockedcells = 0;
 		int x = -1;
 		int y = -1;
@@ -54,15 +60,23 @@ public class Map {
 		do{
 			x = random.nextInt(cols);
 			y = random.nextInt(rows);
-			if(grid[y][x].getType() != reghighway && grid[y][x].getType() != hardhighway){
+			if(grid[y][x].getType() != reghighway && grid[y][x].getType() != hardhighway
+				/*&& y != start.getY() && y != end.getY() && x != start.getX() && x != end.getX()){
 				//grid[y][x] = new Node(x,y);
 				grid[y][x].setType(blockedcell);
 				blockedcells++;
 			}
 		}while(blockedcells < 3840);
+		
+		grid[0][1].setType(blockedcell);
+		grid[1][1].setType(blockedcell);
+		grid[2][1].setType(blockedcell);
+		*/
 	}
 	
-	//generate standard map with unblocked cells 
+	/**
+	 * Generate unblocked cells for map 
+	 */
 	private void createUnblockedCells(){
 		
 		for(int row = 0; row < rows; row++){
@@ -72,7 +86,9 @@ public class Map {
 			}
 		}
 	}
-	//generate hard cells
+	/**
+	 * Generate hard cells for map
+	 */
 	private void createHardCell(){
 		Random random = new Random();
 		
@@ -115,7 +131,9 @@ public class Map {
 		}
 	}
 	
-	//generate highway
+	/**
+	 *  Generates highway
+	 */
 	private void createHighwayCell(){
 		
 		int count = 0;
@@ -131,7 +149,12 @@ public class Map {
 			path = null;
 		}while(count < 4);
 	}
-	
+	/**
+	 * 
+	 * Mark the cells on map that represent the highway
+	 * 
+	 * @param path	contains an ArrayList of Coordinates that represent the highway path
+	 */
 	private void markHighwayPath(ArrayList<Coordinate> path){
 		
 		 int hwy = -1;
@@ -150,6 +173,13 @@ public class Map {
 			}
 		 }
 	}
+	
+	/**
+	 * 
+	 * Searches for an appropriate path that represents the highway
+	 * 
+	 * @return	an ArrayList containing Coordinates that represent the highway
+	 */
 	private ArrayList<Coordinate> findHighwayPath(){
 		
 				

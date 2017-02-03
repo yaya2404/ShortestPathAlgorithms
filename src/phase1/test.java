@@ -205,9 +205,10 @@ public class test {
 
 
 		Coordinate[] input = new Coordinate[numofinputs];
-		String[] fileinput;
-		int x = -1;
-		int y = -1;
+		//String[] fileinput;
+		//int x = -1;
+		//int y = -1;
+		/*
 		try {
 
 			BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -234,9 +235,17 @@ public class test {
 		}catch(Exception a){
 			a.printStackTrace();
 		}
+		*/
+		input[0] = new Coordinate(0,0);
+		input[1] = new Coordinate(1,3);
 		Map map = new Map(input);
+		UniformCostSearch testing = new UniformCostSearch(map);
+		if(testing.searchPath()){
+			testing.printPath();
+		}else{
+			System.out.println("Could not find path");
+		}
 		map.printMap();
-
 	}
 
 }

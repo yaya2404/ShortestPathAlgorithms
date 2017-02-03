@@ -9,6 +9,8 @@ public class Node {
 	public static final char hardcell = '2';
 	public static final char reghighway = 'a';
 	public static final char hardhighway = 'b';
+	public static final char path = 'P';
+	
 	
 	private Node parent;
 	private char type;
@@ -235,6 +237,19 @@ public class Node {
 				return (x.h < y.f) ? -1 : 1;	
 				
 		}
+	}
+	
+	public static class NodeComparatorG implements Comparator<Node>{
+
+		@Override
+		public int compare(Node o1, Node o2) {
+			if(o1.g != o2.g){
+				return (o1.g < o2.g) ? -1 : 1;
+			}else{
+				return 0;
+			}
+		}
+		
 	}
 	
 	

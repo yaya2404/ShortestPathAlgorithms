@@ -18,14 +18,10 @@ public class UniformCostSearch extends Search{
 			neighbor.set_g(current.get_g() + current.cost(neighbor));
 			neighbor.setParent(current);
 			
-			if(open.contains(neighbor))
-				open.remove(neighbor);
-			
-			open.add(neighbor);
-
 			
 			if(!open.contains(neighbor)) //deviation from pseudo code
 				open.add(neighbor);
+
 		}
 		
 	}

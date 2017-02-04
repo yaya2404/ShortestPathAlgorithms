@@ -72,7 +72,7 @@ public class Main extends Application {
 			
 			
 			input[0] = new Coordinate(0,0);
-			input[1] = new Coordinate(1,3);
+			input[1] = new Coordinate(34,78);
 			Map map = new Map(input);
 			//map.printMap();
 			
@@ -94,8 +94,11 @@ public class Main extends Application {
 			UniformCostSearch testing = new UniformCostSearch(map);
 			testing.setupFringe(new Node.NodeComparatorG());
 			
-			if(testing.findPath()){
-				testing.printPath();
+			AStarSearch testing2 = new AStarSearch(map);
+			testing2.setupFringe(new Node.NodeComparator());
+			
+			if(testing2.findPath()){
+				testing2.printPath();
 			}else{
 				System.out.println("Could not find path");
 			}

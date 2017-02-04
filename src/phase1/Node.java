@@ -26,10 +26,10 @@ public class Node {
 		
 		parent = null;
 		type = unblockedcell;
-		//g = Double.MAX_VALUE;
-		g = 0;
+		g = Double.MAX_VALUE;
+		//g = 0;
 		h = 0;
-		f = 0;
+		f = g;
 	}
 	
 	public int getX(){
@@ -70,10 +70,19 @@ public class Node {
 	 */
 	public void set_g(double gValue){
 		g = gValue;
+		f = g; //changes the value for uniform search
 	}
 	
 	public double get_g(){
 		return g;
+	}
+	
+	public double get_h(){
+		return h;
+	}
+	
+	public double get_f(){
+		return f;
 	}
 	
 	/**
@@ -91,6 +100,14 @@ public class Node {
 		f = g + h;
 	}
 	
+	/**
+	 * calculates f with weight
+	 */
+	public void update_f(double weight){
+		f = g + weight * h;
+	}
+	
+
 	/**
 	 * The costs to move from the current cell to a neighboring cell
 	 * @param neighbor 
@@ -213,20 +230,10 @@ public class Node {
 		double dy = Math.abs(ycoordinate - goalY);
 		
 		//example from the assignment
-		return (double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy);
+		h = (double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy);
+		return h;
 	}
-	/*
-	 * the heuristic value with a weight
-	 */
-	public double calculate_h(int goalX, int goalY, double weight){
-		double dx = Math.abs(xcoordinate - goalX);
-		double dy = Math.abs(ycoordinate - goalY);
-		
-		//example from the assignment
-		return weight * ((double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy));
-	}
-	
-	
+
 	public boolean equals(Node n){
 		return this.xcoordinate == n.xcoordinate && this.ycoordinate == n.ycoordinate;
 	}

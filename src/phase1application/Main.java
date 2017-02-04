@@ -1,8 +1,15 @@
 package phase1application;
 	
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
@@ -21,7 +28,6 @@ public class Main extends Application {
 	
 	public static final int rows = 120;
 	public static final int cols = 160;
-	public static final String file = "testing.txt";
 	public static final int numofinputs = 10;
 	
 	
@@ -32,12 +38,14 @@ public class Main extends Application {
 	public static final String hardhighway = "blue";
 	public static final String path = "red";
 	
+	private GridPane root = new GridPane();
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			
 			
-			Coordinate[] input = new Coordinate[numofinputs];
+			//Coordinate[] input = new Coordinate[numofinputs];
 			//String[] fileinput;
 			//int x = -1;
 			//int y = -1;
@@ -70,7 +78,7 @@ public class Main extends Application {
 			}
 			*/
 			
-			
+			/*
 			input[0] = new Coordinate(0,0);
 			input[1] = new Coordinate(100,111);
 			Map map = new Map(input);
@@ -90,6 +98,8 @@ public class Main extends Application {
 			}
 			 
 			//end of debugging
+			*/
+			
 			
 			/*
 			UniformCostSearch testing = new UniformCostSearch(map);
@@ -108,70 +118,108 @@ public class Main extends Application {
 				System.out.println("Could not find path");
 			*/
 			
-			//setting up the visuals
-			GridPane root = new GridPane();
-			String color = "";
-			char type = 0;
-			for(int row = 0; row < rows; row++){
-				for(int col = 0; col < cols; col++){
-					
-					final int x = col;
-					final int y = row;
-					StackPane square = new StackPane();
-					
-					type = map.getCell(col, row).getType();
-					
-					switch(type){
-						case phase1.Node.blockedcell:
-							color = blockedcell;
-							break;
-						case phase1.Node.unblockedcell:
-							color = unblockedcell;
-							break;
-						case phase1.Node.hardcell:
-							color = hardcell;
-							break;
-						case phase1.Node.reghighway:
-							color = reghighway;
-							break;
-						case phase1.Node.hardhighway:
-							color = hardhighway;
-							break;
-						case phase1.Node.path:
-							color = path;
-							break;
-					}
-					
-					square.setStyle("-fx-background-color: "+color+";-fx-border-color: black;-fx-border-width: 1;");
-					square.setOnMouseClicked(e -> {
-						System.out.println(map.printCellInfo(x, y));
-					});
-					
-					Tooltip tp = new Tooltip(map.printCellInfo(x, y));
-					Tooltip.install(square, tp);
-					
-					root.add(square, col, row);
-				}
-			}
-			for (int i = 0; i < cols; i++) {
-	            root.getColumnConstraints().add(new ColumnConstraints(1, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, HPos.CENTER, true));
-	            if(i < rows){
-	            	root.getRowConstraints().add(new RowConstraints(1, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, VPos.CENTER, true));
-	            }
-	        }
-			
-			
-			Scene scene = new Scene(root,1280,960);
-			//scene.getStylesheets().add(getClass().getResource("grid.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-			
+			//unsure if this works for all cases. This should get the directory of the project.
+			Coordinate[] input;
+			File f = new File(".");
+			f = new File(f.getAbsolutePath() + "/Maps");
+			FileChooser fc = new FileChooser();
+			fc.setInitialDirectory(f);
+			File file = fc.showOpenDialog(primaryStage);
 		
+			input = getInput(file);
+			
+			if(input != null & !(input.length < 10)){
+				Map map = new Map(input);
+				UniformCostSearch testing = new UniformCostSearch(map);
+				testing.setupFringe(new Node.NodeComparatorG());
+				if(testing.findPath())
+					testing.printPath();
+				setMap(map);
+				Scene scene = new Scene(root,1280,960);
+				primaryStage.setScene(scene);
+				primaryStage.show();
+			}
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	private Coordinate[] getInput(File file){
+		Coordinate[] input = new Coordinate[numofinputs];
+		FileReader reader;
+		try {
+			reader = new FileReader(file);
+			BufferedReader breader = new BufferedReader(reader);
+			String a[];
+			for(int count = 0; count < 10; count++){
+				a = breader.readLine().split(" ");
+				input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+		}
+		return input;
+	}
+	
+	
+	private void setMap(Map map){
+		
+		//setting up the visuals
+		String color = "";
+		char type = 0;
+		for(int row = 0; row < rows; row++){
+			for(int col = 0; col < cols; col++){
+				
+				final int x = col;
+				final int y = row;
+				StackPane square = new StackPane();
+				
+				type = map.getCell(col, row).getType();
+				
+				switch(type){
+					case phase1.Node.blockedcell:
+						color = blockedcell;
+						break;
+					case phase1.Node.unblockedcell:
+						color = unblockedcell;
+						break;
+					case phase1.Node.hardcell:
+						color = hardcell;
+						break;
+					case phase1.Node.reghighway:
+						color = reghighway;
+						break;
+					case phase1.Node.hardhighway:
+						color = hardhighway;
+						break;
+					case phase1.Node.path:
+						color = path;
+						break;
+				}
+				
+				square.setStyle("-fx-background-color: "+color+";-fx-border-color: black;-fx-border-width: 1;");
+				square.setOnMouseClicked(e -> {
+					System.out.println(map.printCellInfo(x, y));
+				});
+				
+				Tooltip tp = new Tooltip(map.printCellInfo(x, y));
+				Tooltip.install(square, tp);
+				
+				root.add(square, col, row);
+			}
+		}
+		for (int i = 0; i < cols; i++) {
+            root.getColumnConstraints().add(new ColumnConstraints(1, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, HPos.CENTER, true));
+            if(i < rows){
+            	root.getRowConstraints().add(new RowConstraints(1, Control.USE_COMPUTED_SIZE, Double.POSITIVE_INFINITY, Priority.ALWAYS, VPos.CENTER, true));
+            }
+        }
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}

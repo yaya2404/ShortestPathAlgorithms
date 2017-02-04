@@ -1,6 +1,7 @@
 package phase1;
 
 import java.util.Comparator;
+import java.util.Random;
 
 public class Node {
 	
@@ -275,7 +276,8 @@ public class Node {
 			if(o1.g != o2.g){
 				return (o1.g > o2.g) ? 1 : -1; //max heap??
 			}else{
-				return 0;
+				Random random = new Random();
+				return (random.nextDouble() < 0.5) ? 1 : -1; 
 			}
 		}
 		

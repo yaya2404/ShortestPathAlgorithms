@@ -16,7 +16,4 @@ public class Coordinate {
 	public int getY(){
 		return this.y;
 	}
-	private boolean isValid(){
-		return false;
-	}
 }

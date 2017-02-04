@@ -3,6 +3,11 @@ package phase1;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
+/*
+ * Entire class can be deleted.
+ */
+
+
 public abstract class searchTemplate {
 
 	

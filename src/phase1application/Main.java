@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -41,6 +42,7 @@ public class Main extends Application {
 	public static final String end = "red";
 	
 	private GridPane root = new GridPane();
+	private long time;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -131,15 +133,26 @@ public class Main extends Application {
 			input = getInput(file);
 			
 			if(input != null & !(input.length < 10)){
+				
+				//setting up map
 				Map map = new Map(input);
 				UniformCostSearch testing = new UniformCostSearch(map);
 				testing.setupFringe(new Node.NodeComparatorG());
 				if(testing.findPath())
 					testing.printPath();
+				
+				time = testing.getTime();
 				setMap(map);
+				
+				//writing out map to file
+				FileWriter writer = new FileWriter(file);
+				writer.write(map.toString());
+				writer.close();	
 				Scene scene = new Scene(root,1280,960);
+				primaryStage.setTitle(file.getName());
 				primaryStage.setScene(scene);
 				primaryStage.show();
+				
 			}
 			
 		} catch(Exception e) {
@@ -212,11 +225,14 @@ public class Main extends Application {
 				
 				
 				square.setStyle("-fx-background-color: "+color+";-fx-border-color: black;-fx-border-width: 1;");
-				square.setOnMouseClicked(e -> {
-					System.out.println(map.printCellInfo(x, y));
-				});
 				
-				Tooltip tp = new Tooltip(map.printCellInfo(x, y));
+				Tooltip tp;
+				//add time elapsed in ms onto end node
+				if(x ==  map.getEndCoordinate().getX() && y == map.getEndCoordinate().getY()){
+					tp = new Tooltip(map.printCellInfo(x, y) + "Time: " + time + "ms\n");
+				}else{
+					tp = new Tooltip(map.printCellInfo(x, y));
+				}
 				Tooltip.install(square, tp);
 				
 				root.add(square, col, row);

@@ -90,18 +90,37 @@ public class test {
 		*/
 		
 		
-		/*
 		File folder = new File("Maps");
 		File[] folders = folder.listFiles();
 		Coordinate input[];
 		
+		int maptotalruntime = 0;
+		int maptotalpathlength = 0;
+		int maptotalnodesexpanded = 0;
 		
+		int totalruntime = 0;
+		int totalpathlength = 0;
+		int totalnodesexpanded = 0;
 		
+		/*
+		 * Testing for part E of Phase 1
+		 * 
+		 * 
+		 * 
+		 * Testing for UniformCostSearch
+		 * Average run time
+		 * Average path length
+		 * Average number of nodes expanded
+		 * 
+		 */
 		try {
 			for(int x = 0; x < folders.length; x++){
 				File[] files = folders[x].listFiles();
+				maptotalruntime = 0;
+				maptotalpathlength = 0;
+				maptotalnodesexpanded = 0;
 				for(int y = 0; y < files.length; y++){
-					//System.out.println(files[y].getPath());
+					//System.out.println(files[y].getName());
 					
 					input = new Coordinate[10];
 					FileReader reader = new FileReader(files[y]);
@@ -112,19 +131,44 @@ public class test {
 						input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
 					}
 					Map map = new Map(input);
+					Search testing = new UniformCostSearch(map);
+					testing.setupFringe(new Node.NodeComparatorG());
+					if(testing.findPath())
+						testing.printPath();
+					
 					FileWriter writer = new FileWriter(files[y]);
 					writer.write(map.toString());
-					map.printMap();
 					writer.close();
 					breader.close();
 					reader.close();
+					
+					maptotalruntime += testing.getTime();
+					maptotalpathlength += testing.getPathLength();
+					maptotalnodesexpanded += testing.getNumOfExpandedNodes();
+					
 				}
+				
+				System.out.println(folders[x].getName());
+				System.out.println("Average run time: " + maptotalruntime/10);
+				System.out.println("Average path length: " + maptotalpathlength/10);
+				System.out.println("Average nodes expanded: " + maptotalnodesexpanded/10);
+				System.out.println();
+				
+				totalruntime += maptotalruntime;
+				totalpathlength += maptotalpathlength;
+				totalnodesexpanded += maptotalnodesexpanded;
+				
 			}
+			
+			System.out.println("Total average run time: " + totalruntime/50);
+			System.out.println("Total average path length: " + totalpathlength/50);
+			System.out.println("Total average nodes expanded: " + totalnodesexpanded/50);
+			
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 		}
-		*/
 		
 		
 	}

@@ -14,6 +14,8 @@ public abstract class Search {
 	HashSet<Node> closed; 
 	protected int goalX;
 	protected int goalY;
+	private long time;
+	private int pathlength;
 	
 	public Search(Map m){
 		map = m;
@@ -22,10 +24,13 @@ public abstract class Search {
 		closed = new HashSet<Node>(3000); //should decrease amount of rehashing
 	}
 	
+
 	
 	public boolean findPath(){
 		
 		Node current;
+		
+		long starttime = System.nanoTime();
 		
 		while(!open.isEmpty()){
 			
@@ -33,6 +38,7 @@ public abstract class Search {
 			
 			
 			if(current.equals(map.getCell(goalX, goalY))){
+				time = (System.nanoTime() - starttime)/1000000;
 				return true;
 			}
 				
@@ -93,19 +99,27 @@ public abstract class Search {
 	
 	public abstract void setupFringe (Comparator<Node> compare);
 
-	
+	public int getPathLength(){
+		return this.pathlength;
+	}
+	public long getTime(){
+		return this.time;
+	}
+	public int getNumOfExpandedNodes(){
+		return this.closed.size();
+	}
 	public void printPath(){
 		
-		try{
-			Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
-			map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY()).setType(Node.path);
-			while(s!=null){
-				//System.out.println(s.getType());
-				s.setType(Node.path);
-				s = s.getParent();
-			}
-		}catch(Exception e){
-			e.printStackTrace();
+		pathlength = 0;
+		Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+		while(s!=null){
+			//System.out.println(s.getType());
+			s.setType(Node.path);
+			s = s.getParent();
+			pathlength++;
 		}
 	}
+	
+	
+	
 }

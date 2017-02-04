@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -132,10 +133,42 @@ public class Main extends Application {
 			
 			if(input != null & !(input.length < 10)){
 				Map map = new Map(input);
-				UniformCostSearch testing = new UniformCostSearch(map);
-				testing.setupFringe(new Node.NodeComparatorG());
-				if(testing.findPath())
-					testing.printPath();
+			
+			Search pathSearch;
+			BufferedReader reader= new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("Select an algorithm: (1) for Uniform Cost, (2) for A*, (3) for Weighted A* :");
+			String userInput = reader.readLine();
+			if(userInput.equals("1")){
+				pathSearch = new UniformCostSearch(map);
+				pathSearch.setupFringe(new Node.NodeComparatorG());
+			}else if(userInput.equals("3")){
+				System.out.println("Enter a weight value :");
+				userInput = reader.readLine();
+				double weight;
+				try{
+					weight = Double.parseDouble(userInput);
+					if(weight <= 0)
+						throw new IllegalArgumentException();
+				}catch(Exception e){
+					System.out.println("Invalid weight...Using default value of 2");
+					weight = 2;
+				}
+				
+				
+				pathSearch = new WeightedAStarSearch(map,weight);
+				pathSearch.setupFringe(new Node.NodeComparator());
+			
+			}else{
+				pathSearch = new AStarSearch(map);
+				pathSearch.setupFringe(new Node.NodeComparator());
+			}
+			
+			System.out.println("Generating Map.....");
+			
+				
+				if(pathSearch.findPath())
+					pathSearch.printPath();
+				
 				setMap(map);
 				Scene scene = new Scene(root,1280,960);
 				primaryStage.setScene(scene);

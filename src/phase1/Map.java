@@ -59,10 +59,10 @@ public class Map {
 			x = random.nextInt(cols);
 			y = random.nextInt(rows);
 			if(grid[y][x].getType() != reghighway && grid[y][x].getType() != hardhighway){
-				//if(!((x == start.getX() && y == start.getY()) || (x == end.getX() && y == end.getY()))){
+				if(((x != start.getX() || y != start.getY()) && (x != end.getX() || y != end.getY()))){
 					grid[y][x].setType(blockedcell);
 					blockedcells++;
-				//}
+				}
 					
 			}
 		}while(blockedcells < 3840);

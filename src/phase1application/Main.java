@@ -36,7 +36,9 @@ public class Main extends Application {
 	public static final String hardcell = "orange";
 	public static final String reghighway = "cyan";
 	public static final String hardhighway = "blue";
-	public static final String path = "red";
+	public static final String path = "purple";
+	public static final String start = "limegreen";
+	public static final String end = "red";
 	
 	private GridPane root = new GridPane();
 	
@@ -201,6 +203,13 @@ public class Main extends Application {
 						color = path;
 						break;
 				}
+				
+				if(x == map.getStartCoordinate().getX() && y == map.getStartCoordinate().getY()){
+					color = start;
+				}else if(x == map.getEndCoordinate().getX() && y == map.getEndCoordinate().getY()){
+					color = end;
+				}
+				
 				
 				square.setStyle("-fx-background-color: "+color+";-fx-border-color: black;-fx-border-width: 1;");
 				square.setOnMouseClicked(e -> {

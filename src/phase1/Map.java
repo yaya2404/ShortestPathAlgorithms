@@ -19,14 +19,12 @@ public class Map {
 	private static final char hardhighway = 'b';
 	
 	//the grid representing the map
-	//private static String[][] grid = new String[rows][cols];
 	private static Node[][] grid = new Node[rows][cols];
 	
 	//coordinates for start/end nodes 
 	private Coordinate[] input;
 	private Coordinate start;
 	private Coordinate end;
-	private ArrayList<Coordinate> hcCoordinates;
 	//values 
 	
 	//values 
@@ -61,10 +59,10 @@ public class Map {
 			x = random.nextInt(cols);
 			y = random.nextInt(rows);
 			if(grid[y][x].getType() != reghighway && grid[y][x].getType() != hardhighway){
-				if(!((x == start.getX() && y == start.getY()) || (x == end.getX() && y == end.getY()))){
+				//if(!((x == start.getX() && y == start.getY()) || (x == end.getX() && y == end.getY()))){
 					grid[y][x].setType(blockedcell);
 					blockedcells++;
-				}
+				//}
 					
 			}
 		}while(blockedcells < 3840);
@@ -96,15 +94,13 @@ public class Map {
 		int testx = -1;
 		int testy = -1;
 		
-		hcCoordinates = new ArrayList<Coordinate>();
-		
-		for(int count = 0; count < 10; count++){
+		for(int count = 2; count < 10; count++){
 			
 			
-			hardx = random.nextInt(cols);
-			hardy = random.nextInt(rows);
-			//hardx = this.input[count].getX();
-			//hardy =	this.input[count].getY();
+			//hardx = random.nextInt(cols);
+			//hardy = random.nextInt(rows);
+			hardx = this.input[count].getX();
+			hardy =	this.input[count].getY();
 			
 			
 			
@@ -326,7 +322,8 @@ public class Map {
 	
 	//only for testing 
 	public void printMap(){
-		//print out map
+		//print out map to console
+		//should be used for debugging purposes
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
 				System.out.print(grid[row][col].getType() + " ");
@@ -334,6 +331,30 @@ public class Map {
 			System.out.println();
 		}
 	}
+	
+	public String toString(){
+		
+		StringBuilder out = new StringBuilder();
+		
+		
+		for(int count = 0; count < 10; count++){
+			out.append(input[count].getX() + " " + input[count].getY());
+			out.append("\n");
+		}
+		
+		
+		out.append("\n");
+		
+		for(int row = 0; row < rows; row++){
+			for(int col = 0; col < cols; col++){
+				out.append(grid[row][col].getType());
+				//out.append(" ");
+			}
+			out.append("\n");
+		}
+		return out.toString();
+	}
+	
 	
 	
 }

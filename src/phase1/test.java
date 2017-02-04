@@ -3,6 +3,7 @@ package phase1;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -263,6 +264,43 @@ public class test {
 			System.out.println("Could not find path");
 		}
 		*/
+		
+		File folder = new File("Maps");
+		File[] folders = folder.listFiles();
+		Coordinate input[];
+		//String text = "";
+		
+		
+		
+		try {
+			for(int x = 0; x < folders.length; x++){
+				File[] files = folders[x].listFiles();
+				for(int y = 0; y < files.length; y++){
+					//System.out.println(files[y].getPath());
+					
+					input = new Coordinate[10];
+					FileReader reader = new FileReader(files[y]);
+					BufferedReader breader = new BufferedReader(reader);
+					String a[];
+					for(int count = 0; count < 10; count++){
+						a = breader.readLine().split(" ");
+						input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
+					}
+					Map map = new Map(input);
+					FileWriter writer = new FileWriter(files[y]);
+					writer.write(map.toString());
+					map.printMap();
+					writer.close();
+					breader.close();
+					reader.close();
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
+		
+		
 	}
 
 }

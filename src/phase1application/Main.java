@@ -90,6 +90,7 @@ public class Main extends Application {
 			 
 			//end of debugging
 			
+			/*
 			UniformCostSearch testing = new UniformCostSearch(map);
 			testing.setupFringe(new Node.NodeComparatorG());
 			
@@ -98,6 +99,7 @@ public class Main extends Application {
 			}else{
 				System.out.println("Could not find path");
 			}
+			*/
 			
 			
 			

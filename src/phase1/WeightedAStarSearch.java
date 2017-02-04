@@ -26,8 +26,11 @@ public class WeightedAStarSearch extends Search {
 			neighbor.update_f(weight);
 			neighbor.setParent(current);
 			
-			if(!open.contains(neighbor)) //deviation from pseudo code
-				open.add(neighbor);
+			//remove needed to update the fringe
+			if(open.contains(neighbor))
+				open.remove(neighbor);
+				
+			open.add(neighbor);
 		}
 	}
 

@@ -245,11 +245,14 @@ public class Node {
 	 */
 	public static class NodeComparator implements Comparator<Node>{
 		public int compare(Node x, Node y){
-			if(x.f != y.f)
+			if(x.f != y.f) 
 				return (x.f < y.f) ? -1 : 1;
 			
-			else //tie-breaker (sample equation)
-				return (x.h < y.h) ? -1 : 1;	
+			else if(x.g != y.g) 
+				return (x.g > y.g) ? -1 : 1; //favors the larger g-values
+			
+			else
+				return (x.h < y.h) ? -1 : 1;
 				
 		}
 	}
@@ -259,7 +262,7 @@ public class Node {
 		@Override
 		public int compare(Node o1, Node o2) {
 			if(o1.g != o2.g){
-				return (o1.g > o2.g) ? -1 : 1;
+				return (o1.g > o2.g) ? -1 : 1; //max heap?? 
 			}else{
 				return 0;
 			}

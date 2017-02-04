@@ -19,7 +19,7 @@ public abstract class Search {
 		map = m;
 		goalX = map.getEndCoordinate().getX();
 		goalY = map.getEndCoordinate().getY();
-		closed = new HashSet<Node>();
+		closed = new HashSet<Node>(3000); //should decrease amount of rehashing
 	}
 	
 	
@@ -32,8 +32,10 @@ public abstract class Search {
 			current = open.remove();
 			
 			
-			if(current.equals(map.getCell(goalX, goalY)))
+			if(current.equals(map.getCell(goalX, goalY))){
 				return true;
+			}
+				
 				
 			closed.add(current);
 			
@@ -98,7 +100,7 @@ public abstract class Search {
 			Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
 			map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY()).setType(Node.path);
 			while(s!=null){
-				System.out.println(s.getType());
+				//System.out.println(s.getType());
 				s.setType(Node.path);
 				s = s.getParent();
 			}

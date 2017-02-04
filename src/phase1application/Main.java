@@ -72,7 +72,7 @@ public class Main extends Application {
 			
 			
 			input[0] = new Coordinate(0,0);
-			input[1] = new Coordinate(34,78);
+			input[1] = new Coordinate(100,111);
 			Map map = new Map(input);
 			//map.printMap();
 			
@@ -81,6 +81,7 @@ public class Main extends Application {
 			if(map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY()).getType() == Node.blockedcell){
 				System.out.print("Starting cell is a blocked cell");
 				System.exit(1);
+				
 			}
 			
 			if(map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY()).getType() == Node.blockedcell){
@@ -96,14 +97,15 @@ public class Main extends Application {
 			AStarSearch testing2 = new AStarSearch(map);
 			testing2.setupFringe(new Node.NodeComparator());
 			
-			if(testing2.findPath()){
-				testing2.printPath();
-			}else{
+			WeightedAStarSearch testing3 = new WeightedAStarSearch(map, 1.3);
+			testing3.setupFringe(new Node.NodeComparator());
+			
+			if(testing3.findPath()){
+				testing3.printPath();
+				
+			}else
 				System.out.println("Could not find path");
-			}
-			
-			
-			
+
 			//setting up the visuals
 			GridPane root = new GridPane();
 			String color = "";
@@ -162,7 +164,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
-			
+		
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -97,10 +97,10 @@ public class Map {
 		for(int count = 2; count < 10; count++){
 			
 			
-			//hardx = random.nextInt(cols);
-			//hardy = random.nextInt(rows);
-			hardx = this.input[count].getX();
-			hardy =	this.input[count].getY();
+			hardx = random.nextInt(cols);
+			hardy = random.nextInt(rows);
+			//hardx = this.input[count].getX();
+			//hardy =	this.input[count].getY();
 			
 			
 			

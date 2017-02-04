@@ -265,10 +265,11 @@ public class test {
 		}
 		*/
 		
+		
+		/*
 		File folder = new File("Maps");
 		File[] folders = folder.listFiles();
 		Coordinate input[];
-		//String text = "";
 		
 		
 		
@@ -299,6 +300,7 @@ public class test {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 		}
+		*/
 		
 		
 	}

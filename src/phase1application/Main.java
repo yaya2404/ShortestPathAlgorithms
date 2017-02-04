@@ -107,8 +107,7 @@ public class Main extends Application {
 			}else
 				System.out.println("Could not find path");
 			*/
-				
-				
+			
 			//setting up the visuals
 			GridPane root = new GridPane();
 			String color = "";

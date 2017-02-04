@@ -22,8 +22,8 @@ public class WeightedAStarSearch extends Search {
 		if(current.get_g() + current.cost(neighbor) < neighbor.get_g()){
 			
 			neighbor.set_g(current.get_g() + current.cost(neighbor));
-			neighbor.calculate_h(goalX, goalY, weight);
-			neighbor.update_f();
+			//neighbor.calculate_h(goalX, goalY);
+			neighbor.update_f(weight);
 			neighbor.setParent(current);
 			
 			if(!open.contains(neighbor)) //deviation from pseudo code
@@ -36,10 +36,12 @@ public class WeightedAStarSearch extends Search {
 		open = new PriorityQueue<Node>(size, new Node.NodeComparator());
 		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
 		start.set_g(0);
-		start.calculate_h(goalX, goalY, weight);
-		start.update_f();
+		//start.calculate_h(goalX, goalY);
+		start.update_f(weight);
 		open.add(start);
 		
 	}
+	
+	
 
 }

@@ -17,17 +17,11 @@ public class UniformCostSearch extends Search{
 			
 			neighbor.set_g(current.get_g() + current.cost(neighbor));
 			neighbor.setParent(current);
-<<<<<<< HEAD
-			if(open.contains(neighbor))
-				open.remove(neighbor);
-			
-			open.add(neighbor);
-=======
+
 			
 			if(!open.contains(neighbor)) //deviation from pseudo code
 				open.add(neighbor);
-		
->>>>>>> 9317085000e418c865762b9dfc48c78a73014547
+
 		}
 		
 	}

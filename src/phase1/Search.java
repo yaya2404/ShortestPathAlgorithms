@@ -97,7 +97,8 @@ public abstract class Search {
 		try{
 			Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
 			map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY()).setType(Node.path);
-			while(!s.equals(map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY()))){
+			while(s!=null){
+				System.out.println(s.getType());
 				s.setType(Node.path);
 				s = s.getParent();
 			}

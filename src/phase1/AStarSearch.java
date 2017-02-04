@@ -14,7 +14,7 @@ public class AStarSearch extends Search{
 		if(current.get_g() + current.cost(neighbor) < neighbor.get_g()){
 			
 			neighbor.set_g(current.get_g() + current.cost(neighbor));
-			neighbor.calculate_h(goalX, goalY);
+			//neighbor.calculate_h(goalX, goalY);
 			neighbor.update_f();
 			neighbor.setParent(current);
 			
@@ -28,7 +28,7 @@ public class AStarSearch extends Search{
 		open = new PriorityQueue<Node>(size, new Node.NodeComparator());
 		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
 		start.set_g(0);
-		start.calculate_h(goalX, goalY);
+		//start.calculate_h(goalX, goalY);
 		start.update_f();
 		open.add(start);
 		

@@ -79,6 +79,7 @@ public class Map {
 			for(int col = 0; col < cols; col++){
 				//Using Node grid
 				grid[row][col] = new Node(col,row);
+				grid[row][col].calculate_h(end.getX(), end.getY());
 			}
 		}
 	}
@@ -305,7 +306,8 @@ public class Map {
 		
 		
 		//need to add h, f, and time it took to calculate path.
-		return "x: " + x +"\n" +"y: " + y + "\n" + "g:" + cell.get_g() + "\n";
+		return "x: " + x +"\n" +"y: " + y + "\n" + "g:" + cell.get_g() + "\n" + "h:" + cell.get_h() + "\n"
+				+ "f:" + cell.get_f() + "\n";
 		
 	}
 	/**

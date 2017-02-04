@@ -231,6 +231,17 @@ public class Node {
 		
 		//example from the assignment
 		h = (double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy);
+		
+		
+		/*
+		 * Other possible heuristics:
+		 * 
+		 * D * (dx + dy) + (D2 - 2 * D) * Math.min(dx,dy) where D is vertical/horizontal cost, D2 is diagonal 
+		 * 
+		 * D2 * Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2))
+		 * 
+		 * D * (dx + dy)
+		 */
 		return h;
 	}
 

@@ -1,4 +1,22 @@
-Pasted from Word so it lost some formatting (5% instead of 10%).
+There are several possible ways to calculate the distance between the start node and goal node. Let dx represent the horizontal distance and let dy represent the vertical distance between the start node and goal node. Let D represent the vertical/horizontal cost and D2 represent diagonal cost.  The costs used in the following heuristics focus on regular cells to try to avoid creating an inadmissible heuristic.
+
+First, we looked at the heuristic given in the in the assignment.
+	h = Math.sqrt(2) * min(dx,dy) + max(dx,dy) – min(dx,dy)
+
+It was determined that the equation was neither admissible/(consistent). The algorithm doesn’t consider the highways.
+There is the Euclidean distance formula.  D2 * Math.sqrt(dx * dx + dy * dy))
+	Pro: considers diagonals Con: computationally expensive, only considers a straight line movement to the goal
+	Using the diagonal cost, this function fails to take into account the faster speeds of the highways. Using an average of the highway horizontal/ vertical costs and unblocked cell diagonal ’s cost, the heuristic tries to consider the fact that an L-shaped movement on a highway is less costly than moving on a diagonal. 
+The Manhattan distance formula . D * (dx + dy)
+	Pro: computationally inexpensive, Con: doesn’t consider diagonal movement
+This formula considers the faster movements of highways.  If the optimal path does not make use of the highways, this heuristic is not close to the actual cost. 
+The Diagonal distance formula D * (dx + dy) + (D2 - 2 * D) * Math.min(dx,dy) 
+
+h = .25 * (dx + dy) - (Math.sqrt(2) -  2 * 1) * Math.min(dx,dy);
+
+Computes the number of steps if a diagonal is not taken and adds the minimum diagonal steps because they are more expensive. The cost of the minimum diagonal steps are the net cost of not moving vertical/ horizontal. The equation tries to take into account both directions of travel.
+
+-----------------------------------------------------
 
 Aleece Randall
 Matthew Ya

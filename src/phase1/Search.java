@@ -35,7 +35,7 @@ public abstract class Search {
 		
 		
 		long starttime = System.nanoTime();
-		double startMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d / 1024d; 
+		double startMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d; 
 		double endMemory = 0;
 		
 		while(!open.isEmpty()){
@@ -45,8 +45,11 @@ public abstract class Search {
 			
 			if(current.equals(map.getCell(goalX, goalY))){
 				time = (System.nanoTime() - starttime)/1000000;
-				endMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d / 1024d; 
+				endMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d; //KB output
 				memory = endMemory - startMemory;
+				if(memory < 0){
+					memory = 0;
+				}
 				return true;
 			}
 				
@@ -115,7 +118,9 @@ public abstract class Search {
 	public int getNumOfExpandedNodes(){
 		return this.closed.size();
 	}
-	
+	public double getMemoryUsed(){
+		return this.memory;
+	}
 	public void printSummary(){
 		System.out.println("\nSearch Summary\n");
 		System.out.println("Starting Cell: (" + map.getStartCoordinate().getX() + "," + map.getStartCoordinate().getY() + ")");
@@ -125,7 +130,7 @@ public abstract class Search {
 		System.out.println("Number of Nodes in Path: " + getPathLength());
 		System.out.println("Number of Expanded Nodes: " + getNumOfExpandedNodes());
 		System.out.println("Total Search Time (in milliseconds) : " + getTime());
-		System.out.println("Memory requirement: " + this.memory);
+		System.out.println("Memory requirement: " + this.memory + "KB");
 		
 	}
 	

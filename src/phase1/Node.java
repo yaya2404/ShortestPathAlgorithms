@@ -247,19 +247,16 @@ public class Node{
 		double dy = Math.abs(ycoordinate - goalY);
 		
 		//example from the assignment
-		h = (double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy);
+		//h = (double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy);
 		
-		//h =  (double)0.25 * Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+		//h =  (double)Math.sqrt(2) * Math.sqrt(dx * dx + dy * dy);
 		
-		/*
-		 * Other possible heuristics:
-		 * 
-		 * D * (dx + dy) + (D2 - 2 * D) * Math.min(dx,dy) where D is vertical/horizontal cost, D2 is diagonal 
-		 * 
-		 * D2 * Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2))
-		 * 
-		 * D * (dx + dy)
-		 */
+		h = .25 * (dx + dy);
+		
+		//h = ((.25 +  Math.sqrt(2)) / 2)* Math.sqrt(dx * dx + dy * dy);
+		
+		//h = .25 * (dx + dy) - (Math.sqrt(2)  -  2 * 1) * Math.min(dx,dy); 
+		
 		return h;
 	}
 

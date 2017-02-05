@@ -1,0 +1,142 @@
+h = .25 * (dx + dy);
+
+Uniform Cost
+Map1
+Average run time: 41.6ms
+Average path length: 159
+Average nodes expanded: 13095
+Average memory used: 5479.5796875KB
+
+Map2
+Average run time: 22.6ms
+Average path length: 185
+Average nodes expanded: 13021
+Average memory used: 4791.365625KB
+
+Map3
+Average run time: 20.1ms
+Average path length: 211
+Average nodes expanded: 12264
+Average memory used: 5820.00390625KB
+
+Map4
+Average run time: 14.4ms
+Average path length: 160
+Average nodes expanded: 10539
+Average memory used: 3977.1046875KB
+
+Map5
+Average run time: 19.5ms
+Average path length: 186
+Average nodes expanded: 14262
+Average memory used: 5848.990625KB
+
+Total average run time: 23.64ms
+Total average path length: 180
+Total average nodes expanded: 12636
+Total average memory used: 5183.40890625KB
+A*
+Map1
+Average run time: 19.4ms
+Average path length: 159
+Average nodes expanded: 9604
+Average memory used: 4250.41328125KB
+
+Map2
+Average run time: 14.3ms
+Average path length: 185
+Average nodes expanded: 7318
+Average memory used: 3183.115625KB
+
+Map3
+Average run time: 13.4ms
+Average path length: 211
+Average nodes expanded: 8243
+Average memory used: 2123.375KB
+
+Map4
+Average run time: 9.2ms
+Average path length: 160
+Average nodes expanded: 6548
+Average memory used: 2655.8421875KB
+
+Map5
+Average run time: 15.6ms
+Average path length: 186
+Average nodes expanded: 11989
+Average memory used: 4780.5140625KB
+
+Total average run time: 14.38ms
+Total average path length: 180
+Total average nodes expanded: 8740
+Total average memory used: 3398.65203125KB
+Weighted A* (1.25)
+Map1
+Average run time: 14.2ms
+Average path length: 162
+Average nodes expanded: 8613
+Average memory used: 4249.346875KB
+
+Map2
+Average run time: 8.3ms
+Average path length: 185
+Average nodes expanded: 5675
+Average memory used: 2124.671875KB
+
+Map3
+Average run time: 9.5ms
+Average path length: 196
+Average nodes expanded: 6640
+Average memory used: 2124.928125KB
+
+Map4
+Average run time: 7.0ms
+Average path length: 160
+Average nodes expanded: 5430
+Average memory used: 1062.59375KB
+
+Map5
+Average run time: 14.2ms
+Average path length: 186
+Average nodes expanded: 11233
+Average memory used: 4250.353125KB
+
+Total average run time: 10.64ms
+Total average path length: 178
+Total average nodes expanded: 7518
+Total average memory used: 2762.37875KB
+Weighted A* (2.00)
+Map1
+Average run time: 5.7ms
+Average path length: 152
+Average nodes expanded: 4871
+Average memory used: 2662.8765625KB
+
+Map2
+Average run time: 3.0ms
+Average path length: 173
+Average nodes expanded: 2558
+Average memory used: 1593.88125KB
+
+Map3
+Average run time: 5.4ms
+Average path length: 189
+Average nodes expanded: 3988
+Average memory used: 1593.884375KB
+
+Map4
+Average run time: 3.6ms
+Average path length: 152
+Average nodes expanded: 2258
+Average memory used: 0.0KB
+
+Map5
+Average run time: 12.8ms
+Average path length: 174
+Average nodes expanded: 9026
+Average memory used: 1700.7625KB
+
+Total average run time: 6.1ms
+Total average path length: 168
+Total average nodes expanded: 4541
+Total average memory used: 1510.2809375KB

@@ -124,7 +124,21 @@ public class test {
 		
 		try {
 			
-			
+			for(int algo = 1; algo <= 4; algo++){
+				switch(algo){
+				case 1:
+					System.out.println("Uniform Cost");
+					break;
+				case 2:
+					System.out.println("A*");
+					break;
+				case 3:
+					System.out.println("Weighted A* (1.25)");
+					break;
+				case 4:
+					System.out.println("Weighted A* (2.00)");
+					break;
+				}
 			
 			for(int x = 0; x < folders.length; x++){
 				File[] files = folders[x].listFiles();
@@ -144,10 +158,26 @@ public class test {
 					}
 					*/
 					Map map = new Map(files[y]);
-
+					Search testing;
 					
-					Search testing = new AStarSearch(map);
-					testing.setupFringe(new Node.NodeComparatorG());
+					if (algo == 1) {
+						testing = new UniformCostSearch(map);
+						testing.setupFringe(new Node.NodeComparatorG());
+					} else if (algo > 2) {
+						double weight;
+						if(algo == 3)
+							weight = 1.25;
+						else
+							weight = 2.00;
+						
+						testing = new WeightedAStarSearch(map, weight);
+						testing.setupFringe(new Node.NodeComparator());
+
+					} else {
+						testing = new AStarSearch(map);
+						testing.setupFringe(new Node.NodeComparator());
+					}
+					
 					if(testing.findPath()){
 						testing.printPath();
 					}else{
@@ -182,6 +212,15 @@ public class test {
 			System.out.println("Total average path length: " + totalpathlength/50);
 			System.out.println("Total average nodes expanded: " + totalnodesexpanded/50);
 			
+			maptotalruntime = 0;
+			maptotalpathlength = 0;
+			maptotalnodesexpanded = 0;
+			
+			totalruntime = 0;
+			totalpathlength = 0;
+			totalnodesexpanded = 0;
+			
+			}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -1,0 +1,115 @@
+Pasted from Word so it lost some formatting (5% instead of 10%).
+
+Aleece Randall
+Matthew Ya
+
+Report 
+
+a)	Quick How-to for interface and images
+Colors
+Blocked: Black
+Regular unblocked: White
+Hard to traverse: Orange
+Regular unblocked with a highway: Cyan
+Hard to traverse with a highway: Blue
+Start: Lime Green
+Path: Purple
+End: Red
+
+b)	Implementation of the algorithms (talking about abstraction?)
+
+c)	The data structures used to implement the algorithms were chosen to achieve the best time and space complexities. The fringe or open list is a priority queue that is implemented using a binary heap. This data structure provides worst case complexities of O(log N) for search, inserts, and delete and O(1) for removal of the cell with the lowest value. The successors of each node are stored in a HashSet because of its O(1) insert. A HashSet was also chosen for the closed list. The HashSet has an average case search time of O(1) but a worst case time O(n). The HashSet was chosen over a 2D boolean array due to the higher space requirement. Although, the Boolean array would yield a worst case search time of O(1) , the space complexity is always the total number of nodes in the graph. On average, the HashSet is a much smaller value. The HashSet and Priority Queue were initialized to a higher but reasonable initial capacity in an attempt to reduce possible rehashing.
+**the hashset and array are both O(1) space complexity since both are constants. Argument above is wrong…. Should change hashset to array right?? 
+**Use approximation constants for the costs because square roots are expensive
+
+d)	Finalize after simulations
+There are several possible ways to calculate the distance between the start node and goal node. Let dx represent the horizontal distance and let dy represent the vertical distance between the start node and goal node. Let D represent the vertical/horizontal cost and D2 represent diagonal cost.  
+First there is the Euclidean distance formula.  D2 * Math.sqrt(dx * dx + dy * dy))
+	Pro: considers diagonals Con: computationally expensive, only considers a straight line
+The Manhattan distance formula D * (dx + dy)
+	Pro: computationally inexpensive, Con: doesn’t consider diagonal movement
+The Diagonal distance formula D * (dx + dy) + (D2 - 2 * D2) * Math.min(dx,dy)
+
+Discussion about picking D and D2 (average cost, lowest cost) 
+
+The Chebyshev distance formula (variation of diagonal distance) (dx + dy) – 2* Math.min(dx,dy)
+The Octile distance formula (variation of diagonal distance) (dx + dy) + (Math.sqrt(2) - 2) * Math.min(dx,dy)
+
+
+
+e)	Results of the 50 benchmarks (Currently project given heuristic -> will only include best result heuristic)
+a.	For each algorithm, add code that calculates which provided the best cost path
+	UNIFORM COST	A*	WEIGHTED A* (1.25)	WEIGHTED A* (2.00)
+
+MAP 1	RUN TIME: 5.14783904E7MS
+PATH LENGTH: 155
+NODES EXPANDED: 13076	RUN TIME: 3977783.6MS
+PATH LENGTH: 136
+NODES EXPANDED: 748	RUN TIME: 1138989.0MS
+PATH LENGTH: 124
+NODES EXPANDED: 279	RUN TIME: 203967.4MS
+PATH LENGTH: 119
+NODES EXPANDED: 122
+
+MAP 2	RUN TIME: 2.45842276E7MS
+PATH LENGTH: 181
+NODES EXPANDED: 13042	RUN TIME: 1568430.7MS
+PATH LENGTH: 137
+NODES EXPANDED: 470	RUN TIME: 531798.5MS
+PATH LENGTH: 124
+NODES EXPANDED: 201	RUN TIME: 236018.1MS
+PATH LENGTH: 119
+NODES EXPANDED: 122
+
+MAP 3	RUN TIME: 1.78418271E7MS
+PATH LENGTH: 218
+NODES EXPANDED: 11236	RUN TIME: 2918851.6MS
+PATH LENGTH: 149
+NODES EXPANDED: 940	RUN TIME: 599632.2MS
+PATH LENGTH: 135
+NODES EXPANDED: 332	RUN TIME: 242829.5MS
+PATH LENGTH: 133
+NODES EXPANDED: 136
+
+MAP 4	RUN TIME: 1.50828559E7MS
+PATH LENGTH: 154
+NODES EXPANDED: 10534	RUN TIME: 2502705.7MS
+PATH LENGTH: 122
+NODES EXPANDED: 829	RUN TIME: 720230.6MS
+PATH LENGTH: 119
+NODES EXPANDED: 308	RUN TIME: 180921.0MS
+PATH LENGTH: 114
+NODES EXPANDED: 116
+
+MAP 5	RUN TIME: 2.59911451E7MS
+PATH LENGTH: 181
+NODES EXPANDED: 14250	RUN TIME: 4760529.6MS
+PATH LENGTH: 147
+NODES EXPANDED: 1695	RUN TIME: 1003461.7MS
+PATH LENGTH: 138
+NODES EXPANDED: 567	RUN TIME: 224494.6MS
+PATH LENGTH: 134
+NODES EXPANDED: 142
+
+
+ Uniform
+Total average run time: 2.515222906E7ms
+Total average path length: 178
+Total average nodes expanded: 12428
+
+A*
+Total average run time: 3145660.24ms
+Total average path length: 138
+Total average nodes expanded: 936
+
+Weighted A* (1.25)
+Total average run time: 798822.4ms
+Total average path length: 128
+Total average nodes expanded: 337
+
+Weighted A* (2.00)
+Total average run time: 217646.12ms
+Total average path length: 124
+Total average nodes expanded: 128
+
+f)	After running all the simulations

@@ -8,7 +8,7 @@ public abstract class Search {
 	
 	Map map;
 	PriorityQueue<Node> open;
-	int size = 10; //need to determine optimal size for queue
+	int size = 1000; //need to determine optimal size for queue
 	HashSet<Node> successors;
 	HashSet<Node> closed; 
 	protected int goalX;

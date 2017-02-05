@@ -108,6 +108,7 @@ public class Main extends Application {
 			// unsure if this works for all cases. This should get the directory
 			// of the project.
 			Coordinate[] input;
+			String[][] smap;
 			File f = new File(".");
 			f = new File(f.getAbsolutePath() + "/Maps");
 			FileChooser fc = new FileChooser();
@@ -115,11 +116,11 @@ public class Main extends Application {
 			File file = fc.showOpenDialog(primaryStage);
 
 			input = getInput(file);
-
+			//smap = getMap(file);
 			if (input != null & !(input.length < 10)) {
 
 				// setting up map
-				Map map = new Map(input);
+				Map map = new Map(file);
 
 				Search pathSearch;
 				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -174,7 +175,29 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
- 
+	/*
+	private String[][] getMap(File file) {
+		// TODO Auto-generated method stub
+		String[][] input = new String[rows][cols];
+		FileReader reader;
+		try {
+			reader = new FileReader(file);
+			BufferedReader breader = new BufferedReader(reader);
+			for (int count = 0; count < 10; count++) {
+				a = breader.readLine().split(" ");
+				input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
+		return input;
+	}
+	*/
 	//potentially being moved to map class
 	private Coordinate[] getInput(File file) {
 		Coordinate[] input = new Coordinate[numofinputs];

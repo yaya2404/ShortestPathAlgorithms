@@ -22,8 +22,11 @@ public class Map {
 	private static final char reghighway = 'a';
 	private static final char hardhighway = 'b';
 	
-	//the grid representing the map
+	//the grid representing the map to be modified when path is found
 	private static Node[][] grid = new Node[rows][cols];
+	
+	//the grid represented by a String[][] that does not show path. Used strictly for outputting into file.
+	private static String[][] sgrid = new String[rows][cols];
 	
 	//coordinates for start/end nodes 
 	private Coordinate[] input;
@@ -43,27 +46,30 @@ public class Map {
 	 * Constructor for random generation of map
 	 * Remove input parameter later
 	 */
+	/*
 	public Map(Coordinate[] input){
 		this.input = input;
 		this.start = this.input[0];
 		this.end = this.input[1];
 		
-		createUnblockedCells();
-		createHardCell();
-		createHighwayCell();
-		createBlockedCells();
+		
+		//createUnblockedCells();
+		//createHardCell();
+		//createHighwayCell();
+		//ScreateBlockedCells();
 		//generateCoordinates();
 	}
-	
+	*/
 	/**
 	 * Generates map from file
 	 * @param file valid map file
 	 */
 	public Map(File file){
+		/*
 		this.input = input;
 		this.start = this.input[0];
 		this.end = this.input[1];
-		
+		*/
 		try {
 			readMapFromFile(file);
 		} catch (Exception e) {
@@ -77,16 +83,35 @@ public class Map {
 		BufferedReader breader = new BufferedReader(freader);
 		char cellType;
 		
+		input = new Coordinate[10];
+		
+		//read input
+		String a[];
+		for(int count = 0; count < 10; count++){
+			a = breader.readLine().split(" ");
+			input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
+		}
+		
+		this.start = this.input[0];
+		this.end = this.input[1];
+		
+		
+		
+		String line = "";
+		//read map
 		for(int row = 0; row < rows; row++){
+			line = breader.readLine();
 			for(int col = 0; col < cols; col++){
 				//Using Node grid
-				cellType = (char)breader.read();
+				cellType = line.charAt(col);
+				sgrid[row][col] = String.valueOf(cellType);
 				grid[row][col] = new Node(col,row,cellType);
 				grid[row][col].calculate_h(end.getX(), end.getY());
 			}
 		}
-		
+		breader.close();
 	}
+	/*
 	/**
 	 * Generate blocked cells for map
 	 */
@@ -110,9 +135,7 @@ public class Map {
 		}while(blockedcells < 3840);
 	}
 	
-	/**
-	 * Generate unblocked cells for map 
-	 */
+	/*
 	private void createUnblockedCells(){
 		
 		for(int row = 0; row < rows; row++){
@@ -124,9 +147,7 @@ public class Map {
 		}
 	}
 	
-	/**
-	 * Generate hard cells for map
-	 */
+
 	private void createHardCell(){
 		Random random = new Random();
 		
@@ -169,9 +190,7 @@ public class Map {
 		}
 	}
 	
-	/**
-	 *  Generates highway
-	 */
+
 	private void createHighwayCell(){
 		
 		int count = 0;
@@ -187,12 +206,7 @@ public class Map {
 			path = null;
 		}while(count < 4);
 	}
-	/**
-	 * 
-	 * Mark the cells on map that represent the highway
-	 * 
-	 * @param path	contains an ArrayList of Coordinates that represent the highway path
-	 */
+
 	private void markHighwayPath(ArrayList<Coordinate> path){
 		
 		 int hwy = -1;
@@ -210,12 +224,6 @@ public class Map {
 		 }
 	}
 	
-	/**
-	 * 
-	 * Searches for an appropriate path that represents the highway
-	 * 
-	 * @return	an ArrayList containing Coordinates that represent the highway
-	 */
 	private ArrayList<Coordinate> findHighwayPath(){
 		
 				
@@ -329,7 +337,7 @@ public class Map {
 		
 		return path; 
 	}
-	
+	*/
 	public String printCellInfo(int x, int y){
 		
 		Node cell = grid[y][x];
@@ -370,20 +378,15 @@ public class Map {
 	public String toString(){
 		
 		StringBuilder out = new StringBuilder();
-		
 		//add coordinates for start, end, and center of hard cells.
 		for(int count = 0; count < 10; count++){
 			out.append(input[count].getX() + " " + input[count].getY());
 			out.append("\n");
 		}
-		
-		
-		out.append("\n");
-		
 		//adds the map
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
-				out.append(grid[row][col].getType());
+				out.append(sgrid[row][col]);
 				//out.append(" ");
 			}
 			out.append("\n");

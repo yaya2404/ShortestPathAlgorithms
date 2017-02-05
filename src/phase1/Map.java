@@ -46,6 +46,7 @@ public class Map {
 	 * Constructor for random generation of map
 	 * Remove input parameter later
 	 */
+	/*
 	public Map(Coordinate[] input){
 		this.input = input;
 		this.start = this.input[0];
@@ -58,7 +59,7 @@ public class Map {
 		//ScreateBlockedCells();
 		//generateCoordinates();
 	}
-	
+	*/
 	/**
 	 * Generates map from file
 	 * @param file valid map file
@@ -110,6 +111,7 @@ public class Map {
 		}
 		breader.close();
 	}
+	/*
 	/**
 	 * Generate blocked cells for map
 	 */
@@ -133,9 +135,7 @@ public class Map {
 		}while(blockedcells < 3840);
 	}
 	
-	/**
-	 * Generate unblocked cells for map 
-	 */
+	/*
 	private void createUnblockedCells(){
 		
 		for(int row = 0; row < rows; row++){
@@ -147,9 +147,7 @@ public class Map {
 		}
 	}
 	
-	/**
-	 * Generate hard cells for map
-	 */
+
 	private void createHardCell(){
 		Random random = new Random();
 		
@@ -192,9 +190,7 @@ public class Map {
 		}
 	}
 	
-	/**
-	 *  Generates highway
-	 */
+
 	private void createHighwayCell(){
 		
 		int count = 0;
@@ -210,12 +206,7 @@ public class Map {
 			path = null;
 		}while(count < 4);
 	}
-	/**
-	 * 
-	 * Mark the cells on map that represent the highway
-	 * 
-	 * @param path	contains an ArrayList of Coordinates that represent the highway path
-	 */
+
 	private void markHighwayPath(ArrayList<Coordinate> path){
 		
 		 int hwy = -1;
@@ -233,12 +224,6 @@ public class Map {
 		 }
 	}
 	
-	/**
-	 * 
-	 * Searches for an appropriate path that represents the highway
-	 * 
-	 * @return	an ArrayList containing Coordinates that represent the highway
-	 */
 	private ArrayList<Coordinate> findHighwayPath(){
 		
 				
@@ -352,7 +337,7 @@ public class Map {
 		
 		return path; 
 	}
-	
+	*/
 	public String printCellInfo(int x, int y){
 		
 		Node cell = grid[y][x];

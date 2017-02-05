@@ -18,7 +18,6 @@ public class UniformCostSearch extends Search{
 			neighbor.set_g(current.get_g() + current.cost(neighbor));
 			neighbor.setParent(current);
 			
-			
 			//remove needed to update the fringe
 			if(open.contains(neighbor))
 				open.remove(neighbor);
@@ -39,6 +38,9 @@ public class UniformCostSearch extends Search{
 	}
 }
 
+
+
+//needs to be deleted before handing in
 /*
 public class UniformCostSearch extends searchTemplate {
 

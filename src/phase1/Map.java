@@ -96,9 +96,6 @@ public class Map {
 		
 		for(int count = 2; count < 10; count++){
 			
-			
-			//hardx = random.nextInt(cols);
-			//hardy = random.nextInt(rows);
 			hardx = this.input[count].getX();
 			hardy =	this.input[count].getY();
 			
@@ -122,7 +119,6 @@ public class Map {
 			for(int y = 0; y < 31 && testy + y < rows; y++){
 				for(int x = 0; x < 31 && testx + x < cols; x++){
 					if(random.nextDouble() < 0.5){
-						 //grid[testy + y][testx + x] = new Node(testx + x, testy + y);
 						 grid[testy + y][testx + x].setType(hardcell);
 					}
 				}
@@ -165,10 +161,8 @@ public class Map {
 			hwy = path.get(count).getY();
 			//set current tile to highway
 			if(grid[hwy][hwx].getType() == unblockedcell){
-				//grid[hwy][hwx] = new Node(hwx, hwy);
 				grid[hwy][hwx].setType(reghighway);
 			}else if(grid[hwy][hwx].getType() == hardcell){
-				//grid[hwy][hwx] = new Node(hwx, hwy);
 				grid[hwy][hwx].setType(hardhighway);
 			}
 		 }
@@ -227,7 +221,6 @@ public class Map {
 				//met requirements of highway
 				if(hwpath > 100){
 					boundary = true;
-					//System.out.println(count + ": path too short");
 				//highway path is less than 100 squares. Restart.
 				}else{
 					return null;
@@ -236,7 +229,6 @@ public class Map {
 			
 			//highway runs into another highway. Must reset. 
 			if(grid[hwy][hwx].getType() == reghighway || grid[hwy][hwx].getType() == hardhighway){
-				//System.out.println(count + ": ran into another highway");
 				return null;
 			}
 			
@@ -336,7 +328,7 @@ public class Map {
 		
 		StringBuilder out = new StringBuilder();
 		
-		
+		//add coordinates for start, end, and center of hard cells.
 		for(int count = 0; count < 10; count++){
 			out.append(input[count].getX() + " " + input[count].getY());
 			out.append("\n");
@@ -345,6 +337,7 @@ public class Map {
 		
 		out.append("\n");
 		
+		//adds the map
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
 				out.append(grid[row][col].getType());

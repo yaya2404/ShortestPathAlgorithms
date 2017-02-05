@@ -274,7 +274,7 @@ public class Node {
 		@Override
 		public int compare(Node o1, Node o2) {
 			if(o1.g != o2.g){
-				return (o1.g > o2.g) ? 1 : -1; //max heap??
+				return (o1.g > o2.g) ? 1 : -1;
 			}else{
 				Random random = new Random();
 				return (random.nextDouble() < 0.5) ? 1 : -1; 

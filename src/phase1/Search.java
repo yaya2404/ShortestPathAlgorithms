@@ -135,9 +135,9 @@ public abstract class Search {
 		
 		pathlength = 0;
 		Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
-		if(s.get_g() <= 0){
-			System.out.println("ERROR:Total Cost to Reach Goal: " + s.get_g());
-		}
+		//if(s.get_g() <= 0)
+			//System.out.println("Total Cost to Reach Goal: " + s.get_g());
+		
 		while(s!=null){
 			//System.out.println(s.getType());
 			s.setType(Node.path);

@@ -15,12 +15,14 @@ public abstract class Search {
 	protected int goalY;
 	private long time;
 	private int pathlength;
+	protected boolean consistent;//testing only
 	
 	public Search(Map m){
 		map = m;
 		goalX = map.getEndCoordinate().getX();
 		goalY = map.getEndCoordinate().getY();
 		closed = new HashSet<Node>(3000); //should decrease amount of rehashing
+		consistent = true;//testing only
 	}
 	
 
@@ -125,13 +127,35 @@ public abstract class Search {
 		
 		pathlength = 0;
 		Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+		if(s.get_g() <= 0){
+			System.out.println("ERROR:Total Cost to Reach Goal: " + s.get_g());
+		}
 		while(s!=null){
 			//System.out.println(s.getType());
 			s.setType(Node.path);
 			s = s.getParent();
 			pathlength++;
 		}
+		
+		
+		
 	}
+
+	/**
+	 * tests that the heuristic is admissible for start to goal case
+	 * @return
+	 */
+
+
+	/*public boolean isAdmissible() {
+		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
+		return start.get_h() <= goal.get_g();
+	}
+	
+	public boolean isConsistent(){
+		return consistent;
+	} */
 	
 	
 	

@@ -243,8 +243,9 @@ public class Node {
 		double dy = Math.abs(ycoordinate - goalY);
 		
 		//example from the assignment
-		h = (double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy);
+		//h = (double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy);
 		
+		h =  (double)Math.sqrt(2) * Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 		
 		/*
 		 * Other possible heuristics:

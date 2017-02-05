@@ -38,7 +38,7 @@ The Octile distance formula (variation of diagonal distance) (dx + dy) + (Math.s
 
 
 e)	Results of the 50 benchmarks (Currently project given heuristic -> will only include best result heuristic)
-a.	For each algorithm, add code that calculates which provided the best cost path
+	
 	UNIFORM COST	A*	WEIGHTED A* (1.25)	WEIGHTED A* (2.00)
 
 MAP 1	RUN TIME: 5.14783904E7MS

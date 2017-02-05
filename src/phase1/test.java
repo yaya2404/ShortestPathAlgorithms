@@ -102,6 +102,9 @@ public class test {
 		int totalpathlength = 0;
 		int totalnodesexpanded = 0;
 		
+		//boolean admissible = true;
+		//boolean consistent = true;
+		
 		/*
 		 * Testing for part E of Phase 1
 		 * 
@@ -180,6 +183,13 @@ public class test {
 					
 					if(testing.findPath()){
 						testing.printPath();
+						/*testing only
+						if(algo == 2){
+							if(!testing.isAdmissible())
+								admissible = false;
+							if(!testing.isConsistent())
+								consistent = false;
+						} */
 					}else{
 						System.out.println("error has occurred during the path search on: " + files[y].getName());
 					}
@@ -222,6 +232,17 @@ public class test {
 			
 			}
 			
+			/*NOT A COMPLETE TEST
+			
+			if(admissible)
+				System.out.println("** Heuristic is admissible **");
+			else
+				System.out.println("** Heuristic  is NOT admissible **");
+			if(consistent)
+				System.out.println("** Heuristic is consistent **");
+			else
+				System.out.println("** Heuristic is NOT consistent **");
+			*/
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();

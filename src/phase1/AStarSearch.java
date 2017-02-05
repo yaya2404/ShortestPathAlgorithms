@@ -18,6 +18,11 @@ public class AStarSearch extends Search{
 			neighbor.update_f();
 			neighbor.setParent(current);
 			
+			/*testing only
+			if(current.get_h() > current.cost(neighbor) + neighbor.get_h())
+				consistent = false;
+			*/
+			
 			//remove needed to update the fringe
 			if(open.contains(neighbor))
 				open.remove(neighbor);

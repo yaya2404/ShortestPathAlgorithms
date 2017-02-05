@@ -1,5 +1,6 @@
 package phase1;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
 
@@ -138,9 +139,9 @@ public class Node {
 						case hardcell:
 							return 1.5;
 						case reghighway:
-							return 0.5;
+							return 1;
 						case hardhighway:
-							return 0.75;
+							return 1.5;
 					}
 				case hardcell:
 					switch(neighbor.type){
@@ -149,16 +150,16 @@ public class Node {
 						case hardcell:
 							return 2;
 						case reghighway:
-							return 0.75;
+							return 1.5;
 						case hardhighway:
-							return 1;
+							return 2;
 					}
 				case reghighway:
 					switch(neighbor.type){
 						case unblockedcell:
-							return 0.5;
+							return 1;
 						case hardcell:
-							return 0.75;
+							return 1.5;
 						case reghighway:
 							return 0.25;
 						case hardhighway:
@@ -167,9 +168,9 @@ public class Node {
 				case hardhighway:
 					switch(neighbor.type){
 						case unblockedcell:
-							return 0.75;
+							return 1.5;
 						case hardcell:
-							return 1;
+							return 2;
 						case reghighway:
 							return 0.375;
 						case hardhighway:
@@ -187,49 +188,51 @@ public class Node {
 					case unblockedcell:
 						return Math.sqrt(2);
 					case hardcell:
-						return (Math.sqrt(2) + Math.sqrt(8))/2;
+						return (Math.sqrt(2) + Math.sqrt(8)) / 2;
 					case reghighway:
-						return Math.sqrt(2)/2;
+						return Math.sqrt(2);
 					case hardhighway:
-						return (Math.sqrt(2) + Math.sqrt(8)) / 4;
+						return (Math.sqrt(2) + Math.sqrt(8)) / 2;
 				}
 			case hardcell:
 				switch(neighbor.type){
 					case unblockedcell:
-						return (Math.sqrt(2) + Math.sqrt(8))/2;
+						return (Math.sqrt(2) + Math.sqrt(8)) /2;
 					case hardcell:
 						return Math.sqrt(8);
 					case reghighway:
-						return (Math.sqrt(2) + Math.sqrt(8)) / 4;
+						return (Math.sqrt(2) + Math.sqrt(8)) / 2;
 					case hardhighway:
-						return Math.sqrt(8)/2;
+						return Math.sqrt(8);
 				}
-				//needs clarification (diagonal movement to a different highway, etc)
+		
 			case reghighway:
 				switch(neighbor.type){
 					case unblockedcell:
-						return Math.sqrt(2)/2;
+						return Math.sqrt(2);
 					case hardcell:
-						return (Math.sqrt(2) + Math.sqrt(8)) / 4;
+						return (Math.sqrt(2) + Math.sqrt(8)) / 2;
 					case reghighway: 
-						return Math.sqrt(2)/4;
+						return Math.sqrt(2) * .25;
 					case hardhighway:
-						return (Math.sqrt(2) + Math.sqrt(8)) / 8;
+						return ((Math.sqrt(2) + Math.sqrt(8)) / 2) * .375;
 				}
 			case hardhighway:
 				switch(neighbor.type){
 					case unblockedcell:
-						return (Math.sqrt(2) + Math.sqrt(8)) / 4;
+						return (Math.sqrt(2) + Math.sqrt(8)) / 2;
 					case hardcell:
-						return Math.sqrt(8)/2;
+						return Math.sqrt(8);
 					case reghighway:
-						return (Math.sqrt(2) + Math.sqrt(8)) / 8;
+						return ((Math.sqrt(2) + Math.sqrt(8)) / 2) * .375;
 					case hardhighway:
-						return  Math.sqrt(8)/4;
+						return  Math.sqrt(8) * 0.5;
 				}
 				
 			}
 		}
+		//System.out.println("error:" + neighbor.type + ""+ this.type);
+		//System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
 		return -1;
 	}
 	/**

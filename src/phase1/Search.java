@@ -86,8 +86,9 @@ public abstract class Search {
 				if(x == 0 && y == 0)
 					continue;
 				successor = map.getCell(currentX + x,currentY + y);
-				if(successor != null && successor.getType() != Node.blockedcell)
+				if(successor != null && successor.getType() != Node.blockedcell){
 						successors.add(successor);
+					}
 				}
 				
 			}	
@@ -147,7 +148,7 @@ public abstract class Search {
 	 */
 
 
-	/*public boolean isAdmissible() {
+	public boolean isAdmissible() {
 		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
 		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
 		return start.get_h() <= goal.get_g();
@@ -155,7 +156,7 @@ public abstract class Search {
 	
 	public boolean isConsistent(){
 		return consistent;
-	} */
+	} 
 	
 	
 	

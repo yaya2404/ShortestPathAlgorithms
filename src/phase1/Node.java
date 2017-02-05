@@ -27,8 +27,18 @@ public class Node {
 		
 		parent = null;
 		type = unblockedcell;
-		g = Double.MAX_VALUE;
+		g = Double.POSITIVE_INFINITY;
 		//g = 0;
+		h = 0;
+		f = g;
+	}
+	
+	public Node(int x, int y, char type){
+		xcoordinate = x;
+		ycoordinate = y;
+		
+		parent = null;
+		g = Double.POSITIVE_INFINITY;
 		h = 0;
 		f = g;
 	}

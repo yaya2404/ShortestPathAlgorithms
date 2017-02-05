@@ -1,6 +1,10 @@
 package phase1;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -35,16 +39,54 @@ public class Map {
 	public Coordinate getEndCoordinate(){
 		return this.end;
 	}
+	/**
+	 * Constructor for random generation of map
+	 * Remove input parameter later
+	 */
 	public Map(Coordinate[] input){
 		this.input = input;
 		this.start = this.input[0];
 		this.end = this.input[1];
+		
 		createUnblockedCells();
 		createHardCell();
 		createHighwayCell();
 		createBlockedCells();
+		//generateCoordinates();
 	}
 	
+	/**
+	 * Generates map from file
+	 * @param file valid map file
+	 */
+	public Map(File file){
+		this.input = input;
+		this.start = this.input[0];
+		this.end = this.input[1];
+		
+		try {
+			readMapFromFile(file);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void readMapFromFile(File file) throws Exception  {
+		FileReader freader = new FileReader(file);
+		BufferedReader breader = new BufferedReader(freader);
+		char cellType;
+		
+		for(int row = 0; row < rows; row++){
+			for(int col = 0; col < cols; col++){
+				//Using Node grid
+				cellType = (char)breader.read();
+				grid[row][col] = new Node(col,row,cellType);
+				grid[row][col].calculate_h(end.getX(), end.getY());
+			}
+		}
+		
+	}
 	/**
 	 * Generate blocked cells for map
 	 */
@@ -348,6 +390,62 @@ public class Map {
 		return out.toString();
 	}
 	
+	/**
+	 * Generates random start and goal nodes according to the project guidelines
+	 * Sets start/end coordinate
+	 */
 	
+	public void generateCoordinates(){
+		Random random = new Random();
+		Random probability = new Random();
+
+		
+		int startX, startY, goalX, goalY;
+		int dX,dY;
+		
+		do{
+			dX= random.nextInt(20);
+			dY= random.nextInt(20);
+			startX = (probability.nextDouble() < .5) ? 159-dX : 0 + dX;
+			startY = (probability.nextDouble() < .5) ? 119-dY : 0 + dY;
+		}while(grid[startY][startX].getType() == Node.blockedcell);
+		
+		do{
+			dX= random.nextInt(20);
+			dY= random.nextInt(20);
+			goalX = (probability.nextDouble() < .5) ? 159-dX : 0 + dX;
+			goalY = (probability.nextDouble() < .5) ? 119-dY : 0 + dY;
+		}while(grid[goalY][goalX].getType() == Node.blockedcell || findDistance(startX, startY, goalX, goalY) < 100);
+		
+		start = new Coordinate(startX,startY);
+		end =  new Coordinate(goalX,goalY);
+		
+	}
 	
+	private int findDistance(int startX, int startY, int goalX, int goalY) {
+		return Math.abs(startX - goalX) + Math.abs(startX - goalY);
+	}
+	
+	/*
+	private Coordinate[] getInput(File file) {
+		Coordinate[] input = new Coordinate[numofinputs];
+		FileReader reader;
+		try {
+			reader = new FileReader(file);
+			BufferedReader breader = new BufferedReader(reader);
+			String a[];
+			for (int count = 0; count < 10; count++) {
+				a = breader.readLine().split(" ");
+				input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return input;
+		
+	}*/
 }

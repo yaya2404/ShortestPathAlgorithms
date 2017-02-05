@@ -174,7 +174,8 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-
+ 
+	//potentially being moved to map class
 	private Coordinate[] getInput(File file) {
 		Coordinate[] input = new Coordinate[numofinputs];
 		FileReader reader;
@@ -193,6 +194,7 @@ public class Main extends Application {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	
 		return input;
 	}
 

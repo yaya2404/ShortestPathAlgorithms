@@ -334,9 +334,10 @@ public class Map {
 		
 		Node cell = grid[y][x];
 		
-		
-		//need to add h, f, and time it took to calculate path.
-		return "x: " + x +"\n" +"y: " + y + "\n" + "g:" + cell.get_g() + "\n" + "h:" + cell.get_h() + "\n"
+		if(cell.getType() == Node.blockedcell)
+			return "x: " + x +"\n" +"y: " + y + "\n";
+		else
+			return "x: " + x +"\n" +"y: " + y + "\n" + "g:" + cell.get_g() + "\n" + "h:" + cell.get_h() + "\n"
 				+ "f:" + cell.get_f() + "\n";
 		
 	}

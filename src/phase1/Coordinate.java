@@ -1,6 +1,8 @@
 package phase1;
 
-public class Coordinate {
+import java.io.Serializable;
+
+public class Coordinate{
 
 	private int x;
 	private int y;

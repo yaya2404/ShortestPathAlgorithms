@@ -15,7 +15,9 @@ public abstract class Search {
 	protected int goalY;
 	private long time;
 	private int pathlength;
+	private double memory;
 	protected boolean consistent;//testing only
+	
 	
 	public Search(Map m){
 		map = m;
@@ -31,7 +33,10 @@ public abstract class Search {
 		
 		Node current;
 		
+		
 		long starttime = System.nanoTime();
+		double startMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d / 1024d; 
+		double endMemory = 0;
 		
 		while(!open.isEmpty()){
 			
@@ -39,7 +44,9 @@ public abstract class Search {
 			
 			
 			if(current.equals(map.getCell(goalX, goalY))){
-				time = (System.nanoTime() - starttime);///100000;
+				time = (System.nanoTime() - starttime)/1000000;
+				endMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d / 1024d; 
+				memory = endMemory - startMemory;
 				return true;
 			}
 				
@@ -87,11 +94,11 @@ public abstract class Search {
 					continue;
 				successor = map.getCell(currentX + x,currentY + y);
 				if(successor != null && successor.getType() != Node.blockedcell){
-						successors.add(successor);
-					}
+					successors.add(successor);
 				}
+			}
 				
-			}	
+		}	
 		return successors;
 	}
 	
@@ -118,7 +125,7 @@ public abstract class Search {
 		System.out.println("Number of Nodes in Path: " + getPathLength());
 		System.out.println("Number of Expanded Nodes: " + getNumOfExpandedNodes());
 		System.out.println("Total Search Time (in milliseconds) : " + getTime());
-		
+		System.out.println("Memory requirement: " + this.memory);
 		
 	}
 	

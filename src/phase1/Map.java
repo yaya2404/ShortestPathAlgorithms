@@ -5,10 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Map {
+public class Map{
 	
 	
 	//Dimensions of the map
@@ -115,7 +116,7 @@ public class Map {
 	/**
 	 * Generate blocked cells for map
 	 */
-	
+	/*
 	private void createBlockedCells(){
 		
 		int blockedcells = 0;
@@ -135,7 +136,7 @@ public class Map {
 		}while(blockedcells < 3840);
 	}
 	
-	/*
+	
 	private void createUnblockedCells(){
 		
 		for(int row = 0; row < rows; row++){

@@ -1,10 +1,11 @@
 package phase1;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
 
-public class Node {
+public class Node{
 	
 	public static final char blockedcell = '0';
 	public static final char unblockedcell = '1';
@@ -231,7 +232,7 @@ public class Node {
 				
 			}
 		}
-		//System.out.println("error:" + neighbor.type + ""+ this.type);
+		System.out.println("error:" + neighbor.type + ""+ this.type);
 		//System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
 		return -1;
 	}

@@ -1,12 +1,14 @@
 package phase1application;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -107,17 +109,17 @@ public class Main extends Application {
 
 			// unsure if this works for all cases. This should get the directory
 			// of the project.
-			Coordinate[] input;
-			String[][] smap;
+			//Coordinate[] input;
+			//String[][] smap;
 			File f = new File(".");
 			f = new File(f.getAbsolutePath() + "/Maps");
 			FileChooser fc = new FileChooser();
 			fc.setInitialDirectory(f);
 			File file = fc.showOpenDialog(primaryStage);
 
-			input = getInput(file);
+			//input = getInput(file);
 			//smap = getMap(file);
-			if (input != null & !(input.length < 10)) {
+			//if (input != null & !(input.length < 10)) {
 
 				// setting up map
 				Map map = new Map(file);
@@ -151,8 +153,12 @@ public class Main extends Application {
 				}
 
 				System.out.println("Generating Map.....");
-				if (pathSearch.findPath())
+				if (pathSearch.findPath()){
 					pathSearch.printPath();
+				}else{
+					System.out.println("Failed to find path");
+					System.exit(0);
+				}
 
 				time = pathSearch.getTime();
 
@@ -168,11 +174,24 @@ public class Main extends Application {
 				primaryStage.show();
 				
 				pathSearch.printSummary();
+				/*
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				ObjectOutputStream oos = new ObjectOutputStream(baos);
+				oos.writeObject(map);
+				oos.close();
 
-			}
+				System.out.println("size of data structure : " + baos.size() / 1024d / 1024d + " MB");
+				*/
+			//}
 
-		} catch (Exception e) {
+		} catch (NullPointerException e) {
+			//e.printStackTrace();
 			e.printStackTrace();
+			System.out.println("A file was not selected");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.out.println("Could not write out to file");
 		}
 	}
 	/*
@@ -197,7 +216,7 @@ public class Main extends Application {
 	
 		return input;
 	}
-	*/
+	
 	//potentially being moved to map class
 	private Coordinate[] getInput(File file) {
 		Coordinate[] input = new Coordinate[numofinputs];
@@ -220,7 +239,7 @@ public class Main extends Application {
 	
 		return input;
 	}
-
+	 */
 	private void setMap(Map map) {
 
 		// setting up the visuals

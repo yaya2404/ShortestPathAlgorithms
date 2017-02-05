@@ -97,12 +97,15 @@ public class test {
 		double maptotalruntime = 0;
 		int maptotalpathlength = 0;
 		int maptotalnodesexpanded = 0;
-		long maptotalmemory = 0;
+		double maptotalmemoryused = 0;
 		
 		double totalruntime = 0;
 		int totalpathlength = 0;
 		int totalnodesexpanded = 0;
-		long totalmemory = 0;
+		double totalmemoryused = 0;
+		
+		//boolean admissible = true;
+		//boolean consistent = true;
 		
 		/*
 		 * Testing for part E of Phase 1
@@ -124,7 +127,7 @@ public class test {
 		map.printMap();
 		*/
 		
-		//try {
+		try {
 			
 			for(int algo = 1; algo <= 4; algo++){
 				switch(algo){
@@ -147,18 +150,9 @@ public class test {
 				maptotalruntime = 0;
 				maptotalpathlength = 0;
 				maptotalnodesexpanded = 0;
+				maptotalmemoryused = 0;
 				for(int y = 0; y < files.length; y++){
 					
-					/*
-					input = new Coordinate[10];
-					FileReader reader = new FileReader(files[y]);
-					BufferedReader breader = new BufferedReader(reader);
-					String a[];
-					for(int count = 0; count < 10; count++){
-						a = breader.readLine().split(" ");
-						input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
-					}
-					*/
 					Map map = new Map(files[y]);
 					Search testing;
 					
@@ -182,10 +176,16 @@ public class test {
 					
 					if(testing.findPath()){
 						testing.printPath();
+						/*testing only
+						if(algo == 2){
+							if(!testing.isAdmissible())
+								admissible = false;
+							if(!testing.isConsistent())
+								consistent = false;
+						} */
 					}else{
 						System.out.println("error has occurred during the path search on: " + files[y].getName());
 					}
-					
 					//FileWriter writer = new FileWriter(files[y]);
 					//writer.write(map.toString());
 					//map.printMap();
@@ -196,7 +196,7 @@ public class test {
 					maptotalruntime += testing.getTime();
 					maptotalpathlength += testing.getPathLength();
 					maptotalnodesexpanded += testing.getNumOfExpandedNodes();
-					maptotalmemory += testing.getTime();
+					maptotalmemoryused += testing.getMemoryUsed();
 					
 				}
 				
@@ -204,31 +204,30 @@ public class test {
 				System.out.println("Average run time: " + maptotalruntime/10 + "ms");
 				System.out.println("Average path length: " + maptotalpathlength/10);
 				System.out.println("Average nodes expanded: " + maptotalnodesexpanded/10);
-				System.out.println("Average memory: " + maptotalmemory/10 + "KB");
+				System.out.println("Average memory used: " + maptotalmemoryused/10 + "KB");
 				System.out.println();
 				
 				totalruntime += maptotalruntime;
 				totalpathlength += maptotalpathlength;
 				totalnodesexpanded += maptotalnodesexpanded;
-				totalmemory += maptotalmemory;
-				
+				totalmemoryused += maptotalmemoryused;
 			}
 			
 			System.out.println("Total average run time: " + totalruntime/50 + "ms");
 			System.out.println("Total average path length: " + totalpathlength/50);
 			System.out.println("Total average nodes expanded: " + totalnodesexpanded/50);
-			System.out.println("Total average memory: " + totalnodesexpanded/50 + "KB");
+			System.out.println("Total average memory used: " + totalmemoryused/50 + "KB");
+			
 			
 			maptotalruntime = 0;
 			maptotalpathlength = 0;
 			maptotalnodesexpanded = 0;
-			maptotalmemory = 0;
+			maptotalmemoryused = 0;
 			
 			totalruntime = 0;
 			totalpathlength = 0;
 			totalnodesexpanded = 0;
-			totalmemory = 0;
-			
+			totalmemoryused = 0;
 			}
 			
 			/*NOT A COMPLETE TEST
@@ -242,10 +241,10 @@ public class test {
 			else
 				System.out.println("** Heuristic is NOT consistent **");
 			*/
-		//} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-		//}
+		}
 		
 	}
 

@@ -107,6 +107,22 @@ public abstract class Search {
 	public int getNumOfExpandedNodes(){
 		return this.closed.size();
 	}
+	
+	public void printSummary(){
+		System.out.println("\nSearch Summary\n");
+		System.out.println("Starting Cell: (" + map.getStartCoordinate().getX() + "," + map.getStartCoordinate().getY() + ")");
+		System.out.println("Goal Cell: (" + goalX + "," + goalY + ")");
+		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+		System.out.println("Total Cost to Reach Goal: " + goal.get_g());
+		System.out.println("Number of Nodes in Path: " + getPathLength());
+		System.out.println("Number of Number of Expanded Nodes: " + getNumOfExpandedNodes());
+		System.out.println("Total Search Time (in milliseconds) : " + getTime());
+		
+		
+	}
+	
+	
+	
 	public void printPath(){
 		
 		pathlength = 0;

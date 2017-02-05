@@ -22,8 +22,11 @@ public class Map {
 	private static final char reghighway = 'a';
 	private static final char hardhighway = 'b';
 	
-	//the grid representing the map
+	//the grid representing the map to be modified when path is found
 	private static Node[][] grid = new Node[rows][cols];
+	
+	//the grid represented by a String[][] that does not show path. Used strictly for outputting into file.
+	private static String[][] sgrid = new String[rows][cols];
 	
 	//coordinates for start/end nodes 
 	private Coordinate[] input;
@@ -48,10 +51,11 @@ public class Map {
 		this.start = this.input[0];
 		this.end = this.input[1];
 		
-		createUnblockedCells();
-		createHardCell();
-		createHighwayCell();
-		createBlockedCells();
+		
+		//createUnblockedCells();
+		//createHardCell();
+		//createHighwayCell();
+		//ScreateBlockedCells();
 		//generateCoordinates();
 	}
 	
@@ -60,10 +64,11 @@ public class Map {
 	 * @param file valid map file
 	 */
 	public Map(File file){
+		/*
 		this.input = input;
 		this.start = this.input[0];
 		this.end = this.input[1];
-		
+		*/
 		try {
 			readMapFromFile(file);
 		} catch (Exception e) {
@@ -77,15 +82,33 @@ public class Map {
 		BufferedReader breader = new BufferedReader(freader);
 		char cellType;
 		
+		input = new Coordinate[10];
+		
+		//read input
+		String a[];
+		for(int count = 0; count < 10; count++){
+			a = breader.readLine().split(" ");
+			input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
+		}
+		
+		this.start = this.input[0];
+		this.end = this.input[1];
+		
+		
+		
+		String line = "";
+		//read map
 		for(int row = 0; row < rows; row++){
+			line = breader.readLine();
 			for(int col = 0; col < cols; col++){
 				//Using Node grid
-				cellType = (char)breader.read();
+				cellType = line.charAt(col);
+				sgrid[row][col] = String.valueOf(cellType);
 				grid[row][col] = new Node(col,row,cellType);
 				grid[row][col].calculate_h(end.getX(), end.getY());
 			}
 		}
-		
+		breader.close();
 	}
 	/**
 	 * Generate blocked cells for map
@@ -369,20 +392,15 @@ public class Map {
 	public String toString(){
 		
 		StringBuilder out = new StringBuilder();
-		
 		//add coordinates for start, end, and center of hard cells.
 		for(int count = 0; count < 10; count++){
 			out.append(input[count].getX() + " " + input[count].getY());
 			out.append("\n");
 		}
-		
-		
-		out.append("\n");
-		
 		//adds the map
 		for(int row = 0; row < rows; row++){
 			for(int col = 0; col < cols; col++){
-				out.append(grid[row][col].getType());
+				out.append(sgrid[row][col]);
 				//out.append(" ");
 			}
 			out.append("\n");

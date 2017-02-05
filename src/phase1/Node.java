@@ -36,6 +36,7 @@ public class Node {
 	public Node(int x, int y, char type){
 		xcoordinate = x;
 		ycoordinate = y;
+		this.type = type;
 		
 		parent = null;
 		g = Double.POSITIVE_INFINITY;

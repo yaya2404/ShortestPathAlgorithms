@@ -37,7 +37,7 @@ public abstract class Search {
 			
 			
 			if(current.equals(map.getCell(goalX, goalY))){
-				time = (System.nanoTime() - starttime)/1000000;
+				time = (System.nanoTime() - starttime);///100000;
 				return true;
 			}
 				
@@ -61,10 +61,8 @@ public abstract class Search {
 				}
 			}
 		}
-		
-		//error has occurred
-		System.out.println("error has occurred during the path search");
-		return true;	
+	
+		return false;	
 	}
 	
 	
@@ -115,7 +113,7 @@ public abstract class Search {
 		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
 		System.out.println("Total Cost to Reach Goal: " + goal.get_g());
 		System.out.println("Number of Nodes in Path: " + getPathLength());
-		System.out.println("Number of Number of Expanded Nodes: " + getNumOfExpandedNodes());
+		System.out.println("Number of Expanded Nodes: " + getNumOfExpandedNodes());
 		System.out.println("Total Search Time (in milliseconds) : " + getTime());
 		
 		

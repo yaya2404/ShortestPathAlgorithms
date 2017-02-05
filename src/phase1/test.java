@@ -94,11 +94,11 @@ public class test {
 		File[] folders = folder.listFiles();
 		Coordinate input[];
 		
-		int maptotalruntime = 0;
+		double maptotalruntime = 0;
 		int maptotalpathlength = 0;
 		int maptotalnodesexpanded = 0;
 		
-		int totalruntime = 0;
+		double totalruntime = 0;
 		int totalpathlength = 0;
 		int totalnodesexpanded = 0;
 		
@@ -113,15 +113,27 @@ public class test {
 		 * Average number of nodes expanded
 		 * 
 		 */
+		
+		
+		//test on a single map
+		/*
+		File test = new File("Maps/Map1/Map1_Setup1.txt");
+		Map map = new Map(test);
+		map.printMap();
+		*/
+		
 		try {
+			
+			
+			
 			for(int x = 0; x < folders.length; x++){
 				File[] files = folders[x].listFiles();
 				maptotalruntime = 0;
 				maptotalpathlength = 0;
 				maptotalnodesexpanded = 0;
 				for(int y = 0; y < files.length; y++){
-					//System.out.println(files[y].getName());
 					
+					/*
 					input = new Coordinate[10];
 					FileReader reader = new FileReader(files[y]);
 					BufferedReader breader = new BufferedReader(reader);
@@ -130,17 +142,23 @@ public class test {
 						a = breader.readLine().split(" ");
 						input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
 					}
-					Map map = new Map(input);
-					Search testing = new UniformCostSearch(map);
-					testing.setupFringe(new Node.NodeComparatorG());
-					if(testing.findPath())
-						testing.printPath();
+					*/
+					Map map = new Map(files[y]);
+
 					
+					Search testing = new AStarSearch(map);
+					testing.setupFringe(new Node.NodeComparatorG());
+					if(testing.findPath()){
+						testing.printPath();
+					}else{
+						System.out.println("error has occurred during the path search on: " + files[y].getName());
+					}
 					FileWriter writer = new FileWriter(files[y]);
 					writer.write(map.toString());
+					//map.printMap();
 					writer.close();
-					breader.close();
-					reader.close();
+					//breader.close();
+					//reader.close();
 					
 					maptotalruntime += testing.getTime();
 					maptotalpathlength += testing.getPathLength();
@@ -149,7 +167,7 @@ public class test {
 				}
 				
 				System.out.println(folders[x].getName());
-				System.out.println("Average run time: " + maptotalruntime/10);
+				System.out.println("Average run time: " + maptotalruntime/10 + "ms");
 				System.out.println("Average path length: " + maptotalpathlength/10);
 				System.out.println("Average nodes expanded: " + maptotalnodesexpanded/10);
 				System.out.println();
@@ -160,7 +178,7 @@ public class test {
 				
 			}
 			
-			System.out.println("Total average run time: " + totalruntime/50);
+			System.out.println("Total average run time: " + totalruntime/50 + "ms");
 			System.out.println("Total average path length: " + totalpathlength/50);
 			System.out.println("Total average nodes expanded: " + totalnodesexpanded/50);
 			
@@ -169,7 +187,6 @@ public class test {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 		}
-		
 		
 	}
 

@@ -23,19 +23,6 @@ public class Node{
 	private int ycoordinate; 
 	private double g,h,f; //used in A*
 	
-	/*
-	public Node(int x, int y){
-		xcoordinate = x;
-		ycoordinate = y;
-		
-		parent = null;
-		type = unblockedcell;
-		g = Double.POSITIVE_INFINITY;
-		//g = 0;
-		h = 0;
-		f = g;
-	}
-	*/
 	public Node(int x, int y, char type){
 		xcoordinate = x;
 		ycoordinate = y;

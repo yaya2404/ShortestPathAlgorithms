@@ -107,8 +107,7 @@ public class Main extends Application {
 			 * }else System.out.println("Could not find path");
 			 */
 
-			// unsure if this works for all cases. This should get the directory
-			// of the project.
+			//This should get the current directory of the project.
 			//Coordinate[] input;
 			//String[][] smap;
 			File f = new File(".");
@@ -194,52 +193,7 @@ public class Main extends Application {
 			System.out.println("Could not write out to file");
 		}
 	}
-	/*
-	private String[][] getMap(File file) {
-		// TODO Auto-generated method stub
-		String[][] input = new String[rows][cols];
-		FileReader reader;
-		try {
-			reader = new FileReader(file);
-			BufferedReader breader = new BufferedReader(reader);
-			for (int count = 0; count < 10; count++) {
-				a = breader.readLine().split(" ");
-				input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 	
-		return input;
-	}
-	
-	//potentially being moved to map class
-	private Coordinate[] getInput(File file) {
-		Coordinate[] input = new Coordinate[numofinputs];
-		FileReader reader;
-		try {
-			reader = new FileReader(file);
-			BufferedReader breader = new BufferedReader(reader);
-			String a[];
-			for (int count = 0; count < 10; count++) {
-				a = breader.readLine().split(" ");
-				input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	
-		return input;
-	}
-	 */
 	private void setMap(Map map) {
 
 		// setting up the visuals

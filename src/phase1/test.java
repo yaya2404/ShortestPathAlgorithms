@@ -9,6 +9,14 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * NOTE: This is mainly used for testing. THIS IS NOT THE MAIN APPLICATION
+ * MAIN APPLICATION IS IN THE phase1application PACKAGE
+ * @author matth
+ *
+ */
+
+
 public class test {
 	
 	public static final int rows = 120;

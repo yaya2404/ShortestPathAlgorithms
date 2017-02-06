@@ -1,4 +1,4 @@
-.25 * (dx + dy) - (Math.sqrt(2)  -  2 * 1) * Math.min(dx,dy);
+h = .25 * (dx + dy) - (Math.sqrt(2)  -  2 * 1) * Math.min(dx,dy);
 
 Uniform Cost
 Map1

@@ -35,6 +35,7 @@ Total average run time: 23.64ms
 Total average path length: 180
 Total average nodes expanded: 12636
 Total average memory used: 5183.40890625KB
+
 A*
 Map1
 Average run time: 19.4ms
@@ -70,6 +71,7 @@ Total average run time: 14.38ms
 Total average path length: 180
 Total average nodes expanded: 8740
 Total average memory used: 3398.65203125KB
+
 Weighted A* (1.25)
 Map1
 Average run time: 14.2ms
@@ -105,6 +107,7 @@ Total average run time: 10.64ms
 Total average path length: 178
 Total average nodes expanded: 7518
 Total average memory used: 2762.37875KB
+
 Weighted A* (2.00)
 Map1
 Average run time: 5.7ms

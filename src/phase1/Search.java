@@ -121,12 +121,17 @@ public abstract class Search {
 	public double getMemoryUsed(){
 		return this.memory;
 	}
+	
+	public double getPathCost(){
+		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+		return goal.get_g();
+	}
+	
 	public void printSummary(){
 		System.out.println("\nSearch Summary\n");
 		System.out.println("Starting Cell: (" + map.getStartCoordinate().getX() + "," + map.getStartCoordinate().getY() + ")");
 		System.out.println("Goal Cell: (" + goalX + "," + goalY + ")");
-		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
-		System.out.println("Total Cost to Reach Goal: " + goal.get_g());
+		System.out.println("Total Cost to Reach Goal: " + getPathCost());
 		System.out.println("Number of Nodes in Path: " + getPathLength());
 		System.out.println("Number of Expanded Nodes: " + getNumOfExpandedNodes());
 		System.out.println("Total Search Time (in milliseconds) : " + getTime());
@@ -137,12 +142,9 @@ public abstract class Search {
 	
 	
 	public void printPath(){
-		
 		pathlength = 0;
 		Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
-		//if(s.get_g() <= 0)
-			//System.out.println("Total Cost to Reach Goal: " + s.get_g());
-		
+
 		while(s!=null){
 			//System.out.println(s.getType());
 			s.setType(Node.path);

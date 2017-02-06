@@ -106,11 +106,13 @@ public class test {
 		int maptotalpathlength = 0;
 		int maptotalnodesexpanded = 0;
 		double maptotalmemoryused = 0;
+		double maptotalcost = 0;
 		
 		double totalruntime = 0;
 		int totalpathlength = 0;
 		int totalnodesexpanded = 0;
 		double totalmemoryused = 0;
+		double totalpathcost = 0;
 		
 		//boolean admissible = true;
 		//boolean consistent = true;
@@ -137,7 +139,7 @@ public class test {
 		
 		try {
 			
-			for(int algo = 1; algo <= 4; algo++){
+			for(int algo = 2; algo <= 4; algo++){
 				switch(algo){
 				case 1:
 					System.out.println("Uniform Cost");
@@ -205,24 +207,28 @@ public class test {
 					maptotalpathlength += testing.getPathLength();
 					maptotalnodesexpanded += testing.getNumOfExpandedNodes();
 					maptotalmemoryused += testing.getMemoryUsed();
+					maptotalcost += testing.getPathCost();
 					
 				}
 				
-				System.out.println(folders[x].getName());
-				System.out.println("Average run time: " + maptotalruntime/10 + "ms");
-				System.out.println("Average path length: " + maptotalpathlength/10);
-				System.out.println("Average nodes expanded: " + maptotalnodesexpanded/10);
-				System.out.println("Average memory used: " + maptotalmemoryused/10 + "KB");
-				System.out.println();
+				//System.out.println(folders[x].getName());
+			//	System.out.println("Average run time: " + maptotalruntime/10 + "ms");
+			//	System.out.println("Average path length (number of nodes): " + maptotalpathlength/10);
+			//	System.out.println("Average path cost: " + maptotalcost/10);
+			//	System.out.println("Average nodes expanded: " + maptotalnodesexpanded/10);
+			//	System.out.println("Average memory used: " + maptotalmemoryused/10 + "KB");
+			//	System.out.println();
 				
 				totalruntime += maptotalruntime;
 				totalpathlength += maptotalpathlength;
+				totalpathcost	+= maptotalcost;
 				totalnodesexpanded += maptotalnodesexpanded;
 				totalmemoryused += maptotalmemoryused;
 			}
 			
 			System.out.println("Total average run time: " + totalruntime/50 + "ms");
-			System.out.println("Total average path length: " + totalpathlength/50);
+			System.out.println("Total average path length (number of nodes): " + totalpathlength/50);
+			System.out.println("Total average path cost: " + totalpathcost/50);
 			System.out.println("Total average nodes expanded: " + totalnodesexpanded/50);
 			System.out.println("Total average memory used: " + totalmemoryused/50 + "KB");
 			
@@ -231,11 +237,13 @@ public class test {
 			maptotalpathlength = 0;
 			maptotalnodesexpanded = 0;
 			maptotalmemoryused = 0;
+			maptotalcost = 0;
 			
 			totalruntime = 0;
 			totalpathlength = 0;
 			totalnodesexpanded = 0;
 			totalmemoryused = 0;
+			totalpathcost = 0;
 			}
 			
 			/*NOT A COMPLETE TEST

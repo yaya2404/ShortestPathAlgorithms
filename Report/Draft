@@ -1,67 +1,128 @@
-4
-The heuristics mentioned in the following sections are based off these general formulas.
+Uniform Cost
 
-In 4.1
-Pro: considers diagonal movement
-Con: computationally expensive, only considers a straight line movement
-Using the diagonal cost, this function fails to take into account the faster
-speeds of the highways. We consider this to be the worst heuristic as it will be likely be inadmissible in most cases involving a highway. Using an average of the highway horizontal/ vertical
-costs and unblocked cell diagonal s cost, the heuristic tries to consider the
-fact that an L-shaped movement on a highway is less costly than moving on a
-diagonal. Still, the heuristic is not inadmissible. An admissible heuristic would be if D2 was the lowest diagonal value which occurs when two highways run parallel. However, considering there are only 4 highways, this heuristic would be greatly underestimate the optimal cost.
+Total average run time: 27.76ms
+Total average path length (number of nodes): 180
+Total average path cost: 295.54576661361375
+Total average nodes expanded: 12636
+Total average memory used: 5346.78625KB
 
-In 4.2
-Pro: computationally inexpensive
-Con: does not consider diagonal movement
-This formula considers the faster movements of highways. If the optimal
-path does not make use of the highways, this heuristic is not close to the actual
-cost. This heuristic is admissible in most cases, see below for exceptions.
+h = .25 * (dx + dy) + (Math.sqrt(2) * .25 -  2 * .25) * Math.min(dx,dy)
+A*
+Total average run time: 21.2ms
+Total average path length (number of nodes): 180
+Total average path cost: 295.54576661361375
+Total average nodes expanded: 9600
+Total average memory used: 3871.26015625KB
+Weighted A* (1.25)
+Total average run time: 12.86ms
+Total average path length (number of nodes): 178
+Total average path cost: 295.8946984300563
+Total average nodes expanded: 8616
+Total average memory used: 3504.37390625KB
+Weighted A* (2.00)
+Total average run time: 9.06ms
+Total average path length (number of nodes): 174
+Total average path cost: 298.3995230808659
+Total average nodes expanded: 5904
+Total average memory used: 2442.98015625KB
 
-4.3 (probably can remove Chebyshev and Diagonal since are more like honorable mentions)
-Computes the number of steps if a diagonal is not taken and adds the
-minimum diagonal steps. The cost of the minimum diagonal steps is the net cost of not moving vertical/ horizontal.
-The equation tries to take into account both directions of travel. Considering all directions, highways for vertical/horizontal and regular cells for diagonal (extremely low probability for diagonal highway movement), might provide a good estimate that is admissible in most cases. However, using all the costs for a highway, this is the best optimal heuristic. It largely underestimates most paths but holds up for rare cases such where an optimal path is diagonal movements through parallel highways.
-
-Best Heuristic:
-h = .25 * (dx + dy) + (Math.sqrt(2) * .25 -  2 * .25) * Math.min(dx,dy); 
-
-5
-
-Heuristic 6
-h = .25 * (dx + dy) + (Math.sqrt(2) * .25 -  2 * .25) * Math.min(dx,dy); 
-
+h = .25 * (dx + dy) - (Math.sqrt(2)  -  2 * 1) * Math.min(dx,dy);
+A*
+Total average run time: 13.12ms
+Total average path length (number of nodes): 171
+Total average path cost: 304.016267126511
+Total average nodes expanded: 5747
+Total average memory used: 2114.45140625KB
+Weighted A* (1.25)
+Total average run time: 6.56ms
+Total average path length (number of nodes): 164
+Total average path cost: 321.0358718952779
+Total average nodes expanded: 4388
+Total average memory used: 1695.47421875KB
+Weighted A* (2.00)
+Total average run time: 3.24ms
+Total average path length (number of nodes): 141
+Total average path cost: 400.355160192271
+Total average nodes expanded: 2753
+Total average memory used: 955.824375KB
+h = ((.25 +  Math.sqrt(2)) / 2)* Math.sqrt(dx * dx + dy * dy);
 
 A*
-
-Total average run time: 12.22ms
-Total average path length: 180
-Total average nodes expanded: 7899
-Total average memory used: 3035.316875KB
+Total average run time: 6.46ms
+Total average path length (number of nodes): 162
+Total average path cost: 306.9770632809594
+Total average nodes expanded: 2957
+Total average memory used: 1101.75875KB
 Weighted A* (1.25)
-
-Total average run time: 10.4ms
-Total average path length: 175
-Total average nodes expanded: 6556
-Total average memory used: 1912.20203125KB
+Total average run time: 2.74ms
+Total average path length (number of nodes): 154
+Total average path cost: 342.5882953923858
+Total average nodes expanded: 1413
+Total average memory used: 431.3384375KB
 Weighted A* (2.00)
-Total average run time: 4.56ms
-Total average path length: 159
-Total average nodes expanded: 3693
-Total average memory used: 1062.43KB
+Total average run time: 0.02ms
+Total average path length (number of nodes): 126
+Total average path cost: 436.8832454381143
+Total average nodes expanded: 149
+Total average memory used: 106.679375KB
 
+h = .25 * (dx + dy);
+A*
+Total average run time: 19.14ms
+Total average path length (number of nodes): 180
+Total average path cost: 295.54576661361375
+Total average nodes expanded: 8740
+Total average memory used: 3311.81109375KB
+Weighted A* (1.25)
+Total average run time: 12.82ms
+Total average path length (number of nodes): 178
+Total average path cost: 295.98417065156997
+Total average nodes expanded: 7518
+Total average memory used: 3017.6509375KB
+Weighted A* (2.00)
+Total average run time: 6.56ms
+Total average path length (number of nodes): 168
+Total average path cost: 301.8611555447621
+Total average nodes expanded: 4541
+Total average memory used: 1909.1153125KB
 
-6 
+h = Math.sqrt(2) * Math.sqrt(dx * dx + dy * dy)
+A*
+Total average run time: 1.04ms
+Total average path length (number of nodes): 134
+Total average path cost: 400.7683787925236
+Total average nodes expanded: 224
+Total average memory used: 106.5721875KB
+Weighted A* (1.25)
+Total average run time: 0.16ms
+Total average path length (number of nodes): 126
+Total average path cost: 439.2386848305078
+Total average nodes expanded: 137
+Total average memory used: 26.4934375KB
+Weighted A* (2.00)
+Total average run time: 0.02ms
+Total average path length (number of nodes): 123
+Total average path cost: 484.69561361556646
+Total average nodes expanded: 123
+Total average memory used: 52.99859375KB
 
-Heuristic 5 is the least conservative heuristic function in regards to cost. 
+h = (double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy);
+A*
+Total average run time: 4.04ms
+Total average path length (number of nodes): 153
+Total average path cost: 354.7164869447814
+Total average nodes expanded: 1202
+Total average memory used: 431.78890625KB
+Weighted A* (1.25)
+Total average run time: 0.64ms
+Total average path length (number of nodes): 132
+Total average path cost: 402.9372208449715
+Total average nodes expanded: 360
+Total average memory used: 159.5034375KB
+Weighted A* (2.00)
+Total average run time: 0.04ms
+Total average path length (number of nodes): 125
+Total average path cost: 463.3364610197375
+Total average nodes expanded: 129
+Total average memory used: 53.0653125KB
 
-In contrast, Heuristic 6 is an admissible/consistent function and a drastically worst performance. 
-
-From these results, we can conclude that the more weight/value that originates from the heuristic leads to a better computational performance. The higher the heuristic values, the more influence it has in directing the algorithm.
-
-Heuristic 6 provides a fairly low estimate of the true optimal cost. The Weighted A* at 1.25 increased the computational performance without sacrificing the optimal cost nearly all of the trials. The Weighted A* at 2.00 more accuracy is lost. 
-
-Heuristic 5 provided the best computational performance but grossly overestimates the optimal cost. 
-
-Heuristic 3 provides lower overestimates compared to Heuristic 5. As a result, the optimal path deviated a lot less than Heuristic 5 despite having the same Euclidean Distance Formula basis. 
-
-The simulations demonstrate a tradeoff between computational performance and optimality. 

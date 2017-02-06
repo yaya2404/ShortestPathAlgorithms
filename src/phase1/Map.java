@@ -43,24 +43,7 @@ public class Map{
 	public Coordinate getEndCoordinate(){
 		return this.end;
 	}
-	/**
-	 * Constructor for random generation of map
-	 * Remove input parameter later
-	 */
-	/*
-	public Map(Coordinate[] input){
-		this.input = input;
-		this.start = this.input[0];
-		this.end = this.input[1];
-		
-		
-		//createUnblockedCells();
-		//createHardCell();
-		//createHighwayCell();
-		//ScreateBlockedCells();
-		//generateCoordinates();
-	}
-	*/
+
 	/**
 	 * Generates map from file
 	 * @param file valid map file
@@ -112,9 +95,8 @@ public class Map{
 		}
 		breader.close();
 	}
-	/*
 	/**
-	 * Generate blocked cells for map
+	 * Code below is used to generate a random map
 	 */
 	/*
 	private void createBlockedCells(){
@@ -430,27 +412,4 @@ public class Map{
 	private int findDistance(int startX, int startY, int goalX, int goalY) {
 		return Math.abs(startX - goalX) + Math.abs(startX - goalY);
 	}
-	
-	/*
-	private Coordinate[] getInput(File file) {
-		Coordinate[] input = new Coordinate[numofinputs];
-		FileReader reader;
-		try {
-			reader = new FileReader(file);
-			BufferedReader breader = new BufferedReader(reader);
-			String a[];
-			for (int count = 0; count < 10; count++) {
-				a = breader.readLine().split(" ");
-				input[count] = new Coordinate(Integer.parseInt(a[0]), Integer.parseInt(a[1]));
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		return input;
-		
-	}*/
 }

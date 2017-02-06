@@ -36,6 +36,7 @@ Total average run time: 23.34ms
 Total average path length: 180
 Total average nodes expanded: 12636
 Total average memory used: 5193.5096875KB
+
 A*
 Map1
 Average run time: 4.1ms

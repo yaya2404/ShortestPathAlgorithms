@@ -251,11 +251,13 @@ public class Node{
 		
 		//h =  (double)Math.sqrt(2) * Math.sqrt(dx * dx + dy * dy);
 		
-		h = .25 * (dx + dy);
+		//h = .25 * (dx + dy);
 		
 		//h = ((.25 +  Math.sqrt(2)) / 2)* Math.sqrt(dx * dx + dy * dy);
 		
 		//h = .25 * (dx + dy) - (Math.sqrt(2)  -  2 * 1) * Math.min(dx,dy); 
+		
+		h = .25 * (dx + dy) + (Math.sqrt(2) * .25 -  2 * .25) * Math.min(dx,dy);
 		
 		return h;
 	}

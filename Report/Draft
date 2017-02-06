@@ -1,133 +1,67 @@
-There are several possible ways to calculate the distance between the start node and goal node. Let dx represent the horizontal distance and let dy represent the vertical distance between the start node and goal node. Let D represent the vertical/horizontal cost and D2 represent diagonal cost.  The costs used in the following heuristics focus on regular cells to try to avoid creating an inadmissible heuristic.
+4
+The heuristics mentioned in the following sections are based off these general formulas.
 
-First, we looked at the heuristic given in the in the assignment.
-	h = Math.sqrt(2) * min(dx,dy) + max(dx,dy) – min(dx,dy)
+In 4.1
+Pro: considers diagonal movement
+Con: computationally expensive, only considers a straight line movement
+Using the diagonal cost, this function fails to take into account the faster
+speeds of the highways. We consider this to be the worst heuristic as it will be likely be inadmissible in most cases involving a highway. Using an average of the highway horizontal/ vertical
+costs and unblocked cell diagonal s cost, the heuristic tries to consider the
+fact that an L-shaped movement on a highway is less costly than moving on a
+diagonal. Still, the heuristic is not inadmissible. An admissible heuristic would be if D2 was the lowest diagonal value which occurs when two highways run parallel. However, considering there are only 4 highways, this heuristic would be greatly underestimate the optimal cost.
 
-It was determined that the equation was neither admissible/(consistent). The algorithm doesn’t consider the highways.
-There is the Euclidean distance formula.  D2 * Math.sqrt(dx * dx + dy * dy))
-	Pro: considers diagonals Con: computationally expensive, only considers a straight line movement to the goal
-	Using the diagonal cost, this function fails to take into account the faster speeds of the highways. Using an average of the highway horizontal/ vertical costs and unblocked cell diagonal ’s cost, the heuristic tries to consider the fact that an L-shaped movement on a highway is less costly than moving on a diagonal. 
-The Manhattan distance formula . D * (dx + dy)
-	Pro: computationally inexpensive, Con: doesn’t consider diagonal movement
-This formula considers the faster movements of highways.  If the optimal path does not make use of the highways, this heuristic is not close to the actual cost. 
-The Diagonal distance formula D * (dx + dy) + (D2 - 2 * D) * Math.min(dx,dy) 
+In 4.2
+Pro: computationally inexpensive
+Con: does not consider diagonal movement
+This formula considers the faster movements of highways. If the optimal
+path does not make use of the highways, this heuristic is not close to the actual
+cost. This heuristic is admissible in most cases, see below for exceptions.
 
-h = .25 * (dx + dy) - (Math.sqrt(2) -  2 * 1) * Math.min(dx,dy);
+4.3 (probably can remove Chebyshev and Diagonal since are more like honorable mentions)
+Computes the number of steps if a diagonal is not taken and adds the
+minimum diagonal steps. The cost of the minimum diagonal steps is the net cost of not moving vertical/ horizontal.
+The equation tries to take into account both directions of travel. Considering all directions, highways for vertical/horizontal and regular cells for diagonal (extremely low probability for diagonal highway movement), might provide a good estimate that is admissible in most cases. However, using all the costs for a highway, this is the best optimal heuristic. It largely underestimates most paths but holds up for rare cases such where an optimal path is diagonal movements through parallel highways.
 
-Computes the number of steps if a diagonal is not taken and adds the minimum diagonal steps because they are more expensive. The cost of the minimum diagonal steps are the net cost of not moving vertical/ horizontal. The equation tries to take into account both directions of travel.
+Best Heuristic:
+h = .25 * (dx + dy) + (Math.sqrt(2) * .25 -  2 * .25) * Math.min(dx,dy); 
 
------------------------------------------------------
+5
 
-Aleece Randall
-Matthew Ya
+Heuristic 6
+h = .25 * (dx + dy) + (Math.sqrt(2) * .25 -  2 * .25) * Math.min(dx,dy); 
 
-Report 
-
-a)	Quick How-to for interface and images
-Colors
-Blocked: Black
-Regular unblocked: White
-Hard to traverse: Orange
-Regular unblocked with a highway: Cyan
-Hard to traverse with a highway: Blue
-Start: Lime Green
-Path: Purple
-End: Red
-
-b)	Implementation of the algorithms (talking about abstraction?)
-
-c)	The data structures used to implement the algorithms were chosen to achieve the best time and space complexities. The fringe or open list is a priority queue that is implemented using a binary heap. This data structure provides worst case complexities of O(log N) for search, inserts, and delete and O(1) for removal of the cell with the lowest value. The successors of each node are stored in a HashSet because of its O(1) insert. A HashSet was also chosen for the closed list after time/space complexity tradeoff. The HashSet has an average case search time of O(1) but a worst case time O(n). The HashSet was chosen over a 2D boolean array due to the array's higher space requirement. Although, the Boolean array would yield a better worst case search time of O(1) , the space complexity is always the total number of nodes in the graph. On average, the HashSet is a much smaller value. The HashSet and Priority Queue were initialized to a higher but reasonable initial capacity in an attempt to reduce possible rehashing.
-**Im not super about the array vs hashset argument
-**Use approximation constants for the costs because square roots are expensive
-
-d)	Finalize after simulations
-There are several possible ways to calculate the distance between the start node and goal node. Let dx represent the horizontal distance and let dy represent the vertical distance between the start node and goal node. Let D represent the vertical/horizontal cost and D2 represent diagonal cost.  
-First there is the Euclidean distance formula.  D2 * Math.sqrt(dx * dx + dy * dy))
-	Pro: considers diagonals Con: computationally expensive, only considers a straight line
-The Manhattan distance formula D * (dx + dy)
-	Pro: computationally inexpensive, Con: doesn’t consider diagonal movement
-The Diagonal distance formula D * (dx + dy) + (D2 - 2 * D2) * Math.min(dx,dy)
-
-Discussion about picking D and D2 (average cost, lowest cost) 
-
-The Chebyshev distance formula (variation of diagonal distance) (dx + dy) – 2* Math.min(dx,dy)
-The Octile distance formula (variation of diagonal distance) (dx + dy) + (Math.sqrt(2) - 2) * Math.min(dx,dy)
-
-
-
-e)	Results of the 50 benchmarks (Currently project given heuristic -> will only include best result heuristic)
-	
-	UNIFORM COST	A*	WEIGHTED A* (1.25)	WEIGHTED A* (2.00)
-
-MAP 1	RUN TIME: 5.14783904E7MS
-PATH LENGTH: 155
-NODES EXPANDED: 13076	RUN TIME: 3977783.6MS
-PATH LENGTH: 136
-NODES EXPANDED: 748	RUN TIME: 1138989.0MS
-PATH LENGTH: 124
-NODES EXPANDED: 279	RUN TIME: 203967.4MS
-PATH LENGTH: 119
-NODES EXPANDED: 122
-
-MAP 2	RUN TIME: 2.45842276E7MS
-PATH LENGTH: 181
-NODES EXPANDED: 13042	RUN TIME: 1568430.7MS
-PATH LENGTH: 137
-NODES EXPANDED: 470	RUN TIME: 531798.5MS
-PATH LENGTH: 124
-NODES EXPANDED: 201	RUN TIME: 236018.1MS
-PATH LENGTH: 119
-NODES EXPANDED: 122
-
-MAP 3	RUN TIME: 1.78418271E7MS
-PATH LENGTH: 218
-NODES EXPANDED: 11236	RUN TIME: 2918851.6MS
-PATH LENGTH: 149
-NODES EXPANDED: 940	RUN TIME: 599632.2MS
-PATH LENGTH: 135
-NODES EXPANDED: 332	RUN TIME: 242829.5MS
-PATH LENGTH: 133
-NODES EXPANDED: 136
-
-MAP 4	RUN TIME: 1.50828559E7MS
-PATH LENGTH: 154
-NODES EXPANDED: 10534	RUN TIME: 2502705.7MS
-PATH LENGTH: 122
-NODES EXPANDED: 829	RUN TIME: 720230.6MS
-PATH LENGTH: 119
-NODES EXPANDED: 308	RUN TIME: 180921.0MS
-PATH LENGTH: 114
-NODES EXPANDED: 116
-
-MAP 5	RUN TIME: 2.59911451E7MS
-PATH LENGTH: 181
-NODES EXPANDED: 14250	RUN TIME: 4760529.6MS
-PATH LENGTH: 147
-NODES EXPANDED: 1695	RUN TIME: 1003461.7MS
-PATH LENGTH: 138
-NODES EXPANDED: 567	RUN TIME: 224494.6MS
-PATH LENGTH: 134
-NODES EXPANDED: 142
-
-
- Uniform
-Total average run time: 2.515222906E7ms
-Total average path length: 178
-Total average nodes expanded: 12428
 
 A*
-Total average run time: 3145660.24ms
-Total average path length: 138
-Total average nodes expanded: 936
 
+Total average run time: 12.22ms
+Total average path length: 180
+Total average nodes expanded: 7899
+Total average memory used: 3035.316875KB
 Weighted A* (1.25)
-Total average run time: 798822.4ms
-Total average path length: 128
-Total average nodes expanded: 337
 
+Total average run time: 10.4ms
+Total average path length: 175
+Total average nodes expanded: 6556
+Total average memory used: 1912.20203125KB
 Weighted A* (2.00)
-Total average run time: 217646.12ms
-Total average path length: 124
-Total average nodes expanded: 128
+Total average run time: 4.56ms
+Total average path length: 159
+Total average nodes expanded: 3693
+Total average memory used: 1062.43KB
 
-f)	After running all the simulations
+
+6 
+
+Heuristic 5 is the least conservative heuristic function in regards to cost. 
+
+In contrast, Heuristic 6 is an admissible/consistent function and a drastically worst performance. 
+
+From these results, we can conclude that the more weight/value that originates from the heuristic leads to a better computational performance. The higher the heuristic values, the more influence it has in directing the algorithm.
+
+Heuristic 6 provides a fairly low estimate of the true optimal cost. The Weighted A* at 1.25 increased the computational performance without sacrificing the optimal cost nearly all of the trials. The Weighted A* at 2.00 more accuracy is lost. 
+
+Heuristic 5 provided the best computational performance but grossly overestimates the optimal cost. 
+
+Heuristic 3 provides lower overestimates compared to Heuristic 5. As a result, the optimal path deviated a lot less than Heuristic 5 despite having the same Euclidean Distance Formula basis. 
+
+The simulations demonstrate a tradeoff between computational performance and optimality. 

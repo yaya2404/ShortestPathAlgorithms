@@ -22,6 +22,9 @@ public class Node{
 	private int xcoordinate;
 	private int ycoordinate; 
 	private double g,h,f; //used in A*
+	private double u, v; //used in phase 2
+	private Node bp; //Looks like the same as parent
+	private boolean generated;//
 	
 	public Node(int x, int y, char type){
 		xcoordinate = x;
@@ -32,6 +35,7 @@ public class Node{
 		g = Double.POSITIVE_INFINITY;
 		h = 0;
 		f = g;
+		setGenerated(false);
 	}
 	
 	public int getX(){
@@ -248,11 +252,63 @@ public class Node{
 		
 		return h;
 	}
+	
+	public double calculate_h(int goalX, int goalY, int hueristic){
+		double dx = Math.abs(xcoordinate - goalX);
+		double dy = Math.abs(ycoordinate - goalY);
+		
+		switch(hueristic){
+			case 4:
+				return (double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy);
+			case 1:
+				return  (double)Math.sqrt(2) * Math.sqrt(dx * dx + dy * dy);
+			case 2:
+				return .25 * (dx + dy) - (Math.sqrt(2)  -  2 * 1) * Math.min(dx,dy);
+			case 3:
+				return ((.25 +  Math.sqrt(2)) / 2)* Math.sqrt(dx * dx + dy * dy);
+			case 0:
+				return .25 * (dx + dy) + (Math.sqrt(2) * .25 -  2 * .25) * Math.min(dx,dy);
+		}
+		
+		return h;
+	}
 
 	public boolean equals(Node n){
 		return this.xcoordinate == n.xcoordinate && this.ycoordinate == n.ycoordinate;
 	}
 	
+	public Node getBp() {
+		return bp;
+	}
+
+	public void setBp(Node bp) {
+		this.bp = bp;
+	}
+
+	public double getU() {
+		return u;
+	}
+
+	public void setU(double u) {
+		this.u = u;
+	}
+
+	public double getV() {
+		return v;
+	}
+
+	public void setV(double v) {
+		this.v = v;
+	}
+
+	public boolean isGenerated() {
+		return generated;
+	}
+
+	public void setGenerated(boolean generated) {
+		this.generated = generated;
+	}
+
 	/**
 	 * 
 	 * Used for the priority queue

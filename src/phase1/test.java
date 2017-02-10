@@ -216,7 +216,7 @@ public class test {
 			//	System.out.println("Average path length (number of nodes): " + maptotalpathlength/10);
 			//	System.out.println("Average path cost: " + maptotalcost/10);
 			//	System.out.println("Average nodes expanded: " + maptotalnodesexpanded/10);
-			//	System.out.println("Average memory used: " + maptotalmemoryused/10 + "KB");
+				System.out.println("Average memory used: " + maptotalmemoryused/10 + "KB");
 			//	System.out.println();
 				
 				totalruntime += maptotalruntime;

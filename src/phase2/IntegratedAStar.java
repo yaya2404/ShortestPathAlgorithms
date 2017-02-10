@@ -18,6 +18,12 @@ public class IntegratedAStar extends Search {
 		super(m, weight1, weight2, numberOfHueristics);
 	}
 
+	
+	//Matt: added this in for you. Change if need be.
+	public double getKey(Node s, int index){
+		return 0;
+	}
+	
 	@Override
 	public void expandState(Node s) {
 		for (int i = 0; i < numberOfHueristics; i++) {

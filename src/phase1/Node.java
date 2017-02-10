@@ -1,6 +1,7 @@
 package phase1;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
@@ -24,6 +25,14 @@ public class Node{
 	private double g,h,f; //used in A*
 	private double u, v, key; //used in phase 2 (not sure is needed yet)
 	private Node bp; //Looks like the same as parent
+	
+	//used in both Sequential and Intergrated A*
+	private double[] hList;
+	
+	
+	//used only for Sequential A*
+	private double[] gList;
+	private Node[] bpList;
 	
 	public Node(int x, int y, char type){
 		xcoordinate = x;
@@ -311,6 +320,52 @@ public class Node{
 		this.key = key;
 	}
 
+	
+
+	
+	/**
+	 * 
+	 * There's a dependency between the Node class and the phase 2 Search class.
+	 * The number of heuristics is unknown until a Search object is constructed.
+	 * 
+	 * @param numofheur		the number of heuristics to be tested in the sequential A* search
+	 */
+	public void initgList(int numofheur){
+		gList = new double[numofheur];
+	}
+	public void inithList(int numofheur){
+		hList = new double[numofheur];
+		
+	}
+	public void initbpList(int numofheur){
+		bpList = new Node[numofheur];
+	}
+	
+	
+	/**
+	 * 
+	 * Methods used for sequential A* search
+	 * 
+	 */
+	public double get_sG(int index){
+		return gList[index];
+	}
+	
+	public void set_sG(double value, int index){
+		gList[index] = value;
+	}
+	
+	public Node get_sBp(int index){
+		return bpList[index];
+	}
+	
+	public void set_sBp(Node s, int index){
+		bpList[index] = s;
+	}
+	
+	
+	
+	
 	/**
 	 * 
 	 * Used for the priority queue

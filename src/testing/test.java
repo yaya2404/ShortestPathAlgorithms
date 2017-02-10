@@ -1,4 +1,4 @@
-package Testing;
+package testing;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,7 +21,7 @@ import phase1.Node.NodeComparatorG;
 
 /**
  * NOTE: This is mainly used for testing. THIS IS NOT THE MAIN APPLICATION
- * MAIN APPLICATION IS IN THE phase1application PACKAGE
+ * MAIN APPLICATION IS IN THE application PACKAGE
  * @author matth
  *
  */

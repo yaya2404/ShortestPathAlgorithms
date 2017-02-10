@@ -1,4 +1,4 @@
-package phase1;
+package Testing;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +8,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Random;
+
+import phase1.AStarSearch;
+import phase1.Coordinate;
+import phase1.Map;
+import phase1.Node;
+import phase1.Search;
+import phase1.UniformCostSearch;
+import phase1.WeightedAStarSearch;
+import phase1.Node.NodeComparator;
+import phase1.Node.NodeComparatorG;
 
 /**
  * NOTE: This is mainly used for testing. THIS IS NOT THE MAIN APPLICATION

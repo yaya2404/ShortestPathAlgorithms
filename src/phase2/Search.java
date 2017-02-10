@@ -15,6 +15,9 @@ public abstract class Search {
 	int goalY;
 	double w1,w2;
 	int numberOfHueristics;
+	protected long time;
+	private int pathlength;
+	protected double memory;
 	
 	public Search(Map m, Double weight1, Double weight2, int hueristics){
 		map = m;
@@ -34,9 +37,10 @@ public abstract class Search {
 	public abstract void expandState(Node s);
 	public abstract void setupFringe();
 	
-	public boolean findPath(){
-		return true;
-	}
+	//the algorithms seem slightly enough to make this an abstract method
+	public abstract boolean findPath();
+		
+	
 	
 	public double minKey(HashMap<Double, Node> open) {
 		double minKey = Double.MAX_VALUE;
@@ -86,4 +90,51 @@ public abstract class Search {
 		}	
 		return successors;
 	}
+	
+	public int getPathLength(){
+		return this.pathlength;
+	}
+	public long getTime(){
+		return this.time;
+	}
+	public abstract int getNumOfExpandedNodes();
+		
+	public double getMemoryUsed(){
+		return this.memory;
+	}
+	
+	public double getPathCost(){
+		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+		return goal.get_g();
+	}
+	
+	public void printSummary(){
+		System.out.println("\nSearch Summary\n");
+		System.out.println("Starting Cell: (" + map.getStartCoordinate().getX() + "," + map.getStartCoordinate().getY() + ")");
+		System.out.println("Goal Cell: (" + goalX + "," + goalY + ")");
+		System.out.println("Total Cost to Reach Goal: " + getPathCost());
+		System.out.println("Number of Nodes in Path: " + getPathLength());
+		System.out.println("Number of Expanded Nodes: " + getNumOfExpandedNodes());
+		System.out.println("Total Search Time (in milliseconds) : " + getTime());
+		System.out.println("Memory requirement: " + this.memory + "KB");
+		
+	}
+	
+	
+	
+	public void printPath(){
+		pathlength = 0;
+		Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+
+		while(s!=null){
+			//System.out.println(s.getType());
+			s.setType(Node.path);
+			s = s.getParent();
+			pathlength++;
+		}
+		
+		
+		
+	}
+
 }

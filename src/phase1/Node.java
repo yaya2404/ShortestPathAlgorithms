@@ -22,20 +22,22 @@ public class Node{
 	private int xcoordinate;
 	private int ycoordinate; 
 	private double g,h,f; //used in A*
-	private double u, v; //used in phase 2
+	private double u, v, key; //used in phase 2 (not sure is needed yet)
 	private Node bp; //Looks like the same as parent
-	private boolean generated;//
 	
 	public Node(int x, int y, char type){
 		xcoordinate = x;
 		ycoordinate = y;
 		this.type = type;
-		
 		parent = null;
 		g = Double.POSITIVE_INFINITY;
 		h = 0;
 		f = g;
-		setGenerated(false);
+		
+		//phase 2
+		key = Double.MAX_VALUE;
+		bp =null;
+		v = Double.POSITIVE_INFINITY;
 	}
 	
 	public int getX(){
@@ -300,13 +302,13 @@ public class Node{
 	public void setV(double v) {
 		this.v = v;
 	}
-
-	public boolean isGenerated() {
-		return generated;
+	
+	public double getKey() {
+		return v;
 	}
 
-	public void setGenerated(boolean generated) {
-		this.generated = generated;
+	public void setKey(double key) {
+		this.key = key;
 	}
 
 	/**
@@ -324,6 +326,20 @@ public class Node{
 			
 			else
 				return (x.h < y.h) ? -1 : 1;
+				
+		}
+	}
+	
+	public static class NodeKeyComparator implements Comparator<Node>{
+		public int compare(Node x, Node y){
+			if(x.key != y.key) 
+				return (x.key < y.key) ? -1 : 1;
+			
+			else if(x.g != y.g) 
+				return (x.g > y.g) ? -1 : 1; //favors the larger g-values
+			
+			else
+				return -1;
 				
 		}
 	}

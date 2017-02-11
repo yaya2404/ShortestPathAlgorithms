@@ -26,7 +26,7 @@ public class Node{
 	private double u, v, key; //used in phase 2 (not sure is needed yet)
 	private Node bp; //Looks like the same as parent
 	
-	//used in both Sequential and Intergrated A*
+	//used in both Sequential and Integrated A*
 	private double[] hList;
 	
 	
@@ -341,6 +341,14 @@ public class Node{
 		bpList = new Node[numofheur];
 	}
 	
+	
+	/**
+	 * Used in both Integrated and Sequential A*
+	 */
+	
+	public double get_sH(int index){
+		return hList[index];
+	}
 	
 	/**
 	 * 

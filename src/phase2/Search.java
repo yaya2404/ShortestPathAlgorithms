@@ -37,7 +37,8 @@ public abstract class Search {
 	*/
 	
 	public abstract double getKey(Node s, int index);
-	public abstract void expandState(Node s);
+	//expandState method definition is different between Sequential and Integrated.
+	//public abstract void expandState(Node s);
 	public abstract void setupFringe();
 	
 	//the algorithms seem slightly enough to make this an abstract method

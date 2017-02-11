@@ -24,7 +24,6 @@ public class IntegratedAStar extends Search {
 		return 0;
 	}
 	
-	@Override
 	public void expandState(Node s) {
 		for (int i = 0; i < numberOfHueristics; i++) {
 			PriorityQueue<Node> open = openList.get(i);

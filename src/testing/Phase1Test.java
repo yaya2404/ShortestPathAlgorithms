@@ -27,7 +27,7 @@ import phase1.Node.NodeComparatorG;
  */
 
 
-public class test {
+public class Phase1Test {
 	
 	public static final int rows = 120;
 	public static final int cols = 160;

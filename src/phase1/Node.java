@@ -348,7 +348,14 @@ public class Node{
 		bpList = new Node[numofheur];
 	}
 	
-
+	
+	/**
+	 * Used in both Integrated and Sequential A*
+	 */
+	
+	public double get_sH(int index){
+		return hList[index];
+	}
 	
 	/**
 	 * 

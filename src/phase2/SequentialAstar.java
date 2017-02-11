@@ -20,11 +20,32 @@ public class SequentialAstar extends Search {
 		super(m, weight1, weight2, hueristics);
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public void expandState(Node s) {
+	
+	
+	public void expandState(Node s, int index) {
 		// TODO Auto-generated method stub
-
+		PriorityQueue<Node> open = openList.get(index);
+		HashSet<Node> close = closedList.get(index);
+		open.remove(s);
+		
+		for (Node neighbor : this.findSuccessorSet(s)) {
+			if(!open.contains(neighbor) && !close.contains(neighbor)){
+				neighbor.set_sG(Double.POSITIVE_INFINITY, index);
+				neighbor.set_sBp(null, index);
+				
+				//was not in pseudocode
+				open.add(neighbor);
+			}else if(neighbor.get_sG(index) > s.get_sG(index) + s.cost(neighbor)){
+				
+				neighbor.set_sG(s.get_sG(index) + s.cost(neighbor), index);
+				neighbor.set_sBp(s, index);
+				if(!close.contains(neighbor)){
+					neighbor.setKey(getKey(neighbor, index));
+					open.add(neighbor);
+				}
+			}
+		}
+		
 	}
 
 	@Override
@@ -54,6 +75,7 @@ public class SequentialAstar extends Search {
 			
 			//not sure if this is the correct way to do it
 			start.setKey(getKey(start, count));
+			open.add(start);
 			
 			openList.add(open);
 			closedList.add(close);
@@ -82,7 +104,7 @@ public class SequentialAstar extends Search {
 	@Override
 	public double getKey(Node s, int index) {
 		// TODO Auto-generated method stub
-		return 0;
+		return s.get_sG(index) + w1 * s.get_sH(index);
 	}
 
 }

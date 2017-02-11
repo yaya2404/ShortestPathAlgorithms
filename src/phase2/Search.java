@@ -29,15 +29,7 @@ public abstract class Search {
 	}
 	
 	
-	//returns g(s) + w1 * h(s). ***Correction: needs to be abstract.
-	/*
-	public double getKey(Node s, int i){
-		return s.get_g() + w1 * s.get_h();
-	}
-	*/
-	
 	public abstract double getKey(Node s, int index);
-	public abstract void expandState(Node s);
 	public abstract void setupFringe();
 	
 	//the algorithms seem slightly enough to make this an abstract method

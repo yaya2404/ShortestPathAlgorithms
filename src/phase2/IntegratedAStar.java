@@ -16,32 +16,33 @@ public class IntegratedAStar extends Search {
 
 	public IntegratedAStar(Map m, Double weight1, Double weight2, int numberOfHueristics) {
 		super(m, weight1, weight2, numberOfHueristics);
+		openList = new ArrayList<PriorityQueue<Node>>(numberOfHueristics);
+
 	}
 
-	
-	//Matt: added this in for you. Change if need be.
 	public double getKey(Node s, int index){
-		return 0;
+		if(s == null)
+			return Double.MAX_VALUE;
+		return s.get_g() + w1 * s.calculate_h(goalX, goalY, index);
 	}
 	
-	@Override
 	public void expandState(Node s) {
 		for (int i = 0; i < numberOfHueristics; i++) {
 			PriorityQueue<Node> open = openList.get(i);
 			open.remove(s);
 		}
-		s.setV(s.get_g());
 
 		for (Node neighbor : this.findSuccessorSet(s)) {
-
+			
 			PriorityQueue<Node> openAnchor = openList.get(0);
 			PriorityQueue<Node> currentOpen;
 
 			if (neighbor.get_g() > s.get_g() + s.cost(neighbor)) {
 				neighbor.set_g(s.get_g() + s.cost(neighbor));
-				neighbor.setBp(s);
+				neighbor.setParent(s);
 				if (!closedAnchor.contains(neighbor)) {
 					openAnchor.remove(neighbor);
+					neighbor.set_h(neighbor.calculate_h(goalX, goalY, 0));
 					neighbor.setKey(getKey(neighbor, 0));
 					openAnchor.add(neighbor);
 					if (!closedInad.contains(neighbor)) {
@@ -73,16 +74,18 @@ public class IntegratedAStar extends Search {
 		start.set_g(0);
 		goal.set_g(Double.POSITIVE_INFINITY);
 
-		start.setBp(null);
-		goal.setBp(null);
+		start.setParent(null);
+		goal.setParent(null);
 
-		start.setU(Double.POSITIVE_INFINITY);
-		goal.setU(Double.POSITIVE_INFINITY);
+		//start.setU(Double.POSITIVE_INFINITY);
+		//goal.setU(Double.POSITIVE_INFINITY);
 
 		for (int i = 0; i < numberOfHueristics; i++) {
 			PriorityQueue<Node> open = new PriorityQueue<Node>(new Node.NodeKeyComparator()); // NodeKeyComparator
 			start.setKey(getKey(start, i));
 			open.add(start);
+			openList.add(open);
+			
 		}
 
 		closedAnchor = new HashSet<Node>();
@@ -100,12 +103,12 @@ public class IntegratedAStar extends Search {
 		double startMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d; 
 		double endMemory = 0;
 
-		while (openAnchor.peek().getKey() < Double.POSITIVE_INFINITY) {
+		while (getKey(openAnchor.peek(), 0) < Double.POSITIVE_INFINITY) {
 			for (int i = 1; i < numberOfHueristics; i++) {
 				currentOpen = openList.get(i);
-				if (currentOpen.peek().getKey() <= w2 * openAnchor.peek().getKey()) {
-					if (goal.get_g() <= openAnchor.peek().getKey()) {
-						if (goal.get_h() < Double.POSITIVE_INFINITY){
+				if (getKey(currentOpen.peek(), i) <= w2 * getKey(openAnchor.peek(), 0)) {
+					if (goal.get_g() <= getKey(currentOpen.peek(), 0)) {
+						if (goal.get_g() < Double.POSITIVE_INFINITY){
 							time = (System.nanoTime() - starttime)/1000000;
 							endMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d; //KB output
 							memory = endMemory - startMemory;
@@ -121,9 +124,16 @@ public class IntegratedAStar extends Search {
 						closedInad.add(s);
 					}
 				} else {
-					if (goal.get_g() <= openAnchor.peek().getKey()) {
-						if (goal.get_h() < Double.POSITIVE_INFINITY)
+					if (goal.get_g() <= getKey(openAnchor.peek(), 0)) {
+						if (goal.get_g() < Double.POSITIVE_INFINITY){
+							time = (System.nanoTime() - starttime)/1000000;
+							endMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d; //KB output
+							memory = endMemory - startMemory;
+							if(memory < 0){
+								memory = 0;
+							}
 							return true;
+						}
 					} else {
 						s = openAnchor.remove();
 						expandState(s);

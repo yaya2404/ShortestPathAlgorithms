@@ -26,7 +26,7 @@ public class Node{
 	private double u, v, key; //used in phase 2 (not sure is needed yet)
 	private Node bp; //Looks like the same as parent
 	
-	//used in both Sequential and Intergrated A*
+	//used in both Sequential and Integrated A*
 	private double[] hList;
 	
 	
@@ -44,7 +44,7 @@ public class Node{
 		f = g;
 		
 		//phase 2
-		key = Double.MAX_VALUE;
+		key = Double.POSITIVE_INFINITY;;
 		bp =null;
 		v = Double.POSITIVE_INFINITY;
 	}
@@ -96,6 +96,10 @@ public class Node{
 	
 	public double get_h(){
 		return h;
+	}
+	
+	public void set_h(double H){
+		this.h = H;
 	}
 	
 	public double get_f(){
@@ -264,11 +268,11 @@ public class Node{
 		return h;
 	}
 	
-	public double calculate_h(int goalX, int goalY, int hueristic){
+	public double calculate_h(int goalX, int goalY, int heuristic){
 		double dx = Math.abs(xcoordinate - goalX);
 		double dy = Math.abs(ycoordinate - goalY);
 		
-		switch(hueristic){
+		switch(heuristic){
 			case 4:
 				return (double)Math.sqrt(2) * Math.min(dx,dy) + Math.max(dx, dy) - Math.min(dx,dy);
 			case 1:
@@ -281,7 +285,9 @@ public class Node{
 				return .25 * (dx + dy) + (Math.sqrt(2) * .25 -  2 * .25) * Math.min(dx,dy);
 		}
 		
-		return h;
+		//function is set up for 5 heuristic
+		System.out.println("ERROR: HEURISTIC NOT FOUND");
+		return -1;
 	}
 
 	public boolean equals(Node n){
@@ -313,11 +319,12 @@ public class Node{
 	}
 	
 	public double getKey() {
-		return v;
+		return key;
 	}
 
 	public void setKey(double key) {
 		this.key = key;
+		this.f = key;
 	}
 
 	
@@ -341,6 +348,7 @@ public class Node{
 		bpList = new Node[numofheur];
 	}
 	
+
 	
 	/**
 	 * 
@@ -412,7 +420,7 @@ public class Node{
 		}
 		
 	}
-	
-	
+
+
 }
 

@@ -26,6 +26,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import phase1.*;
+import phase2.*;
 
 public class Main extends Application {
 
@@ -123,10 +124,13 @@ public class Main extends Application {
 				// setting up map
 				Map map = new Map(file);
 
-				Search pathSearch;
+				phase1.Search pathSearch = null;
+				phase2.Search pathSearch2 = null;
 				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-				System.out.println("Select an algorithm: (1) for Uniform Cost, (2) for A*, (3) for Weighted A* :");
+				System.out.println("Select an algorithm:");
+				System.out.println("\t(1)Uniform Cost\n\t(2)A*\n\t(3)Weighted A*\n\t(4)Integrated Heuristic A*\n\t(5)Sequential Heuristic A*");
 				String userInput = reader.readLine();
+				if(userInput.charAt(0) <= '3'){
 				if (userInput.equals("1")) {
 					pathSearch = new UniformCostSearch(map);
 					pathSearch.setupFringe(new Node.NodeComparatorG());
@@ -136,7 +140,7 @@ public class Main extends Application {
 					double weight;
 					try {
 						weight = Double.parseDouble(userInput);
-						if (weight <= 0)
+						if (weight < 0)
 							throw new IllegalArgumentException();
 					} catch (Exception e) {
 						System.out.println("Invalid weight...Using default value of 2");
@@ -158,8 +162,40 @@ public class Main extends Application {
 					System.out.println("Failed to find path");
 					System.exit(0);
 				}
-
 				time = pathSearch.getTime();
+				
+				}else{
+					System.out.println("Enter the weight values (format is w1,w2) :");
+					String weightInput = reader.readLine();
+					String[] weights = weightInput.trim().split(",");
+					double weight1, weight2;
+					try {
+						weight1 = Double.parseDouble(weights[0]);
+						weight2 = Double.parseDouble(weights[1]);
+						if (weight1 < 0 || weight2 < 0) 
+							throw new IllegalArgumentException();
+					} catch (Exception e) {
+						System.out.println("Invalid weight...Using default value of 1.25 and 2.0");
+						weight1 = 1.25;
+						weight2 = 2;
+					}
+
+					if (userInput.equals("4")) {
+						pathSearch2 = new IntegratedAStar(map,weight1,weight2,5);
+						pathSearch2.setupFringe();
+					}else{
+						pathSearch2 = new SequentialAstar(map,weight1,weight2,5);
+						pathSearch2.setupFringe();
+					}
+					System.out.println("Generating Map.....");
+					if (pathSearch2.findPath()){
+						pathSearch2.printPath();
+					}else{
+						System.out.println("Failed to find path");
+						System.exit(0);
+					}
+				}
+
 
 				setMap(map);
 
@@ -172,7 +208,12 @@ public class Main extends Application {
 				primaryStage.setScene(scene);
 				primaryStage.show();
 				
-				pathSearch.printSummary();
+				if(pathSearch != null){
+					pathSearch.printSummary();
+				}else{
+					pathSearch2.printSummary();
+				}
+					
 				/*
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				ObjectOutputStream oos = new ObjectOutputStream(baos);

@@ -65,7 +65,7 @@ public class SequentialAstar extends Search {
 		//this.bpList = new ArrayList<ArrayList<Node>>();
 		
 		
-		for(int count = 0; count < numberOfHueristics; count++){
+		for(int count = 0; count < numberOfHeuristics; count++){
 			PriorityQueue<Node> open = new PriorityQueue<Node>(new Node.NodeKeyComparator());
 			HashSet<Node> close = new HashSet<Node>();
 			
@@ -97,7 +97,7 @@ public class SequentialAstar extends Search {
 		Node s;
 		
 		while(getKey(openList.get(0).peek(), 0) < Double.POSITIVE_INFINITY){
-			for (int i = 1; i < numberOfHueristics; i++) {
+			for (int i = 1; i < numberOfHeuristics; i++) {
 				
 				PriorityQueue<Node> open = openList.get(i);
 				
@@ -146,7 +146,7 @@ public class SequentialAstar extends Search {
 		
 		int num = 0;
 		
-		for(int count = 0; count < numberOfHueristics; count++){
+		for(int count = 0; count < numberOfHeuristics; count++){
 			num+=closedList.get(count).size();
 		}
 		

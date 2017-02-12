@@ -16,7 +16,7 @@ public abstract class Search {
 	int goalX;
 	int goalY;
 	double w1,w2;
-	int numberOfHueristics;
+	int numberOfHeuristics;
 	protected long time;
 	protected int pathlength;
 	protected double memory;
@@ -27,8 +27,8 @@ public abstract class Search {
 		goalY = map.getEndCoordinate().getY();
 		w1 = weight1;
 		w2 = weight2;
-		numberOfHueristics = hueristics;
-		this.map.initLists(numberOfHueristics);
+		numberOfHeuristics = hueristics;
+		this.map.initLists(numberOfHeuristics);
 	}
 	
 	

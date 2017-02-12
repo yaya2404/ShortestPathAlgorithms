@@ -26,6 +26,7 @@ public abstract class Search {
 		w1 = weight1;
 		w2 = weight2;
 		numberOfHueristics = hueristics;
+		this.map.initLists(numberOfHueristics);
 	}
 	
 	

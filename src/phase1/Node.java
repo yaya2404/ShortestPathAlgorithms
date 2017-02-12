@@ -26,7 +26,6 @@ public class Node{
 	private double u, v, key; //used in phase 2 (not sure is needed yet)
 	private Node bp; //Looks like the same as parent
 	
-	//used in both Sequential and Integrated A*
 	private double[] hList;
 	
 	
@@ -356,6 +355,10 @@ public class Node{
 	public double get_sH(int index){
 		return hList[index];
 	}
+	public void set_sH(int goalX, int goalY, int index){
+		hList[index] = calculate_h(goalX, goalY, index);
+	}
+	
 	
 	/**
 	 * 

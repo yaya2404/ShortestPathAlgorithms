@@ -32,14 +32,15 @@ public class SequentialAstar extends Search {
 			if(!open.contains(neighbor) && !close.contains(neighbor)){
 				neighbor.set_sG(Double.POSITIVE_INFINITY, index);
 				neighbor.set_sBp(null, index);
-				
-				//was not in pseudocode
-				open.add(neighbor);
-			}else if(neighbor.get_sG(index) > s.get_sG(index) + s.cost(neighbor)){
+			}
+			if(neighbor.get_sG(index) > s.get_sG(index) + s.cost(neighbor)){
 				
 				neighbor.set_sG(s.get_sG(index) + s.cost(neighbor), index);
 				neighbor.set_sBp(s, index);
 				if(!close.contains(neighbor)){
+					
+					open.remove(neighbor);
+					neighbor.set_sH(goalX, goalY, index);
 					neighbor.setKey(getKey(neighbor, index));
 					open.add(neighbor);
 				}
@@ -74,6 +75,7 @@ public class SequentialAstar extends Search {
 			goal.set_sBp(null, count);
 			
 			//not sure if this is the correct way to do it
+			start.set_sH(goalX, goalY, count);
 			start.setKey(getKey(start, count));
 			open.add(start);
 			
@@ -85,6 +87,53 @@ public class SequentialAstar extends Search {
 	@Override
 	public boolean findPath() {
 		// TODO Auto-generated method stub
+		
+		long starttime = System.nanoTime();
+		double startMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d; 
+		double endMemory = 0;
+		
+		Node goal = map.getCell(goalX, goalY);
+		Node s;
+		
+		while(getKey(openList.get(0).peek(), 0) < Double.POSITIVE_INFINITY){
+			for (int i = 1; i < numberOfHueristics; i++) {
+				
+				PriorityQueue<Node> open = openList.get(i);
+				
+				if(getKey(open.peek(),i) <= w2 * getKey(openList.get(0).peek(), 0)){
+					if(goal.get_sG(i) <= getKey(open.peek(), i)){
+						if(goal.get_sG(i) < Double.POSITIVE_INFINITY){
+							time = (System.nanoTime() - starttime)/1000000;
+							endMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d; //KB output
+							memory = endMemory - startMemory;
+							if(memory < 0){
+								memory = 0;
+							}
+							return true;
+						}
+					}else{
+						s = open.remove();
+						expandState(s, i);
+						closedList.get(i).add(s);
+					}
+				}else{
+					if(goal.get_sG(0) <= getKey(openList.get(0).peek(), 0)){
+						time = (System.nanoTime() - starttime)/1000000;
+						endMemory = (Runtime.getRuntime().totalMemory() -  Runtime.getRuntime().freeMemory())/ 1024d; //KB output
+						memory = endMemory - startMemory;
+						if(memory < 0){
+							memory = 0;
+						}
+						return true;
+					}else{
+						s = openList.get(0).remove();
+						expandState(s, 0);
+						closedList.get(0).add(s);
+					}
+				}
+			}
+		}
+		
 		return false;
 	}
 

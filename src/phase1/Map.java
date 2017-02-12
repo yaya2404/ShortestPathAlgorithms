@@ -412,4 +412,15 @@ public class Map{
 	private int findDistance(int startX, int startY, int goalX, int goalY) {
 		return Math.abs(startX - goalX) + Math.abs(startX - goalY);
 	}
+	
+	public void initLists(int numberOfHueristics) {
+		// TODO Auto-generated method stub
+		for(int row = 0; row < rows; row++){
+			for(int col = 0; col < cols; col++){
+				grid[row][col].initbpList(numberOfHueristics);
+				grid[row][col].inithList(numberOfHueristics);
+				grid[row][col].initgList(numberOfHueristics);
+			}
+		}
+	}
 }

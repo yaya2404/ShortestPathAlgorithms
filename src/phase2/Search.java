@@ -18,7 +18,7 @@ public abstract class Search {
 	double w1,w2;
 	int numberOfHueristics;
 	protected long time;
-	private int pathlength;
+	protected int pathlength;
 	protected double memory;
 	
 	public Search(Map m, Double weight1, Double weight2, int hueristics){
@@ -116,7 +116,8 @@ public abstract class Search {
 	}
 	
 	
-	
+	//Needs to be abstract because path for sequential A* depends on the heuristic where as integrated does not depend on heuristic
+	/*
 	public void printPath(){
 		pathlength = 0;
 		Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
@@ -127,9 +128,8 @@ public abstract class Search {
 			s = s.getParent();
 			pathlength++;
 		}
-		
-		
-		
 	}
-
+	*/
+	public abstract void printPath();
+		
 }

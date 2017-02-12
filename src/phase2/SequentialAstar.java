@@ -11,6 +11,7 @@ public class SequentialAstar extends Search {
 
 	ArrayList<PriorityQueue<Node>> openList; 
 	ArrayList<HashSet<Node>> closedList;
+	int chosenheuristic;
 	
 	//ArrayList<Double> gStart;
 	//ArrayList<Double> gEnd;
@@ -109,6 +110,7 @@ public class SequentialAstar extends Search {
 							if(memory < 0){
 								memory = 0;
 							}
+							chosenheuristic = i;
 							return true;
 						}
 					}else{
@@ -124,6 +126,7 @@ public class SequentialAstar extends Search {
 						if(memory < 0){
 							memory = 0;
 						}
+						chosenheuristic = i;
 						return true;
 					}else{
 						s = openList.get(0).remove();
@@ -155,5 +158,18 @@ public class SequentialAstar extends Search {
 		// TODO Auto-generated method stub
 		return s.get_sG(index) + w1 * s.get_sH(index);
 	}
-
+	
+	public void printPath(){
+		pathlength = 0;
+		Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+		
+		
+		while(s!=null){
+			//System.out.println(s.getType());
+			s.setType(Node.path);
+			s = s.get_sBp(chosenheuristic);
+			pathlength++;
+		}
+	}
+	
 }

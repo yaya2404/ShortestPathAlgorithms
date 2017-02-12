@@ -1,7 +1,9 @@
 package phase2;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import phase1.Map;
@@ -38,26 +40,23 @@ public abstract class Search {
 		
 	
 	
-	public double minKey(HashMap<Double, Node> open) {
-		double minKey = Double.MAX_VALUE;
-		for(Double key : open.keySet()){
-			if(key < minKey){
-				minKey = key;
-			}
-			
-		}
-		return minKey;
+	public double minKey(HashMap<Node, Double> open) {
+		if(open.isEmpty())
+			return Double.MAX_VALUE;
+		else
+			return Collections.min(open.values());
 	}
 	
-	public Node top(HashMap<Double, Node> open) {
-		double minKey = Double.MAX_VALUE;
-		for(Double key : open.keySet()){
-			if(key < minKey){
-				minKey = key;
-			}
-			
+	public Node top(HashMap<Node,Double> open) {
+		
+		double minKey = Collections.min(open.values());
+		
+		for(Entry<Node,Double> entry : open.entrySet()) {
+			if(entry.getValue() == minKey)
+				return entry.getKey();
 		}
-		return open.get(minKey);
+		
+		return null;
 	}
 	
 	/**

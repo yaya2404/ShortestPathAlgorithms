@@ -22,9 +22,9 @@ public class Node{
 	private char type;
 	private int xcoordinate;
 	private int ycoordinate; 
-	private double g,h,f; //used in A*
-	private double u, v, key; //used in phase 2 (not sure is needed yet)
-	private Node bp; //Looks like the same as parent
+	private double g,h,f; //used in A* (not sure what to show for f/h on phase2 visualization (currently admissible heuristic)
+	private double u, v, key; 
+	private Node bp; //Looks like the same as parent (changed to parent in Integrated A*)
 	
 	private double[] hList;
 	
@@ -301,22 +301,6 @@ public class Node{
 		this.bp = bp;
 	}
 
-	public double getU() {
-		return u;
-	}
-
-	public void setU(double u) {
-		this.u = u;
-	}
-
-	public double getV() {
-		return v;
-	}
-
-	public void setV(double v) {
-		this.v = v;
-	}
-	
 	public double getKey() {
 		return key;
 	}
@@ -326,9 +310,7 @@ public class Node{
 		this.f = key;
 	}
 
-	
 
-	
 	/**
 	 * 
 	 * There's a dependency between the Node class and the phase 2 Search class.
@@ -350,6 +332,7 @@ public class Node{
 	
 	/**
 	 * Used in both Integrated and Sequential A*
+	 * 
 	 */
 	
 	public double get_sH(int index){
@@ -402,7 +385,7 @@ public class Node{
 				
 		}
 	}
-	
+
 	public static class NodeKeyComparator implements Comparator<Node>{
 		public int compare(Node x, Node y){
 			if(x.key != y.key) 
@@ -424,8 +407,8 @@ public class Node{
 			if(o1.g != o2.g){
 				return (o1.g > o2.g) ? 1 : -1;
 			}else{
-				Random random = new Random();
-				return (random.nextDouble() < 0.5) ? 1 : -1; 
+				//makes the comparator deterministic
+				return -1;
 			}
 		}
 		

@@ -259,6 +259,11 @@ public class IntegratedAStar extends Search {
 		return false;
 	}
 	
+	public double getPathCost(){
+		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+		return goal.get_g();
+	}
+	
 	public void printPath(){
 		pathlength = 0;
 		Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());

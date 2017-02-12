@@ -126,7 +126,7 @@ public class SequentialAstar extends Search {
 						if(memory < 0){
 							memory = 0;
 						}
-						chosenheuristic = i;
+						chosenheuristic = 0;
 						return true;
 					}else{
 						s = openList.get(0).remove();
@@ -158,6 +158,13 @@ public class SequentialAstar extends Search {
 		// TODO Auto-generated method stub
 		return s.get_sG(index) + w1 * s.get_sH(index);
 	}
+	
+	
+	public double getPathCost(){
+		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
+		return goal.get_sG(chosenheuristic);
+	}
+	
 	
 	public void printPath(){
 		pathlength = 0;

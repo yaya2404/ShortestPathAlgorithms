@@ -98,10 +98,14 @@ public abstract class Search {
 		return this.memory;
 	}
 	
+	//Needs to be abstract due to Sequential Search
+	/*
 	public double getPathCost(){
 		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
 		return goal.get_g();
 	}
+	*/
+	public abstract double getPathCost();
 	
 	public void printSummary(){
 		System.out.println("\nSearch Summary\n");

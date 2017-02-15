@@ -2,14 +2,10 @@ package testing;
 
 import java.io.File;
 
-import phase1.AStarSearch;
 import phase1.Coordinate;
 import phase1.Map;
-import phase1.Node;
 import phase2.Search;
 import phase2.SequentialAstar;
-import phase1.UniformCostSearch;
-import phase1.WeightedAStarSearch;
 import phase2.IntegratedAStar;
 
 public class Phase2Test {
@@ -94,7 +90,6 @@ public class Phase2Test {
 		
 		File folder = new File("Maps");
 		File[] folders = folder.listFiles();
-		Coordinate input[];
 		
 		double maptotalruntime = 0;
 		int maptotalpathlength = 0;

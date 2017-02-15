@@ -15,23 +15,17 @@ public class Node{
 	public static final char hardhighway = 'b';
 	public static final char path = 'P';
 	
-	//testing only
-	//public static final char searched = 'X';
-	
 	private Node parent;
 	private char type;
 	private int xcoordinate;
 	private int ycoordinate; 
 	private double g,h,f; //used in A* (not sure what to show for f/h on phase2 visualization (currently admissible heuristic)
-	private double u, v, key; 
-	private Node bp; //Looks like the same as parent (changed to parent in Integrated A*)
+	private double key; // (most likely to be deleted)
 	
-	private double[] hList;
-	
-	
-	//used only for Sequential A*
-	private double[] gList;
-	private Node[] bpList;
+	//used in Sequential A*
+	protected double[] hList = null;
+	private double[] gList = null;
+	private Node[] bpList = null;
 	
 	public Node(int x, int y, char type){
 		xcoordinate = x;
@@ -44,8 +38,6 @@ public class Node{
 		
 		//phase 2
 		key = Double.POSITIVE_INFINITY;;
-		bp =null;
-		v = Double.POSITIVE_INFINITY;
 	}
 	
 	public int getX(){
@@ -292,14 +284,6 @@ public class Node{
 	public boolean equals(Node n){
 		return this.xcoordinate == n.xcoordinate && this.ycoordinate == n.ycoordinate;
 	}
-	
-	public Node getBp() {
-		return bp;
-	}
-
-	public void setBp(Node bp) {
-		this.bp = bp;
-	}
 
 	public double getKey() {
 		return key;
@@ -316,30 +300,20 @@ public class Node{
 	 * There's a dependency between the Node class and the phase 2 Search class.
 	 * The number of heuristics is unknown until a Search object is constructed.
 	 * 
-	 * @param numofheur		the number of heuristics to be tested in the sequential A* search
+	 * @param numofheur	the number of heuristics to be tested in the sequential A* search
 	 */
 	public void initgList(int numofheur){
-		gList = new double[numofheur];
+		if(gList == null)
+			gList = new double[numofheur];
 	}
 	public void inithList(int numofheur){
-		hList = new double[numofheur];
+		if(hList == null)
+			hList = new double[numofheur];
 		
 	}
 	public void initbpList(int numofheur){
-		bpList = new Node[numofheur];
-	}
-	
-	
-	/**
-	 * Used in both Integrated and Sequential A*
-	 * 
-	 */
-	
-	public double get_sH(int index){
-		return hList[index];
-	}
-	public void set_sH(int goalX, int goalY, int index){
-		hList[index] = calculate_h(goalX, goalY, index);
+		if(bpList == null)
+			bpList = new Node[numofheur];
 	}
 	
 	
@@ -348,6 +322,16 @@ public class Node{
 	 * Methods used for sequential A* search
 	 * 
 	 */
+	
+	public double get_sH(int index){
+		return hList[index];
+	}
+	
+	public void set_sH(int goalX, int goalY, int index){
+		hList[index] = calculate_h(goalX, goalY, index);
+	}
+	
+	
 	public double get_sG(int index){
 		return gList[index];
 	}

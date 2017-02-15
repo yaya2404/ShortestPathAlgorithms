@@ -110,7 +110,6 @@ public class Phase1Test {
 		
 		File folder = new File("Maps");
 		File[] folders = folder.listFiles();
-		Coordinate input[];
 		
 		double maptotalruntime = 0;
 		int maptotalpathlength = 0;
@@ -124,8 +123,7 @@ public class Phase1Test {
 		double totalmemoryused = 0;
 		double totalpathcost = 0;
 		
-		//boolean admissible = true;
-		//boolean consistent = true;
+	
 		
 		/*
 		 * Testing for part E of Phase 1
@@ -135,6 +133,7 @@ public class Phase1Test {
 		 * Testing for UniformCostSearch
 		 * Average run time
 		 * Average path length
+		 * Average path cost
 		 * Average number of nodes expanded
 		 * 
 		 */

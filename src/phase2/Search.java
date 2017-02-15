@@ -21,21 +21,18 @@ public abstract class Search {
 	protected int pathlength;
 	protected double memory;
 	
-	public Search(Map m, Double weight1, Double weight2, int hueristics){
+	public Search(Map m, Double weight1, Double weight2, int heuristics){
 		map = m;
 		goalX = map.getEndCoordinate().getX();
 		goalY = map.getEndCoordinate().getY();
 		w1 = weight1;
 		w2 = weight2;
-		numberOfHeuristics = hueristics;
-		this.map.initLists(numberOfHeuristics);
+		numberOfHeuristics = heuristics;
 	}
 	
 	
 	public abstract double getKey(Node s, int index);
 	public abstract void setupFringe();
-	
-	//the algorithms seem slightly enough to make this an abstract method
 	public abstract boolean findPath();
 		
 	
@@ -98,13 +95,7 @@ public abstract class Search {
 		return this.memory;
 	}
 	
-	//Needs to be abstract due to Sequential Search
-	/*
-	public double getPathCost(){
-		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
-		return goal.get_g();
-	}
-	*/
+	
 	public abstract double getPathCost();
 	
 	public void printSummary(){
@@ -121,19 +112,7 @@ public abstract class Search {
 	
 	
 	//Needs to be abstract because path for sequential A* depends on the heuristic where as integrated does not depend on heuristic
-	/*
-	public void printPath(){
-		pathlength = 0;
-		Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
 
-		while(s!=null){
-			//System.out.println(s.getType());
-			s.setType(Node.path);
-			s = s.getParent();
-			pathlength++;
-		}
-	}
-	*/
 	public abstract void printPath();
 		
 }

@@ -15,12 +15,8 @@ public class SequentialAstar extends Search {
 	ArrayList<HashSet<Node>> closedList;
 	int chosenheuristic;
 	
-	//ArrayList<Double> gStart;
-	//ArrayList<Double> gEnd;
-	//ArrayList<ArrayList<Node>> bpList;
-	
-	public SequentialAstar(Map m, Double weight1, Double weight2, int hueristics) {
-		super(m, weight1, weight2, hueristics);
+	public SequentialAstar(Map m, Double weight1, Double weight2, int heuristics) {
+		super(m, weight1, weight2, heuristics);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -32,6 +28,7 @@ public class SequentialAstar extends Search {
 		
 		for (Node neighbor : this.findSuccessorSet(s)) {
 			if(!open.containsKey(neighbor) && !close.contains(neighbor)){
+				initLists(neighbor, numberOfHeuristics);
 				neighbor.set_sG(Double.POSITIVE_INFINITY, index);
 				neighbor.set_sBp(null, index);
 			}
@@ -55,13 +52,11 @@ public class SequentialAstar extends Search {
 		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
 		Node goal = map.getCell(goalX, goalY);
 		
+		initLists(start, numberOfHeuristics);
+		initLists(goal, numberOfHeuristics);
+		
 		this.openList = new ArrayList<HashMap<Node,Double>>();
-		this.closedList = new ArrayList<HashSet<Node>>();
-		
-		//this.gStart = new ArrayList<Double>();
-		//this.gEnd = new ArrayList<Double>();
-		//this.bpList = new ArrayList<ArrayList<Node>>();
-		
+		this.closedList = new ArrayList<HashSet<Node>>();	
 		
 		for(int count = 0; count < numberOfHeuristics; count++){
 			HashMap<Node,Double> open = new HashMap<Node,Double>();
@@ -137,6 +132,7 @@ public class SequentialAstar extends Search {
 		
 		return false;
 	}
+	
 	
 	/*
 	public void expandState(Node s, int index) {
@@ -293,6 +289,18 @@ public class SequentialAstar extends Search {
 			s = s.get_sBp(chosenheuristic);
 			pathlength++;
 		}
+	}
+	
+	/**
+	 * Should only initialize for nodes involved in the search
+	 * @param s
+	 * @param numberOfHeuristics
+	 */
+	private void initLists(Node s, int numberOfHeuristics) {
+				s.initbpList(numberOfHeuristics);
+				s.inithList(numberOfHeuristics);
+				s.initgList(numberOfHeuristics);
+			
 	}
 	
 }

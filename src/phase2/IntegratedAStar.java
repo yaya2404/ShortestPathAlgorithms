@@ -26,8 +26,6 @@ public class IntegratedAStar extends Search {
 	}
 
 	public double getKey(Node s, int index) {
-		if (s == null)
-			return Double.MAX_VALUE;
 		return s.get_g() + w1 * s.calculate_h(goalX, goalY, index);
 	}
 
@@ -300,7 +298,6 @@ public class IntegratedAStar extends Search {
 		Node s = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
 
 		while (s != null) {
-			// System.out.println(s.getType());
 			s.setType(Node.path);
 			s = s.getParent();
 			pathlength++;

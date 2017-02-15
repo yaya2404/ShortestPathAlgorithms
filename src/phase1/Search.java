@@ -16,7 +16,6 @@ public abstract class Search {
 	private long time;
 	private int pathlength;
 	private double memory;
-	protected boolean consistent;//testing only
 	
 	
 	public Search(Map m){
@@ -24,7 +23,6 @@ public abstract class Search {
 		goalX = map.getEndCoordinate().getX();
 		goalY = map.getEndCoordinate().getY();
 		closed = new HashSet<Node>(3000); //should decrease amount of rehashing
-		consistent = true;//testing only
 	}
 	
 
@@ -62,13 +60,7 @@ public abstract class Search {
 				System.out.println("Sucessor set is empty");
 			
 			for(Node s : successors){
-				//for debugging
-				//s.setType(Node.searched); 
 				if(!closed.contains(s)){
-					//if(!open.contains(s)){ //from the pseudo code
-						//s.set_g(Double.MAX_VALUE);
-					 	//s.setParent(null);
-					//}
 					updateVertex(current,s);
 				}
 			}
@@ -155,23 +147,5 @@ public abstract class Search {
 		
 		
 	}
-
-	/**
-	 * tests that the heuristic is admissible for start to goal case
-	 * @return
-	 */
-
-
-	public boolean isAdmissible() {
-		Node goal = map.getCell(map.getEndCoordinate().getX(), map.getEndCoordinate().getY());
-		Node start = map.getCell(map.getStartCoordinate().getX(), map.getStartCoordinate().getY());
-		return start.get_h() <= goal.get_g();
-	}
-	
-	public boolean isConsistent(){
-		return consistent;
-	} 
-	
-	
 	
 }

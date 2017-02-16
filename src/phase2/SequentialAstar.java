@@ -286,6 +286,10 @@ public class SequentialAstar extends Search {
 		while(s!=null){
 			//System.out.println(s.getType());
 			s.setType(Node.path);
+			
+			//sets the g and f value to the appropriate heur chosen
+			s.set_g(s.get_sG(chosenheuristic));
+			s.update_f(w1);
 			s = s.get_sBp(chosenheuristic);
 			pathlength++;
 		}

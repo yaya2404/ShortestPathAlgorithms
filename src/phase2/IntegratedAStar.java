@@ -299,6 +299,7 @@ public class IntegratedAStar extends Search {
 
 		while (s != null) {
 			s.setType(Node.path);
+			s.update_f(w1);
 			s = s.getParent();
 			pathlength++;
 		}

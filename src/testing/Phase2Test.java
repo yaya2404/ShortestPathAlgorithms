@@ -128,7 +128,7 @@ public class Phase2Test {
 		
 		try {
 			
-			for(int algo = 1; algo <= 8; algo++){
+			for(int algo = 1; algo <= 10; algo++){
 				switch(algo){
 				case 1:
 					System.out.println("Integrated A* (1.25,2.00)");
@@ -137,22 +137,28 @@ public class Phase2Test {
 					System.out.println("Sequential A* (1.25,2.00)");
 					break;
 				case 3:
-					System.out.println("Integrated A* (1.25,2.00)"); //edit with other values
+					System.out.println("Integrated A* (1.0,2.00)"); //edit with other values
 					break;
 				case 4:
-					System.out.println("Sequential A* (1.25,2.00)");
+					System.out.println("Sequential A* (1.0,2.00)");
 					break;
 				case 5:
-					System.out.println("Integrated A* (1.25,2.00)");
+					System.out.println("Integrated A* (1.5,2.00)");
 					break;
 				case 6:
-					System.out.println("Sequential A* (1.25,2.00)");
+					System.out.println("Sequential A* (1.5,2.00)");
 					break;
 				case 7:
-					System.out.println("Integrated A* (1.25,2.00)");
+					System.out.println("Integrated A* (1.25,1.5)");
 					break;
 				case 8:
-					System.out.println("Sequential A* (1.25,2.00)");
+					System.out.println("Sequential A* (1.25,1.5)");
+					break;
+				case 9:
+					System.out.println("Integrated A* (1.25,2.50)");
+					break;
+				case 10:
+					System.out.println("Sequential A* (1.25,2.50)");
 					break;
 				}
 			
@@ -175,22 +181,28 @@ public class Phase2Test {
 						testing = new SequentialAstar(map,1.25,2.0,5);
 						break;
 					case 3:
-						testing = new IntegratedAStar(map,1.25,2.0,5);; //edit with other values
+						testing = new IntegratedAStar(map,1.0,2.0,5);; //edit with other values
 						break;
 					case 4:
-						testing = new SequentialAstar(map,1.25,2.0,5);
+						testing = new SequentialAstar(map,1.0,2.0,5);
 						break;
 					case 5:
-						testing = new IntegratedAStar(map,1.25,2.0,5);
+						testing = new IntegratedAStar(map,1.5,2.0,5);
 						break;
 					case 6:
-						testing = new SequentialAstar(map,1.25,2.0,5);
+						testing = new SequentialAstar(map,1.5,2.0,5);
 						break;
 					case 7:
-						testing = new IntegratedAStar(map,1.25,2.0,5);
+						testing = new IntegratedAStar(map,1.25,1.5,5);
 						break;
 					case 8:
-						testing = new SequentialAstar(map,1.25,2.0,5);
+						testing = new SequentialAstar(map,1.25,1.5,5);
+						break;
+					case 9:
+						testing = new IntegratedAStar(map,1.25,2.50,5);
+						break;
+					case 10:
+						testing = new SequentialAstar(map,1.25,2.50,5);
 						break;
 					}
 					

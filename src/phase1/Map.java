@@ -33,9 +33,6 @@ public class Map{
 	private Coordinate[] input;
 	private Coordinate start;
 	private Coordinate end;
-	//values 
-	
-	//values 
 	
 	public Coordinate getStartCoordinate(){
 		return this.start;
@@ -49,11 +46,6 @@ public class Map{
 	 * @param file valid map file
 	 */
 	public Map(File file){
-		/*
-		this.input = input;
-		this.start = this.input[0];
-		this.end = this.input[1];
-		*/
 		try {
 			readMapFromFile(file);
 		} catch (Exception e) {
@@ -413,14 +405,4 @@ public class Map{
 		return Math.abs(startX - goalX) + Math.abs(startX - goalY);
 	}
 	
-	public void initLists(int numberOfHueristics) {
-		// TODO Auto-generated method stub
-		for(int row = 0; row < rows; row++){
-			for(int col = 0; col < cols; col++){
-				grid[row][col].initbpList(numberOfHueristics);
-				grid[row][col].inithList(numberOfHueristics);
-				grid[row][col].initgList(numberOfHueristics);
-			}
-		}
-	}
 }
